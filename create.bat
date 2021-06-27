@@ -1,3 +1,4 @@
+npx create-react-app my-app
 docker stop backend
 docker rm backend
 docker stop frontend
