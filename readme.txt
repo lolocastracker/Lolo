@@ -20,6 +20,10 @@ Networks
      
      Theoritically we could all have are own react servers, and db server but the thing would be making sure the routes are different
      
+     try localhost:3000
+     localhost:3000/api/test/
+     localhost:3000/api/test/test
+     
  
      
  
