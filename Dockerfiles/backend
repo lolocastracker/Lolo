@@ -9,5 +9,5 @@ RUN curl https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for
 RUN chmod +x ./wait-for-it.sh
 #CMD this a command ran once the container is made
 #also note paths are controlled by the copy command, or base image
-CMD ./wait-for-it.sh db:3306 -- python3 server.py 
+CMD ./wait-for-it.sh db:3306 -t 180 -- python3 server.py 
 
