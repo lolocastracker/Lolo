@@ -1,5 +1,7 @@
 docker stop backend
 docker rm backend
+docker stop frontend
+docker rm frontend
 docker stop db
 docker rm db
 docker network create -d bridge my-net
