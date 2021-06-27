@@ -24,6 +24,8 @@ Networks
      localhost:3000/api/test/
      localhost:3000/api/test/test
      
+     Actually implementation would be much faster
+     
  
      
  
