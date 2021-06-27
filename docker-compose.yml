@@ -1,0 +1,60 @@
+version: '3'
+services:
+ db:
+    image: mysql
+    container_name: db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: testpass
+      MYSQL_DATABASE: testdb
+    volumes:
+       - ./Database:/var/lib/mysql
+    networks:
+         - my-net
+    ports:
+      - 8000:3306
+ backend:
+    container_name: backend
+    image: backend
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/backend
+    ports:
+      - 9000:5000
+    networks:
+      - my-net
+    restart: unless-stopped
+    
+ frontend:
+    container_name: frontend
+    image: front
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/frontend
+    ports:
+      - 6000:3000
+    networks:
+      - my-net
+    restart: unless-stopped
+
+
+
+ nginx:
+    container_name: nginx
+    image: nginx
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/nginx
+    ports:
+       - 3000:3000
+    networks:
+      - my-net
+    restart: unless-stopped
+    
+
+      
+
+networks:
+      my-net:
+          external: true
