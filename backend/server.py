@@ -2,9 +2,13 @@ from flask import Flask
 app = Flask(__name__)
 from mysql.connector import pooling
 from mysql.connector import Error
-@app.route("/api/data")
+@app.route("/api/test")
 def hello():
     return "Hello World!"
+    
+@app.route("/api/test/test")
+def hello2():
+    return "Hello World2!"
     
 #weird things going on with pool
 # 3 explicity call pool fuinction
