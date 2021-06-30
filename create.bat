@@ -1,12 +1,24 @@
-npx create-react-app my-app
-docker stop backend
-docker rm backend
-docker stop frontend
-docker rm frontend
-docker stop db
-docker rm db
+#!/bin/bash
+docker stop map
+docker rm map
+docker stop comm
+docker rm comm
+docker stop user
+docker rm user
+docker stop react
+docker rm react
+
+docker stop mapdb
+docker rm mapdb
+docker stop commdb
+docker rm commdb
+docker stop userdb
+docker rm userdb
 docker stop nginx
 docker rm nginx
+#npm install --prefix react 
+#npm install react-scripts@3.4.1 -g --prefix react 
+
 docker network create -d bridge my-net
 docker-compose -f ./docker-compose.yml build
 docker-compose -f ./docker-compose.yml up
