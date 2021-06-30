@@ -1,13 +1,10 @@
 #use the latest python image as a base
 from python:latest
 #copy the files from current directory
-COPY ./backend/ .
+COPY ./map/ .
 #install requirements, Note: run are commands used to make the image
 RUN pip install flask
 RUN pip install mysql-connector-python
-RUN curl https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh -o wait-for-it.sh
-RUN chmod +x ./wait-for-it.sh
-#CMD this a command ran once the container is made
-#also note paths are controlled by the copy command, or base image
-CMD ./wait-for-it.sh db:3306 -t 180 -- python3 server.py 
+
+
 

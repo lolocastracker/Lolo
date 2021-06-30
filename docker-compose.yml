@@ -1,44 +1,109 @@
 version: '3'
 services:
- db:
+#databases
+ mapdb:
     image: mysql
-    container_name: db
+    container_name: mapdb
     command: --default-authentication-plugin=mysql_native_password
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: testpass
       MYSQL_DATABASE: testdb
     volumes:
-       - ./Database:/var/lib/mysql
+       - ./databases/map:/var/lib/mysql
     networks:
          - my-net
     ports:
       - 8000:3306
- backend:
-    container_name: backend
-    image: backend
+ commdb:
+    image: mysql
+    container_name: commdb
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: testpass
+      MYSQL_DATABASE: testdb
+    volumes:
+       - ./databases/comm:/var/lib/mysql
+    networks:
+         - my-net
+    ports:
+      - 8200:3306
+
+ userdb:
+    image: mysql
+    container_name: userdb
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: testpass
+      MYSQL_DATABASE: testdb
+    volumes:
+       - ./databases/user:/var/lib/mysql
+    networks:
+         - my-net
+    ports:
+      - 8400:3306
+
+#backend services
+ map:
+    container_name: map
+    image: map
     build:
       context: .
-      dockerfile: ./Dockerfiles/backend
+      dockerfile: ./Dockerfiles/map
     ports:
-      - 9000:5000
+      - 6000:5000
     networks:
       - my-net
     restart: unless-stopped
+    volumes:
+      - ./map:/target
+    command:  /wait-for-it.sh -t 200 mapdb:3306 -- python3 ./target/server.py
+ comm:
+    container_name: comm
+    image: comm
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/comm
+    ports:
+      - 6200:5000
+    networks:
+      - my-net
+    restart: unless-stopped
+    volumes:
+      - ./comm:/target
+    command:  /wait-for-it.sh -t 200 commdb:3306 -- python3 ./target/server.py
+ user:
+    container_name: user
+    image: user
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/user
+    ports:
+      - 6400:5000
+    networks:
+      - my-net
+    restart: unless-stopped
+    volumes:
+      - ./map:/target
+    command:  /wait-for-it.sh -t 200 userdb:3306 -- python3 ./target/server.py
+
+#frontend
     
- frontend:
-    container_name: frontend
-    image: front
-    build:
-      context: .
-      dockerfile: ./Dockerfiles/frontend
+ react:
+    container_name: react
+    image: node:latest
     ports:
-      - 6000:3000
+      - 7000:3000
     networks:
       - my-net
     restart: unless-stopped
+    volumes:
+      - ./react:/target
+    command: npm start --prefix /target
 
-
+#routing
 
  nginx:
     container_name: nginx
@@ -51,10 +116,10 @@ services:
     networks:
       - my-net
     restart: unless-stopped
+    command: ["/wait-for-it.sh", "map:5000","--","/wait-for-it.sh", "user:5000","--","/wait-for-it.sh","comm:5000","--","/wait-for-it.sh","react:3000","--","nginx", "-g", "daemon off;"]
     
-
-      
-
+#
+#
 networks:
       my-net:
           external: true
