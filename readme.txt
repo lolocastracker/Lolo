@@ -9,7 +9,23 @@ Networks
      This is passed to the docker image for nginx
      
      nginx is basically for routing request to a webserver, it's a lot more then that but that will be how we can use it for the project. 
-     listen on a port when the user enters the external output of the port then it will take action
+     listen on ? when the user enters this port then take action
      
-    
+     the location are modifiers base on combabination of port and route then nginx will take action
+     
+     I have /api/ go to express
+     * I believe any route that begins with api so /api/test/test would work
+     the base url goes to react
+     
+     
+     Theoritically we could all have are own react servers, and db server but the thing would be making sure the routes are different
+     
+     try localhost:3000
+     localhost:3000/api/test/
+     localhost:3000/api/test/test
+     
+     Actually implementation would be much faster
+     
+ 
+     
  

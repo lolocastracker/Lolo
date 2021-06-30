@@ -1,9 +1,9 @@
 #use the latest python image as a base
-from node:latest
+from python:latest
 #copy the files from current directory
-COPY ./my-app/ .
+COPY ./user/ .
+COPY ./wait-for-it.sh .
 #install requirements, Note: run are commands used to make the image
-RUN npm install
-RUN npm install react-scripts@3.4.1 -g --silent
-CMD ["npm", "start"]
+RUN pip install flask
+RUN pip install mysql-connector-python
 
