@@ -48,9 +48,17 @@ services:
       ADMINER_DEFAULT_SERVER: userdb
 
 
-
-
 #backend services
+ session:
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/session
+    ports:
+      - "5000:5000"
+    command:  python3 ./session/app.py
+ redis:
+    image: "redis:alpine"
+ 
  map:
     container_name: map
     image: map
