@@ -49,16 +49,6 @@ services:
 
 
 #backend services
- session:
-    build:
-      context: .
-      dockerfile: ./Dockerfiles/session
-    ports:
-      - "5000:5000"
-    command:  python3 ./session/app.py
- redis:
-    image: "redis:alpine"
- 
  map:
     container_name: map
     image: map
@@ -95,6 +85,21 @@ services:
       - ./user:/target
     command:  /wait-for-it.sh -t 200 userdb:3306 -- python3 ./target/server.py
 
+ session:
+    container_name: session
+    image: session
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/session
+    ports:
+      - 6600:5000
+    restart: unless-stopped
+    volumes:
+      - ./session:/target
+    command:  python3 ./target/app.py
+ redis:
+    image: "redis:alpine"
+
 #frontend
     
  react:
@@ -108,13 +113,15 @@ services:
 #routing
  nginx:
     container_name: nginx
-    image: nginx
+    image: nginx:1.21.0
     build:
       context: .
       dockerfile: ./Dockerfiles/nginx
     ports:
        - 3000:3000
-    command: /wait-for-it.sh -t 200 map:5000 -- /wait-for-it.sh -t 200 user:5000 -- /wait-for-it.sh -t 200 comm:5000 -- /wait-for-it.sh -t 200 react:3000 -- nginx -g "daemon off";
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    command: /wait-for-it.sh -t 200 session:5000 -- /wait-for-it.sh -t 200 map:5000 -- /wait-for-it.sh -t 200 user:5000 -- /wait-for-it.sh -t 200 comm:5000 -- /wait-for-it.sh -t 200 react:3000 -- nginx -g "daemon off";
     
 
 

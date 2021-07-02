@@ -17,6 +17,11 @@ docker rm userdb
 docker stop nginx
 docker rm nginx
 
+docker stop session
+docker rm session
+docker stop redis
+docker rm redis
+
 if [[ ! -d ./react/node_modules/ ]]
 then
    npm install --prefix react 
