@@ -16,8 +16,12 @@ sudo docker stop userdb
 sudo docker rm userdb
 sudo docker stop nginx
 sudo docker rm nginx
-#npm install --prefix react 
-#npm install react-scripts@3.4.1 -g --prefix react 
+
+if [[ ! -d ./react/node_modules/ ]]
+then
+   npm install --prefix react 
+   npm install react-scripts@3.4.1 -g --prefix react 
+fi
 
 sudo docker network create -d bridge my-net
 sudo docker-compose -f ./docker-compose.yml build
