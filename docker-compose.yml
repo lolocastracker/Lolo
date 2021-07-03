@@ -1,108 +1,107 @@
 version: '3'
 services:
-#databases
- mapdb:
-    image: mysql:8.0
-    container_name: mapdb
-    command: --default-authentication-plugin=mysql_native_password
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: testpass
-      MYSQL_DATABASE: testdb
-    volumes:
-       - ./databases/map:/var/lib/mysql
-    ports:
-      - 8000:3306
- commdb:
-    image: mysql:8.0
-    container_name: commdb
-    command: --default-authentication-plugin=mysql_native_password
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: testpass
-      MYSQL_DATABASE: testdb
-    volumes:
-       - ./databases/comm:/var/lib/mysql
-    ports:
-      - 8200:3306
+ #databases
+  mapdb:
+     image: mysql:8.0
+     container_name: mapdb
+     command: --default-authentication-plugin=mysql_native_password
+     restart: unless-stopped
+     environment:
+       MYSQL_ROOT_PASSWORD: testpass
+       MYSQL_DATABASE: testdb
+     volumes:
+        - ./databases/map:/var/lib/mysql
+     ports:
+       - 8000:3306
+  commdb:
+     image: mysql:8.0
+     container_name: commdb
+     command: --default-authentication-plugin=mysql_native_password
+     restart: unless-stopped
+     environment:
+       MYSQL_ROOT_PASSWORD: testpass
+       MYSQL_DATABASE: testdb
+     volumes:
+        - ./databases/comm:/var/lib/mysql
+     ports:
+       - 8200:3306
 
- userdb:
-    image: mysql:8.0
-    container_name: userdb
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: testpass
-      MYSQL_DATABASE: db
-    ports:
-      - 8400:3306
-    volumes:
-       - ./databases/user:/var/lib/mysql
-
-
- adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8500:8080
-    environment: 
-      ADMINER_DEFAULT_SERVER: userdb
+  userdb:
+     image: mysql:8.0
+     container_name: userdb
+     restart: unless-stopped
+     environment:
+       MYSQL_ROOT_PASSWORD: testpass
+       MYSQL_DATABASE: db
+     ports:
+       - 8400:3306
+     volumes:
+        - ./databases/user:/var/lib/mysql
 
 
-#backend services
- map:
-    container_name: map
-    image: map
-    build:
-      context: .
-      dockerfile: ./Dockerfiles/map
-    ports:
-      - 6000:5000
-    volumes:
-      - ./map:/target
-    command:  /wait-for-it.sh -t 200 mapdb:3306 -- python3 ./target/server.py
- comm:
-    container_name: comm
-    image: comm
-    build:
-      context: .
-      dockerfile: ./Dockerfiles/comm
-    ports:
-      - 6200:5000
-    volumes:
-      - ./comm:/target
-    command:  /wait-for-it.sh -t 200 commdb:3306 -- python3 ./target/server.py
- user:
-    container_name: user
-    image: user
-    build:
-      context: .
-      dockerfile: ./Dockerfiles/user
-    ports:
-      - 6400:5000
+  adminer:
+     image: adminer
+     restart: always
+     ports:
+       - 8500:8080
+     environment: 
+       ADMINER_DEFAULT_SERVER: userdb
 
-    restart: unless-stopped
-    volumes:
-      - ./user:/target
-    command:  /wait-for-it.sh -t 200 userdb:3306 -- python3 ./target/server.py
 
- session:
-    container_name: session
-    image: session
-    build:
-      context: .
-      dockerfile: ./Dockerfiles/session
-    ports:
-      - 6600:5000
-    restart: unless-stopped
-    volumes:
-      - ./session:/target
-    command:  python3 ./target/app.py
- redis:
-    image: "redis:alpine"
+ #backend services
+  map:
+     container_name: map
+     image: map
+     build:
+       context: .
+       dockerfile: ./Dockerfiles/map
+     ports:
+       - 6000:5000
+     volumes:
+       - ./map:/target
+     command:  /wait-for-it.sh -t 200 mapdb:3306 -- python3 ./target/server.py
+  comm:
+     container_name: comm
+     image: comm
+     build:
+       context: .
+       dockerfile: ./Dockerfiles/comm
+     ports:
+       - 6200:5000
+     volumes:
+       - ./comm:/target
+     command:  /wait-for-it.sh -t 200 commdb:3306 -- python3 ./target/server.py
+  user:
+     container_name: user
+     image: user
+     build:
+       context: .
+       dockerfile: ./Dockerfiles/user
+     ports:
+       - 6400:5000
 
-#frontend
-    
- react:
+     restart: unless-stopped
+     volumes:
+       - ./user:/target
+     command:  /wait-for-it.sh -t 200 userdb:3306 -- python3 ./target/server.py
+
+  session:
+     container_name: session
+     image: session
+     build:
+       context: .
+       dockerfile: ./Dockerfiles/session
+     ports:
+       - 6600:5000
+     restart: unless-stopped
+     volumes:
+       - ./session:/target
+     command:  python3 ./target/app.py
+  redis:
+     image: "redis:alpine"
+
+#frontend   
+  react:
     container_name: react
     image: node:16
     ports:
@@ -110,18 +109,17 @@ services:
     volumes:
       - ./react:/target
     command: npm start --prefix /target
-#routing
- nginx:
-    container_name: nginx
-    image: nginx:1.21.0
-    build:
-      context: .
-      dockerfile: ./Dockerfiles/nginx
-    ports:
-       - 3000:3000
-    volumes:
-      - ./nginx:/etc/nginx/conf.d
-    command: /wait-for-it.sh -t 200 session:5000 -- /wait-for-it.sh -t 200 map:5000 -- /wait-for-it.sh -t 200 user:5000 -- /wait-for-it.sh -t 200 comm:5000 -- /wait-for-it.sh -t 200 react:3000 -- nginx -g "daemon off";
+ #routing
+  nginx:
+     container_name: nginx
+     build:
+       context: .
+       dockerfile: ./Dockerfiles/nginx
+     ports:
+        - 4000:3000
+     volumes:
+       - ./nginx:/etc/nginx/conf.d
+     command: /wait-for-it.sh -t 200 session:5000 -- /wait-for-it.sh -t 200 map:5000 -- /wait-for-it.sh -t 200 user:5000 -- /wait-for-it.sh -t 200 comm:5000 -- /wait-for-it.sh -t 200 react:3000 -- nginx -g "daemon off";
     
 
 

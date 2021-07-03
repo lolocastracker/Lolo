@@ -13,9 +13,6 @@ app = Flask(__name__)
 #       the session identifier.
 app.secret_key = 'BAD_SECRET_KEY'
 
-# # Configure server name
-app.config["SERVER_NAME"] = 'localhost.3000'
-
 # Configure Redis for storing the session data on the server-side
 app.config['SESSION_TYPE'] = 'redis'
 app.config['SESSION_PERMANENT'] = False
@@ -32,10 +29,12 @@ server_session = Session(app)
 def set_email():
     if request.method == 'POST':
         # Save the form data to the session object
-        session['email'] = request.form['email_address']
-        print(url_for('get_email'))
-        with app.test_request_context('/path'):
-            return redirect(url_for('get_email'))
+        return redirect('http://localhost:4000/get_email')
+            
+#        print(url_for('get_email'))
+#        return redirect(url_for('get_email'))
+
+            
 
     return """
         <form method="post">
