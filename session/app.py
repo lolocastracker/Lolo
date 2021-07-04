@@ -25,44 +25,38 @@ app.config['SESSION_REDIS'] = redis.Redis(host='redis', port=6379)
 server_session = Session(app)
 
 
-@app.route('/set_email', methods=['GET', 'POST'])
-def set_email():
-    if request.method == 'POST':
-        # Save the form data to the session object
-        return redirect('http://localhost:4000/get_email')
-            
-#        print(url_for('get_email'))
-#        return redirect(url_for('get_email'))
+@app.route('/session/set_auth', methods=['GET', 'POST'])
+def set_auth():
+    session['auth'] = "wehaveakey"
+    return "set auth"
+    
+    
 
-            
+    
 
-    return """
-        <form method="post">
-            <label for="email">Enter your email address:</label>
-            <input type="email" id="email" name="email_address" required />
-            <button type="submit">Submit</button
-        </form>
-        """
-@app.route("/api/session/test")
-def hello2():
-    return "Hello session!"
-
-@app.route('/get_email')
-def get_email():
-    return render_template_string("""
-            {% if session['email'] %}
-                <h1>Welcome {{ session['email'] }}!</h1>
-            {% else %}
-                <h1>Welcome! Please enter your email <a href="{{ url_for('set_email') }}">here.</a></h1>
-            {% endif %}
-        """)
+@app.route('/session/check_auth')
+def get_auth():
+    app.logger.info(session)
+    if session['auth']:
+        return {"auth":"thisshould be a token"}
+    else:
+        return {"auth":None}
 
 
-@app.route('/delete_email')
-def delete_email():
-    # Clear the email stored in the session object
-    session.pop('email', default=None)
-    return '<h1>Session deleted!</h1>'
+
+
+# @app.route('/delete_email')
+# def delete_email():
+#     # Clear the email stored in the session object
+#     session.pop('email', default=None)
+#     return '<h1>Session deleted!</h1>'
+
+
+# @app.route('/delete_email')
+# def delete_email():
+#     # Clear the email stored in the session object
+#     session.pop('email', default=None)
+#     return '<h1>Session deleted!</h1>'
 
 
 if __name__ == '__main__':

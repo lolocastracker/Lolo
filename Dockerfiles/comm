@@ -5,4 +5,4 @@ COPY ./wait-for-it.sh .
 #install requirements, Note: run are commands used to make the image
 RUN pip install flask
 RUN pip install mysql-connector-python
-
+RUN pip install furl

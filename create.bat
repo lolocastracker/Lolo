@@ -20,5 +20,4 @@ docker rm nginx
 #npm install react-scripts@3.4.1 -g --prefix react 
 
 docker network create -d bridge my-net
-docker-compose -f ./docker-compose.yml build
 docker-compose -f ./docker-compose.yml up
