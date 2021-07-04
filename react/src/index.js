@@ -2,12 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter,Route,Switch } from "react-router-dom";
 import {useState,useEffect} from 'react'
-import testpage from './views/testpage.js' 
+import TestPage from './views/TestPage.js' 
+import TestPage2 from './views/TestPage2.js' 
 import LoginPage from './views/LoginPage.js' 
-
+import {Redirect,useHistory} from 'react-router-dom';
 // alittle easier to make a component then pass that to the router,
 //this way we can take advantage of hooks
 //required elements pass in the return statement
+const 
 function App(){
   //set token to null on page load
   const [token, setToken] = useState(null);
@@ -15,27 +17,23 @@ function App(){
   async function checkLoggedin(){
     let t3=await fetch('/session/check_auth')
       t3= await t3.json()
-      //  setToken(null)
-       setToken(t3.auth)
+      return t3
       }
 
-      //trigger on page change second arg is empty list, so that is why
-      //other whise if we had token or some other state, it would run
-      //everytime the state changes
-       useEffect(() => {
-    checkLoggedin()
-  },[]);
 
   
 
   return(
      <Switch>
             <Route path="/login"> 
-            <LoginPage token={token} setToken={setToken}/> 
+            {checkLoggedin()==null  ? <LoginPage/>:  <Redirect to="/testpage" /> }
             </Route> 
-            <Route path="/testpage" component={testpage} />
-            <Route path="/" component={testpage} />
-           
+            <Route path="/testpage">
+            {checkLoggedin()!=null  ? <TestPage/>:  <Redirect to="/login" /> }
+            </Route>
+            <Route path="/">
+            <TestPage2></TestPage2>
+            </Route>
      </Switch>
   )
 
