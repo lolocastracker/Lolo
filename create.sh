@@ -22,12 +22,7 @@ docker rm session
 docker stop redis
 docker rm redis
 
-if [[ ! -d ./react/node_modules/ ]]
-then
-   npm install --prefix react 
-   npm install react-scripts@3.4.1 -g --prefix react 
-fi
 
 docker network create -d bridge my-net
-docker-compose -f ./docker-compose.yml build
+sleep 2
 docker-compose -f ./docker-compose.yml up

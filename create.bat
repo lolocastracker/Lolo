@@ -1,4 +1,3 @@
-#!/bin/bash
 docker stop map
 docker rm map
 docker stop comm
@@ -16,9 +15,13 @@ docker stop userdb
 docker rm userdb
 docker stop nginx
 docker rm nginx
-#npm install --prefix react 
-#npm install react-scripts@3.4.1 -g --prefix react 
+
+docker stop session
+docker rm session
+docker stop redis
+docker rm redis
+
 
 docker network create -d bridge my-net
-docker-compose -f ./docker-compose.yml build
+sleep 2
 docker-compose -f ./docker-compose.yml up

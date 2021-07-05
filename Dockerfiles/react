@@ -1,0 +1,8 @@
+FROM node:14
+#copy the files from current directory
+COPY ./react/package.json ./
+#install requirements, Note: run are commands used to make the image
+RUN npm install --silent
+RUN npm install react-scripts -g --silent
+RUN npm install --save fomantic-ui semantic-ui-react --silent
+ENV NODE_PATH /.
