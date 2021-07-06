@@ -17,11 +17,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-#     - name: Build the Docker image
-#       run: docker-compose build
-#     - name: Run the Container
-#       run: docker-compose up -d 
-#     - run: curl localhost:3000
+    - name: Build the Docker image
+      run: docker-compose build
+    - name: Run the Container
+      run: docker-compose up -d 
     - run: if sudo lsof -Pi :3000 -sTCP:LISTEN -t; then sudo lsof -Pi :3000; else exit 125;fi
     - run: sudo apt install net-tools -y
     - run: netstat -ntlp | grep LISTEN
