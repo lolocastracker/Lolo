@@ -20,8 +20,8 @@ jobs:
     - name: Build the Docker image
       run: docker-compose build
     - name: Run the Container
-      run: docker-compose up -d
-    - run: curl localhost:3000
-    - run: curl localhost:3000/api/map/test
-    - run: curl localhost:3000/api/comm/test   
-    - run: curl localhost:3000/api/user/test   
+      run: docker-compose up 
+#     - run: curl localhost:3000
+#     - run: curl localhost:3000/api/map/test
+#     - run: curl localhost:3000/api/comm/test   
+#     - run: curl localhost:3000/api/user/test   
