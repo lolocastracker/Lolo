@@ -22,7 +22,7 @@ jobs:
     - name: Run the Container
       run: docker-compose up -d 
 #     - run: curl localhost:3000
-    - run: apt install net-tools -y
+    - run: sudo apt install net-tools -y
     - run: netstat -ntlp | grep LISTEN
 #     - run: curl localhost:3000/api/comm/test   
 #     - run: curl localhost:3000/api/user/test   
