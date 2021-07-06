@@ -79,7 +79,7 @@ services:
         context: .
         dockerfile: ./Dockerfiles/react
     ports:
-      - 7000:3000
+      - 9500:3000
     volumes:
       - ./react:/target
     command: npm start --prefix target
