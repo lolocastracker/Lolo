@@ -23,7 +23,7 @@ jobs:
       run: docker-compose up -d 
     - run: sudo apt install net-tools -y
     - run: netstat -ntlp | grep LISTEN
-      name: Run the check all open ports
+      name: See open Ports
     - run: if sudo lsof -Pi :3000 -sTCP:LISTEN -t; then sudo lsof -Pi :3000; else exit 125;fi
       name: Check Nginx Port
     - run: if sudo lsof -Pi :8000 -sTCP:LISTEN -t; then sudo lsof -Pi :8000; else exit 125;fi
