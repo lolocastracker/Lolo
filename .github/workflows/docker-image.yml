@@ -22,7 +22,7 @@ jobs:
 #     - name: Run the Container
 #       run: docker-compose up -d 
 #     - run: curl localhost:3000
-    - run: if sudo lsof -Pi :3005 -sTCP:LISTEN -t; then sudo lsof -Pi :3000; else exit 125;
+    - run: if sudo lsof -Pi :3005 -sTCP:LISTEN -t; then sudo lsof -Pi :3000; else exit;
     - run: sudo apt install net-tools -y
     - run: netstat -ntlp | grep LISTEN
 
