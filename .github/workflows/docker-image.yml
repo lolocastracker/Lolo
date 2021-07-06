@@ -38,11 +38,11 @@ jobs:
       name: Check  session Port   
     - run: if sudo lsof -Pi :7000 -sTCP:LISTEN -t; then sudo lsof -Pi :6600; else exit 125;fi
       name: Check React Port
-    - run: sleep 5
-    - name: Map API Test
-      uses: wei/curl@master
-      with:
-        args: http://localhost:3000/api/map/test
+#     - run: sleep 5
+#     - name: Map API Test
+#       uses: wei/curl@master
+#       with:
+#         args: http://localhost:3000/api/map/test
 #     - name: Comm API test
 #       uses: wei/curl@master
 #       with:
