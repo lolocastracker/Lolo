@@ -21,3 +21,7 @@ jobs:
       run: docker-compose build
     - name: Run the Container
       run: docker-compose up -d
+    - run: localhost:3000
+    - run: localhost:3000/api/map/test
+    - run: localhost:3000/api/comm/test   
+    - run: localhost:3000/api/user/test   
