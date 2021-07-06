@@ -20,4 +20,4 @@ jobs:
     - name: Build the Docker image
       run: docker-compose build
     - name: Run the Container
-      run: docker-compose up
+      run: docker-compose up -d
