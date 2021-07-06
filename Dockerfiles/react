@@ -5,4 +5,5 @@ COPY ./react/*.json ./
 RUN npm install --silent
 RUN npm install react-scripts -g --silent
 RUN npm install --save fomantic-ui semantic-ui-react --silent
+RUN npm install react-router-dom --silent
 ENV NODE_PATH /.
