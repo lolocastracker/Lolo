@@ -40,9 +40,8 @@ jobs:
       name: Check React Port
     - run: sleep 5
     - name: Map API Test
-      uses: wei/curl@master
-      with:
-        args: http://localhost:3000/api/map/test,-v
+      run: curl http://localhost:3000/api/map/test -v
+
 #     - name: Comm API test
 #       uses: wei/curl@master
 #       with:
