@@ -4,6 +4,7 @@ COPY ./react/*.json ./
 #install requirements, Note: run are commands used to make the image
 RUN npm install --silent
 RUN npm install react-scripts -g --silent
-RUN npm install --save fomantic-ui semantic-ui-react --silent
+RUN npm install semantic-ui-react --silent
 RUN npm install react-router-dom --silent
+RUN npm install @auth0/auth0-react
 ENV NODE_PATH /.
