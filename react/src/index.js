@@ -8,6 +8,7 @@ import MainPageTest from './views/MainPageTest.js'
 import {Redirect,useHistory} from 'react-router-dom';
 import Auth0ProviderWithHistory from "./components/auth/Auth0-provider-with-history.js"
 import ProtectedRoute from "./components/auth/Protected-Route.js";
+import './components/fomantic/dist/semantic.css';
 function App(){
   return(
       //Profile Page is Protected so login Required, Redirects to Home Page After
