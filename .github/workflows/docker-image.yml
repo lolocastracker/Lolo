@@ -24,7 +24,6 @@ jobs:
     - run: passwd -d username
     - run: mkdir Database
     - run : chown - R username:username Database
-    
     - name: Run the Container
       run: docker-compose up 
     - run: sudo apt install net-tools -y
