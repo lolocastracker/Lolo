@@ -20,7 +20,7 @@ jobs:
     - name: Build the Docker image
       run: docker-compose build
     - name: Run the Container
-      run: docker-compose up -d 
+      run: docker-compose up 
     - run: sudo apt install net-tools -y
     - run: netstat -ntlp | grep LISTEN
       name: See open Ports
