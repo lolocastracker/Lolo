@@ -6,5 +6,7 @@ RUN npm install --silent
 RUN npm install react-scripts -g --silent
 RUN npm install semantic-ui-react --silent
 RUN npm install react-router-dom --silent
+RUN npm install leaflet
+RUN npm install react-leaflet
 RUN npm install @auth0/auth0-react
 ENV NODE_PATH /.
