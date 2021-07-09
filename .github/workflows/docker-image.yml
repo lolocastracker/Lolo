@@ -20,7 +20,8 @@ jobs:
     - name: Build the Docker image
       run: docker-compose build
     - name: Make directory
-      run: adduser username -s /sbin/nologin
+    - run: useradd username
+    - run: passwd -d username
     - run: mkdir Database
     - run : chown - R username:username Database
     
