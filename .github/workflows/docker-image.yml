@@ -24,7 +24,7 @@ jobs:
     - run: sudo passwd -d username
     - run: sudo mkdir Database
     - run : sudo chown -R username:username Database
-    - run: chmod 777 Database
+    - run: sudo chmod 777 Database
     - name: Run the Container
       run: docker-compose up 
     - run: sudo apt install net-tools -y
