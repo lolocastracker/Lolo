@@ -26,33 +26,33 @@ jobs:
     - run : sudo chown -R username:username Database
     - name: Run the Container
       run: docker-compose up 
-#     - run: sudo apt install net-tools -y
-#     - run: netstat -ntlp | grep LISTEN
-#       name: See open Ports
-#     - run: if sudo lsof -Pi :3000 -sTCP:LISTEN -t; then sudo lsof -Pi :3000; else exit 125;fi
-#       name: Check Nginx Port
-#     - run: if sudo lsof -Pi :8000 -sTCP:LISTEN -t; then sudo lsof -Pi :8000; else exit 125;fi
-#       name: Check  DB Port
-#     - run: if sudo lsof -Pi :6000 -sTCP:LISTEN -t; then sudo lsof -Pi :6000; else exit 125;fi
-#       name: Check  map Port
-#     - run: if sudo lsof -Pi :6200 -sTCP:LISTEN -t; then sudo lsof -Pi :6200; else exit 125;fi
-#       name: Check  comm Port
-#     - run: if sudo lsof -Pi :6400 -sTCP:LISTEN -t; then sudo lsof -Pi :6400; else exit 125;fi
-#       name: Check  user Port    
-#     - run: if sudo lsof -Pi :6600 -sTCP:LISTEN -t; then sudo lsof -Pi :6600; else exit 125;fi
-#       name: Check  session Port   
-#     - run: if sudo lsof -Pi :7000 -sTCP:LISTEN -t; then sudo lsof -Pi :6600; else exit 125;fi
-#       name: Check React Port
-#     - run: sleep 15
-#     - name: Map API Test
-#       run: curl http://localhost:3000/api/map/test -v
+    - run: sudo apt install net-tools -y
+    - run: netstat -ntlp | grep LISTEN
+      name: See open Ports
+    - run: if sudo lsof -Pi :3000 -sTCP:LISTEN -t; then sudo lsof -Pi :3000; else exit 125;fi
+      name: Check Nginx Port
+    - run: if sudo lsof -Pi :8000 -sTCP:LISTEN -t; then sudo lsof -Pi :8000; else exit 125;fi
+      name: Check  DB Port
+    - run: if sudo lsof -Pi :6000 -sTCP:LISTEN -t; then sudo lsof -Pi :6000; else exit 125;fi
+      name: Check  map Port
+    - run: if sudo lsof -Pi :6200 -sTCP:LISTEN -t; then sudo lsof -Pi :6200; else exit 125;fi
+      name: Check  comm Port
+    - run: if sudo lsof -Pi :6400 -sTCP:LISTEN -t; then sudo lsof -Pi :6400; else exit 125;fi
+      name: Check  user Port    
+    - run: if sudo lsof -Pi :6600 -sTCP:LISTEN -t; then sudo lsof -Pi :6600; else exit 125;fi
+      name: Check  session Port   
+    - run: if sudo lsof -Pi :7000 -sTCP:LISTEN -t; then sudo lsof -Pi :6600; else exit 125;fi
+      name: Check React Port
+    - run: sleep 15
+    - name: Map API Test
+      run: curl http://localhost:3000/api/map/test -v
 
-#     - name: Comm API test
-#       uses: wei/curl@master
-#       with:
-#         args: http://localhost:3000/api/comm/test       
+    - name: Comm API test
+      uses: wei/curl@master
+      with:
+        args: http://localhost:3000/api/comm/test       
         
-#     - name: User API test
-#       uses: wei/curl@master
-#       with:
-#         args: http://localhost:3000/api/user/test  
+    - name: User API test
+      uses: wei/curl@master
+      with:
+        args: http://localhost:3000/api/user/test  
