@@ -1,12 +1,21 @@
 FROM node:14
-#copy the files from current directory
+# copy the files from current directory
 COPY ./react/*.json ./
-#install requirements, Note: run are commands used to make the image
+# install requirements, Note: run are commands used to make the image
 RUN npm install --silent
 RUN npm install react-scripts -g --silent
 RUN npm install semantic-ui-react --silent
 RUN npm install react-router-dom --silent
-RUN npm install leaflet
-RUN npm install react-leaflet
 RUN npm install @auth0/auth0-react
+RUN npm install leaflet
+
+# old version required, otherwise importing components fails
+RUN npm install react-leaflet@">=3.1.0 <3.2.0 || ^3.2.1"
+
+# this must also be installed or importing components fail
+RUN npm install @react-leaflet/core@">=1.0.0 <1.1.0 || ^1.1.1"
+
+# not sure if needed (for typescript)
+# RUN npm install -D @types/leaflet
+
 ENV NODE_PATH /.
