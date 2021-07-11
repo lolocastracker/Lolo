@@ -1,12 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter} from "react-router-dom";
 import './components/fomantic/dist/semantic.css';
 import App from "./App"
+import keycloak from './components/auth/Keycloak.js'
+import { ReactKeycloakProvider } from '@react-keycloak/web'
 
+
+console.log(ReactKeycloakProvider)
 ReactDOM.render(
-  <BrowserRouter>
+  <ReactKeycloakProvider
+  authClient={keycloak}>
     <App />
-  </BrowserRouter>,
+    </ReactKeycloakProvider>,
   document.getElementById("root")
 );

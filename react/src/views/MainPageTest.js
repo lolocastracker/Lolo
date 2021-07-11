@@ -4,8 +4,9 @@ import { Loader} from 'semantic-ui-react'
 export default function MainPageTest() {
   return (
 <Fragment>
+  <AuthButton></AuthButton>
 <Loader className="ui active brown inline loader large">Loading2 </Loader>
-  <AuthButton/>
+llllllllllllllll
 </Fragment>
   );
 }

@@ -1,25 +1,30 @@
 import React from "react";
-import Auth0ProviderWithHistory from "./components/auth/Auth0-provider-with-history.js"
-import ProtectedRoute from "./components/auth/Protected-Route.js";
 import { Route,Switch } from "react-router-dom";
-
+import { useKeycloak } from '@react-keycloak/web';
+import { BrowserRouter} from "react-router-dom";
+import { PrivateRoute } from "./components/auth/PrivateRoute.js"
 //Pages
-import Profile from './views/ProfilePage.js' 
 import TestPage2 from './views/TestPage2.js' 
 import MainPageTest from './views/MainPageTest.js' 
 
 
 export default function App(){
+  const { keycloak, initialized } = useKeycloak()
+ 
+  if (!initialized) {
+      return <h3>Loading ... !!!</h3>;
+  }
+  console.log(initialized,"this works")
     return(
         //Profile Page is Protected so login Required, Redirects to Home Page After
-        <Auth0ProviderWithHistory>
+        <BrowserRouter>
        <Switch>
-              <ProtectedRoute path="/Profile" component={Profile}/>
+              <PrivateRoute roles={['user']} path="/Profile" component={TestPage2}/>
               <Route path="/"> 
               <MainPageTest/>
               </Route> 
        </Switch>
-       </Auth0ProviderWithHistory>
+      </BrowserRouter>
     )
   
   }
