@@ -1,6 +1,6 @@
 {
-  "id": "myrealm",
-  "realm": "myrealm",
+  "id": "lolo",
+  "realm": "lolo",
   "notBefore": 0,
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,
