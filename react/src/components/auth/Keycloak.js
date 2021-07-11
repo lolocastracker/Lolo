@@ -4,7 +4,7 @@ import Keycloak from 'keycloak-js'
 // Pass initialization options as required or leave blank to load from 'keycloak.json'
 const keycloak = Keycloak({
     url: 'http://localhost:8090/auth',
-    realm: 'myrealm',
+    realm: 'lolo',
     clientId: 'react-app',
   });
 console.log(keycloak)

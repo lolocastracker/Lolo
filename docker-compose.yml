@@ -114,7 +114,10 @@ services:
   keycloak:
     container_name: keycloak
     restart: always   
-    image: jboss/keycloak
+    image: keycloak
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/keycloak
     ports:
       - 8090:8080
     environment:
