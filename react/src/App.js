@@ -4,9 +4,10 @@ import { useKeycloak } from '@react-keycloak/web';
 import { BrowserRouter} from "react-router-dom";
 import { PrivateRoute } from "./components/auth/PrivateRoute.js"
 //Pages
-import TestPage2 from './views/TestPage2.js' 
-import MainPageTest from './views/MainPageTest.js' 
-
+import Profile from "./views/ProfilePage.js"
+import TestPage2 from "./views/TestPage2.js"
+import MainPageTest from "./views/MainPageTest.js"
+import MapPage from "./views/MapPage.js"
 
 export default function App(){
   const { keycloak, initialized } = useKeycloak()
@@ -20,7 +21,14 @@ export default function App(){
         <BrowserRouter>
        <Switch>
               <PrivateRoute roles={['user']} path="/Profile" component={TestPage2}/>
-              <Route path="/"> 
+                      <Route path="/map">
+          <MapPage />
+        </Route>
+      
+      
+              <Route path="/map">
+          <MapPage />
+        </Route><Route path="/"> 
               <MainPageTest/>
               </Route> 
        </Switch>
@@ -28,3 +36,4 @@ export default function App(){
     )
   
   }
+
