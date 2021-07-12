@@ -34,6 +34,37 @@ def change_password():
     print(r)
     return r.text
 
+
+@app.route("/api/user/create_user")
+def create_user():
+    s = req.Session()
+    form={"username":"admin",
+    "password":"admin",
+    "do":"login"}
+    url="http://nginx/admin/index.php"
+    s.post(url,data=form)
+    test=s.get(url)
+    app.logger.debug(test.text)
+    form={"username":"test23","password":"password","confirm_password":"password","email":"test@test2.com","usergroup":2,"displaygroup":0,"my_post_key":"345e6deb523a10ee00c97ffc994f9bdc"}
+    url="http://nginx/admin/index.php?module=user-users&action=add"
+    s.post(url,data=form)
+    return "good"
+
+@app.route("/api/user/change_pass")
+def change_pass():
+    s = req.Session()
+    form={"username":"admin",
+    "password":"admin",
+    "do":"login"}
+    url="http://nginx/admin/index.php"
+    s.post(url,data=form)
+    test=s.get(url)
+    app.logger.debug(test.text)
+    form={"username":"test23","password":"password","confirm_password":"password","email":"test@test2.com","usergroup":2,"displaygroup":0,"my_post_key":"345e6deb523a10ee00c97ffc994f9bdc"}
+    url="http://nginx/admin/index.php?module=user-users&action=add"
+    s.post(url,data=form)
+    return "good"
+
    
 
 
