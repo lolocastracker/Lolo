@@ -4,5 +4,6 @@ from python:latest
 COPY ./wait-for-it.sh .
 #install requirements, Note: run are commands used to make the image
 RUN pip install flask
+RUN pip install requests
 RUN pip install mysql-connector-python
 

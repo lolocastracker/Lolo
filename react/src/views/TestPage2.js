@@ -7,7 +7,7 @@ export default function TestPage2() {
   return (
     <div className="App">
         <p>
-         This is not protected
+         This should be protected
         </p>
          
     </div>
