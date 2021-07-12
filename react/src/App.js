@@ -20,7 +20,7 @@ export default function App(){
         //Profile Page is Protected so login Required, Redirects to Home Page After
         <BrowserRouter>
        <Switch>
-              <PrivateRoute roles={['user']} path="/Profile" component={TestPage2}/>
+            <PrivateRoute roles={['user']} path="/Profile" component={TestPage2}/>
                       <Route path="/map">
           <MapPage />
         </Route>
