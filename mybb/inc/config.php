@@ -11,9 +11,9 @@ $config['database']['type'] = 'mysqli';
 $config['database']['database'] = 'lolo_db';
 $config['database']['table_prefix'] = 'mybb_';
 
-$config['database']['hostname'] = 'db';
-$config['database']['username'] = 'root';
-$config['database']['password'] = 'testpass';
+$config['database']['hostname'] = '172.21.0.5:3306';
+$config['database']['username'] = 'mytestuser';
+$config['database']['password'] = 'mypassword';
 
 /**
  * Admin CP directory
@@ -141,3 +141,11 @@ $config['disallowed_remote_addresses'] = array(
 	'192.168.0.0/16',
 );
 
+/**
+ * Admin CP Secret PIN
+ *  If you wish to request a PIN
+ *  when someone tries to login
+ *  on your Admin CP, enter it below.
+ */
+
+$config['secret_pin'] = '';
