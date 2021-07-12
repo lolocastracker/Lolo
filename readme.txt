@@ -31,7 +31,15 @@ Set up MySQL for Services:
 		mysql> GRANT ALL PRIVILEGES ON * . * TO 'mytestuser'@'%';
 		mysql> FLUSH PRIVILEGES;  
 		mysql> exit;  	
-
+Add Tables In MySQL:
+	* Open up your terminal
+		terminal> docker exec -t -i db /bin/bash
+		terminal> mysql -u root -p 
+		Enter password: testpass
+		mysql> use lolo_db;
+	* Then copy and paste MySQL script (lolodb.sql) to create the each table. Make sure you do each table in order.
+		
+	
 Set up MyBB
 	* run this if there you haven't installed mybb in Docker
 		docker-compose -f ./docker-compose.yml build
@@ -75,12 +83,4 @@ Set up MyBB
 
 
 
-SET UP MYSQL
-	* Open up your terminal
-		terminal> docker exec -t -i db /bin/bash
-		terminal> mysql -u root -p 
-		Enter password: testpass
-		mysql> use lolo_db;
-	* Then copy and paste MySQL script (lolodb.sql) to create the each table. Make sure you do each table in order.
-		
-	
+
