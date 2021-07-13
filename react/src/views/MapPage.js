@@ -1,4 +1,4 @@
-// import { useState } from 'react'
+import { useState } from 'react'
 import Map from '../components/map/Map.js'
 import { Header, Container, Input, Grid, Segment } from 'semantic-ui-react'
 
@@ -13,6 +13,14 @@ const MapPage = () => {
   //   { id: 1, gps: [9.05, 39.75] },
   //   { id: 2, gps: [9.02, 39.72] },
   // ])
+
+  const [curReportID, setCurReportID] = useState(1)
+  // console.log(reports.filter(element => element.id === curReportID))
+
+  const updateCurReportID = (id) => {
+    setCurReportID(id)
+  }
+
   return (
     <div>
       <Container text style={{ marginTop: '7em' }}>
@@ -27,11 +35,19 @@ const MapPage = () => {
             />
           </Grid.Column>
           <Grid.Column>
-            <Map reports={reports} />
+            <Map reports={reports} onMarkerClick={updateCurReportID} />
           </Grid.Column>
           <Grid.Column>
             <Segment>
-              Lat: {reports[0].gps[0]} Lng: {reports[0].gps[1]}
+              {/* Lat: {reports[0].gps[0]} Lng: {reports[0].gps[1]} */}
+              {/* Lat: {reports[curReportID].gps[0]} Lng:{' '} */}
+              {/* {reports[curReportID].gps[1]} */}
+              {/* filtered: {reports.filter(element => element.id === curReportID).gps[0]} */}
+              {/* filtered:{' '} */}
+              {
+                reports.filter((element) => element.id === curReportID)[0]
+                  .gps[0]
+              }
             </Segment>
           </Grid.Column>
         </Grid>
