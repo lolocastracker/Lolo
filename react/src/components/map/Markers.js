@@ -1,6 +1,8 @@
 import { Marker } from 'react-leaflet'
 
 const Markers = ({ reports }) => {
+  const getReportData = (report) => console.log('marker clicked', report.id)
+
   return (
     <>
       {reports.map((report) => (
@@ -8,12 +10,7 @@ const Markers = ({ reports }) => {
           key={report.id}
           position={report.gps}
           eventHandlers={{
-            click: (e) => {
-              const getReportData = () => (
-              console.log('marker clicked', report.id)
-              )
-              getReportData()
-            },
+            click: (e) => getReportData(report),
           }}
         ></Marker>
       ))}
