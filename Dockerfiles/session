@@ -8,3 +8,5 @@ RUN pip install flask
 RUN pip install mysql-connector-python
 RUN pip install flask-session
 RUN pip install redis
+RUN pip install requests==2.25.1 urllib3==1.26.5
+RUN pip install python-keycloak

@@ -1,14 +1,14 @@
 // src/components/login-button.js
 
 import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useKeycloak } from '@react-keycloak/web';
 
 export default function LoginButton() {
-  const { loginWithRedirect } = useAuth0();
+  const { keycloak, initialized } = useKeycloak()
   return (
     <button
       className="btn btn-primary btn-block"
-      onClick={() => loginWithRedirect()}
+      onClick={() => keycloak.login()}
     >
       Log In
     </button>
