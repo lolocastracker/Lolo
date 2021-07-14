@@ -26,9 +26,9 @@ docker stop lolo_redis_1
 docker rm lolo_redis_1
 docker stop lolo_adminer_1
 docker rm lolo_adminer_1
-
+docker stop keycloak
+docker rm keycloak
 
 docker network create -d bridge my-net
 sleep 2
-docker-compose -f ./docker-compose.yml build
 docker-compose -f ./docker-compose.yml up
