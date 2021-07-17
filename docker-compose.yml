@@ -89,6 +89,7 @@ services:
 #forum
 
   mybb:
+    container_name: mybb
     image: mybb/mybb:1.8.26
     volumes:
     - ./mybb:/var/www/html/:rw
