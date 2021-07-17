@@ -122,8 +122,6 @@ services:
     ports:
       - 8090:8080
     environment:
-    - KEYCLOAK_USER=admin
-    - KEYCLOAK_PASSWORD=admin
     - DB_VENDOR=mysql
     - DB_ADDR=db
     - DB_USER=root
