@@ -11,10 +11,10 @@ async function login(){
 }));
 
   
-  // let exist=cookie_test.mybbuser || null
-  // if (exist!=null){
-  //   return
-  // }
+  let exist=cookie_test.mybbuser || null
+  if (exist!=null){
+    return
+  }
   
   let url=`/api/user/forum_login?id=${keycloak.subject}`
   console.log(url)
@@ -27,7 +27,6 @@ async function login(){
   }
   console.log(cookie)
   console.log(`mybbuser=${cookie}`)
-  return
   document.cookie=`mybbuser=${cookie}`  
 }
 const onEvent = (event, error) => {
