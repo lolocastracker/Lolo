@@ -21,13 +21,9 @@
   padding: 1em 1.5em;
   line-height: 1.4285em;
   color: rgba(0, 0, 0, 0.87);
-  -webkit-transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
-  transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
   transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease, box-shadow 0.1s ease;
-  transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease, box-shadow 0.1s ease, -webkit-box-shadow 0.1s ease;
   border-radius: 0.28571429rem;
-  -webkit-box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.22) inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.22) inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.22) inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.message:first-child {
   margin-top: 0;
@@ -118,7 +114,6 @@
   top: 0.78575em;
   right: 0.5em;
   opacity: 0.7;
-  -webkit-transition: opacity 0.1s ease;
   transition: opacity 0.1s ease;
 }
 .ui.message > .close.icon:hover {
@@ -156,8 +151,6 @@
   display: block;
 }
 .ui.icon.visible.visible.visible.visible.message {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
@@ -177,15 +170,11 @@
 .ui.centered.message,
 .ui.center.aligned.message {
   text-align: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
 .ui.centered.message > .content,
 .ui.center.aligned.message > .content {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 .ui.right.aligned.message {
   text-align: right;
@@ -199,8 +188,6 @@
   display: inline-block;
 }
 .ui.compact.icon.message {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
   display: inline-flex;
   width: auto;
 }
@@ -212,8 +199,7 @@
 .ui.attached.message {
   margin-bottom: -1px;
   border-radius: 0.28571429rem 0.28571429rem 0 0;
-  -webkit-box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.15) inset;
-          box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.15) inset;
+  box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.15) inset;
   margin-left: -1px;
   margin-right: -1px;
 }
@@ -224,8 +210,7 @@
 .ui.bottom.attached.message {
   margin-top: -1px;
   border-radius: 0 0 0.28571429rem 0.28571429rem;
-  -webkit-box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.15) inset, 0 1px 2px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.15) inset, 0 1px 2px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.15) inset, 0 1px 2px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.bottom.attached.message:not(:last-child) {
   margin-bottom: 1em;
@@ -239,20 +224,14 @@
   ---------------*/
 
 .ui.icon.message {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   width: 100%;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 .ui.icon.message > .icons,
 .ui.icon.message > i.icon:not(.close) {
   display: block;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  flex: 0 0 auto;
   width: auto;
   line-height: 1;
   vertical-align: middle;
@@ -261,9 +240,7 @@
 }
 .ui.icon.message > .content {
   display: block;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
+  flex: 1 1 auto;
   vertical-align: middle;
 }
 .ui.icon.message > .icons + .content,
@@ -279,8 +256,7 @@
   ---------------*/
 
 .ui.floating.message {
-  -webkit-box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.22) inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.22) inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.22) inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 
 /*--------------
@@ -298,12 +274,10 @@
 }
 .ui.positive.message,
 .ui.attached.positive.message {
-  -webkit-box-shadow: 0 0 0 1px #A3C293 inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #A3C293 inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #A3C293 inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.positive.message {
-  -webkit-box-shadow: 0 0 0 1px #A3C293 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #A3C293 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #A3C293 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.positive.message .header {
   color: #1A531B;
@@ -318,12 +292,10 @@
 }
 .ui.negative.message,
 .ui.attached.negative.message {
-  -webkit-box-shadow: 0 0 0 1px #E0B4B4 inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #E0B4B4 inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #E0B4B4 inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.negative.message {
-  -webkit-box-shadow: 0 0 0 1px #E0B4B4 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #E0B4B4 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #E0B4B4 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.negative.message .header {
   color: #912D2B;
@@ -338,12 +310,10 @@
 }
 .ui.info.message,
 .ui.attached.info.message {
-  -webkit-box-shadow: 0 0 0 1px #A9D5DE inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #A9D5DE inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #A9D5DE inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.info.message {
-  -webkit-box-shadow: 0 0 0 1px #A9D5DE inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #A9D5DE inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #A9D5DE inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.info.message .header {
   color: #0E566C;
@@ -358,12 +328,10 @@
 }
 .ui.warning.message,
 .ui.attached.warning.message {
-  -webkit-box-shadow: 0 0 0 1px #C9BA9B inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #C9BA9B inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #C9BA9B inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.warning.message {
-  -webkit-box-shadow: 0 0 0 1px #C9BA9B inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #C9BA9B inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #C9BA9B inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.warning.message .header {
   color: #794B02;
@@ -378,12 +346,10 @@
 }
 .ui.error.message,
 .ui.attached.error.message {
-  -webkit-box-shadow: 0 0 0 1px #E0B4B4 inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #E0B4B4 inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #E0B4B4 inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.error.message {
-  -webkit-box-shadow: 0 0 0 1px #E0B4B4 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #E0B4B4 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #E0B4B4 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.error.message .header {
   color: #912D2B;
@@ -398,12 +364,10 @@
 }
 .ui.success.message,
 .ui.attached.success.message {
-  -webkit-box-shadow: 0 0 0 1px #A3C293 inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #A3C293 inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #A3C293 inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.success.message {
-  -webkit-box-shadow: 0 0 0 1px #A3C293 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #A3C293 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #A3C293 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.success.message .header {
   color: #1A531B;
@@ -418,12 +382,10 @@
 }
 .ui.primary.message,
 .ui.attached.primary.message {
-  -webkit-box-shadow: 0 0 0 1px #2185D0 inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #2185D0 inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #2185D0 inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.primary.message {
-  -webkit-box-shadow: 0 0 0 1px #2185D0 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #2185D0 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #2185D0 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.primary.message .header {
   color: rgba(242, 242, 242, 0.9);
@@ -434,12 +396,10 @@
 }
 .ui.secondary.message,
 .ui.attached.secondary.message {
-  -webkit-box-shadow: 0 0 0 1px #1B1C1D inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #1B1C1D inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #1B1C1D inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.secondary.message {
-  -webkit-box-shadow: 0 0 0 1px #1B1C1D inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #1B1C1D inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #1B1C1D inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.secondary.message .header {
   color: rgba(242, 242, 242, 0.9);
@@ -450,12 +410,10 @@
 }
 .ui.red.message,
 .ui.attached.red.message {
-  -webkit-box-shadow: 0 0 0 1px #DB2828 inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #DB2828 inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #DB2828 inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.red.message {
-  -webkit-box-shadow: 0 0 0 1px #DB2828 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #DB2828 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #DB2828 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.red.message .header {
   color: #c82121;
@@ -466,12 +424,10 @@
 }
 .ui.orange.message,
 .ui.attached.orange.message {
-  -webkit-box-shadow: 0 0 0 1px #F2711C inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #F2711C inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #F2711C inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.orange.message {
-  -webkit-box-shadow: 0 0 0 1px #F2711C inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #F2711C inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #F2711C inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.orange.message .header {
   color: #e7640d;
@@ -482,12 +438,10 @@
 }
 .ui.yellow.message,
 .ui.attached.yellow.message {
-  -webkit-box-shadow: 0 0 0 1px #B58105 inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #B58105 inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #B58105 inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.yellow.message {
-  -webkit-box-shadow: 0 0 0 1px #B58105 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #B58105 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #B58105 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.yellow.message .header {
   color: #9c6f04;
@@ -498,12 +452,10 @@
 }
 .ui.olive.message,
 .ui.attached.olive.message {
-  -webkit-box-shadow: 0 0 0 1px #8ABC1E inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #8ABC1E inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #8ABC1E inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.olive.message {
-  -webkit-box-shadow: 0 0 0 1px #8ABC1E inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #8ABC1E inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #8ABC1E inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.olive.message .header {
   color: #7aa61a;
@@ -514,12 +466,10 @@
 }
 .ui.green.message,
 .ui.attached.green.message {
-  -webkit-box-shadow: 0 0 0 1px #1EBC30 inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #1EBC30 inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #1EBC30 inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.green.message {
-  -webkit-box-shadow: 0 0 0 1px #1EBC30 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #1EBC30 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #1EBC30 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.green.message .header {
   color: #1aa62a;
@@ -530,12 +480,10 @@
 }
 .ui.teal.message,
 .ui.attached.teal.message {
-  -webkit-box-shadow: 0 0 0 1px #10A3A3 inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #10A3A3 inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #10A3A3 inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.teal.message {
-  -webkit-box-shadow: 0 0 0 1px #10A3A3 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #10A3A3 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #10A3A3 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.teal.message .header {
   color: #0e8c8c;
@@ -546,12 +494,10 @@
 }
 .ui.blue.message,
 .ui.attached.blue.message {
-  -webkit-box-shadow: 0 0 0 1px #2185D0 inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #2185D0 inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #2185D0 inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.blue.message {
-  -webkit-box-shadow: 0 0 0 1px #2185D0 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #2185D0 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #2185D0 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.blue.message .header {
   color: #1e77ba;
@@ -562,12 +508,10 @@
 }
 .ui.violet.message,
 .ui.attached.violet.message {
-  -webkit-box-shadow: 0 0 0 1px #6435C9 inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #6435C9 inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #6435C9 inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.violet.message {
-  -webkit-box-shadow: 0 0 0 1px #6435C9 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #6435C9 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #6435C9 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.violet.message .header {
   color: #5a30b5;
@@ -578,12 +522,10 @@
 }
 .ui.purple.message,
 .ui.attached.purple.message {
-  -webkit-box-shadow: 0 0 0 1px #A333C8 inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #A333C8 inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #A333C8 inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.purple.message {
-  -webkit-box-shadow: 0 0 0 1px #A333C8 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #A333C8 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #A333C8 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.purple.message .header {
   color: #922eb4;
@@ -594,12 +536,10 @@
 }
 .ui.pink.message,
 .ui.attached.pink.message {
-  -webkit-box-shadow: 0 0 0 1px #E03997 inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #E03997 inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #E03997 inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.pink.message {
-  -webkit-box-shadow: 0 0 0 1px #E03997 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #E03997 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #E03997 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.pink.message .header {
   color: #dd238b;
@@ -610,12 +550,10 @@
 }
 .ui.brown.message,
 .ui.attached.brown.message {
-  -webkit-box-shadow: 0 0 0 1px #A5673F inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #A5673F inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #A5673F inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.brown.message {
-  -webkit-box-shadow: 0 0 0 1px #A5673F inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #A5673F inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #A5673F inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.brown.message .header {
   color: #935b38;
@@ -626,12 +564,10 @@
 }
 .ui.grey.message,
 .ui.attached.grey.message {
-  -webkit-box-shadow: 0 0 0 1px #767676 inset, 0 0 0 0 rgba(0, 0, 0, 0);
-          box-shadow: 0 0 0 1px #767676 inset, 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 1px #767676 inset, 0 0 0 0 rgba(0, 0, 0, 0);
 }
 .ui.floating.grey.message {
-  -webkit-box-shadow: 0 0 0 1px #767676 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px #767676 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #767676 inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.grey.message .header {
   color: #696969;

@@ -1,2 +1,0 @@
-FROM jboss/keycloak:latest
-COPY ./keycloak-themes /opt/jboss/keycloak/themes

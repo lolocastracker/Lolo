@@ -7,6 +7,4 @@ const keycloak = Keycloak({
     realm: 'lolo',
     clientId: 'react-app',
   });
-console.log(keycloak)
-console.log("test")
 export default keycloak
