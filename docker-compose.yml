@@ -120,10 +120,10 @@ services:
       context: .
       dockerfile: ./Dockerfiles/keycloak
     ports:
-      - 8090:8080
+      - 8090:8443
     environment:
-    - KEYCLOAK_USER=admin
-    - KEYCLOAK_PASSWORD=admin
+    # - KEYCLOAK_USER=admin
+    # - KEYCLOAK_PASSWORD=admin
     - DB_VENDOR=mysql
     - DB_ADDR=db
     - DB_USER=root
@@ -131,10 +131,14 @@ services:
     - DB_PORT=3306
     - DB_DATABASE=lolo_db
     - KEYCLOAK_IMPORT=/tmp/key.json
+    - PROXY_ADDRESS_FORWARDING=true
     volumes:
      - ./keycloak:/tmp
+  
 
 
 
- 
+
+
+
 

@@ -1,2 +1,3 @@
 FROM jboss/keycloak:latest
 COPY ./keycloak-themes /opt/jboss/keycloak/themes
+COPY ./keycloak_cert /etc/x509/https  
