@@ -131,7 +131,6 @@ services:
     - DB_PORT=3306
     - DB_DATABASE=lolo_db
     - KEYCLOAK_IMPORT=/tmp/key.json
-    - PROXY_ADDRESS_FORWARDING=true
     volumes:
      - ./keycloak:/tmp
   

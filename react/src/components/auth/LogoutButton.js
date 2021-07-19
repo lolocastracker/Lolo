@@ -9,7 +9,7 @@ const LogoutButton = () => {
       className="btn btn-danger btn-block"
       onClick={() =>
         {
-          document.cookie=`mybbuser=`
+          document.cookie=`mybbuser=;domain=lolo.gq`
             keycloak.logout()
         }
        

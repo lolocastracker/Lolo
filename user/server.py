@@ -54,7 +54,7 @@ def forum_login():
     pwo.minschars = 2
     password=pwo.generate()
     if check_username(username)=="":
-        new_forumuser(username,password,email)
+        return new_forumuser(username,password,email)
     t=get_cookie(username)
     return {"mybbuser":t}
 
@@ -62,8 +62,8 @@ def check_username(username):
     connection_objt = t.get_connection()
     cursor = connection_objt.cursor()
     isPresent=False
-    query = ("SELECT username FROM mybb_users " 
-         "WHERE username = %s")
+    query = ("SELECT username FROM lolobb_users" 
+         " WHERE username = %s")
     cursor.execute(query,(username,))
     myresult = cursor.fetchall()
     for user in myresult:
@@ -74,38 +74,29 @@ def check_username(username):
         return username
     return ""
 
-def new_forumuser(username,password,email):  
-    mybb_sess=req.Session()
-    form={"username":"admin",
-    "password":"admin",
-    "do":"login"}
-    url="http://nginx/admin/index.php"
-    mybb_sess.post(url,data=form)
-    postkey=""
-    form={"username":"admin",
-    "password":"admin",
-    "do":"login"}
-    url="http://nginx/admin/index.php"
-    t=mybb_sess.get(url)
-    soup = BeautifulSoup(t.text, 'html.parser')
-    for element in soup.find_all('input'):
-        app.logger.debug(element)
-        app.logger.debug(element.get("name",""))
-        if element.get("name","")=="my_post_key":
-            postkey=element.get("value","")
-    form={"username":username,"password":password,"confirm_password":password,"email":email,"usergroup":2,"displaygroup":0,"my_post_key":postkey}
-    url="http://nginx/admin/index.php?module=user-users&action=add"
-    t=mybb_sess.post(url,data=form)
-    app.logger.debug("added user")
-    mybb_sess.close()
-    return 
- 
+def new_forumuser(username,password,email):
+    salt=os.urandom(5).hex()
+    loginkey=os.urandom(24).hex()
+    saltedh=hashlib.md5(salt.encode('utf-8')).hexdigest()
+    normalh=hashlib.md5(password.encode('utf-8')).hexdigest()
+    hash=hashlib.md5(saltedh.encode('utf-8')+normalh.encode('utf-8')).hexdigest()
+    connection_objt = t.get_connection()
+    query= "SET sql_mode = '';"
+    cursor = connection_objt.cursor()
+    cursor.execute(query) 
+    query =("INSERT INTO lolobb_users (username, password, salt, email, usergroup,loginkey) " 
+    "VALUES (%s,%s,%s,%s,%s,%s)")
+    cursor.execute(query,(username,hash,salt,email,2,loginkey))
+    connection_objt.close()
+
+   
+
 def get_cookie(username):
     connection_objt = t.get_connection()
     cursor = connection_objt.cursor()
-    query = ("SELECT username,loginkey,uid FROM mybb_users " 
+    query = ("SELECT username,loginkey,uid FROM lolobb_users " 
          "WHERE username = %s")
-    cursor.execute(query,(username,))
+    cursor.execute(query,(username,)) 
     myresult = cursor.fetchall()
     app.logger.debug(myresult)
     uid=""
@@ -115,7 +106,7 @@ def get_cookie(username):
             uid=data[2]
             key=data[1]
     connection_objt.close()
-    return f"{data[2]}_{data[1]}"
+    return f"{uid}_{key};domain=lolo.gq"
 
 
 #weird things going on with pool
