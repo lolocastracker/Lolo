@@ -1,11 +1,14 @@
 FROM node:14
 # copy the files from current directory
-COPY ./react/*.json ./
+COPY ./react/package.json ./
+COPY ./react/semantic.json ./
 #Base React Packages
-RUN npm install --silent
-RUN npm install react-scripts -g --silent
-RUN npm install semantic-ui-react --silent
-RUN npm install react-router-dom --silent
+RUN npm install react-scripts -g 
+RUN npm install react
+RUN npm install semantic-ui-react 
+RUN npm install react-router-dom 
+RUN npm install react-dom
+RUN npm install 
 #Map
 RUN npm install leaflet
 

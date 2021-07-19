@@ -41,18 +41,14 @@
   border: none;
 }
 .ui.toast-container.ui.attached .toast-box > .vertical > .content {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  flex: 1;
 }
 .ui.toast-container.ui.attached .toast-box > * {
   width: 100%;
   border-radius: 0;
 }
 .ui.toast-container.ui.attached .toast-box > * > .vertical:not(.actions) {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  flex: 1;
 }
 .ui.toast-container.ui.attached .toast-box > .attached.actions {
   margin-right: 1px;
@@ -101,13 +97,8 @@
   display: table !important;
 }
 .ui.toast-container.horizontal {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  flex-direction: row;
 }
 .ui.toast-container.horizontal .toast-box {
   margin-right: 0.5em;
@@ -125,8 +116,7 @@
 }
 .ui.toast-container .toast-box.floating,
 .ui.toast-container .toast-box.hoverfloating:hover {
-  -webkit-box-shadow: 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
   border: 1px solid rgba(34, 36, 38, 0.12);
 }
 .ui.toast-container .toast-box.compact,
@@ -173,9 +163,7 @@
   margin-bottom: -1em;
 }
 .ui.toast-container .toast-box > .ui.message.icon {
-  -webkit-box-align: inherit;
-      -ms-flex-align: inherit;
-          align-items: inherit;
+  align-items: inherit;
 }
 .ui.toast-container .toast-box > .ui.message.icon > :not(.icon):not(.actions) {
   padding-left: 5rem;
@@ -200,7 +188,6 @@
   cursor: pointer;
   margin: 0;
   opacity: 0.7;
-  -webkit-transition: opacity 0.1s ease;
   transition: opacity 0.1s ease;
 }
 .ui.toast-container .toast-box .ui.toast > .close.icon:hover {
@@ -294,33 +281,23 @@
 .ui.toast-container .toast-box .vertical.actions > .button,
 .ui.toast-container .toast-box > .vertical > .vertical.vertical,
 .ui.toast-container .toast-box > .vertical.vertical.vertical {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 .ui.toast-container .toast-box :not(.comment) .vertical.actions {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
 .ui.toast-container .toast-box :not(.comment) .vertical.actions > .button {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
 .ui.toast-container .toast-box :not(.comment) .vertical.actions.attached > .button {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 .ui.toast-container .toast-box :not(.comment) .vertical.actions:not(.attached) {
   border-top: 0;
   margin-top: -0.75em;
   margin-bottom: -0.75em;
   margin-left: 1em;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  justify-content: space-around;
 }
 .ui.toast-container .toast-box :not(.comment) .vertical.actions:not(.attached):not(.basic) {
   border-left: 1px solid rgba(0, 0, 0, 0.2);
@@ -329,14 +306,10 @@
   margin-bottom: 0.3em;
 }
 .ui.toast-container .toast-box :not(.comment) .vertical.actions:not(.attached).top {
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  justify-content: flex-start;
 }
 .ui.toast-container .toast-box :not(.comment) .vertical.actions:not(.attached).bottom {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  justify-content: flex-end;
 }
 .ui.vertical.attached:not(.left).card > .image > img {
   border-top-right-radius: 0;
@@ -498,17 +471,14 @@
   padding-left: 1em;
 }
 .ui.toast.vertical > .ui.image {
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
+  align-self: flex-start;
+  flex-shrink: 0;
   
 /* IE11 fix */
 }
 .ui.toast.vertical > .centered.image,
 .ui.toast.vertical > .centered.icon {
-  -ms-flex-item-align: center;
-      align-self: center;
+  align-self: center;
 }
 .ui.toast.attached.bottom {
   border-top-left-radius: 0;
@@ -519,8 +489,7 @@
   border-bottom-right-radius: 0;
 }
 .ui.hoverfloating.message:hover {
-  -webkit-box-shadow: 0 0 0 1px inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-          box-shadow: 0 0 0 1px inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px inset, 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
 }
 .ui.center.toast-container .toast-box,
 .ui.right.toast-container .toast-box {
@@ -532,12 +501,8 @@
 .ui.ui.toast-container .toast-box .centered.toast,
 .ui.ui.toast-container .toast-box .center.aligned.toast {
   text-align: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
 .ui.ui.toast-container .toast-box .centered.toast > .content,
 .ui.ui.toast-container .toast-box .center.aligned.toast > .content,
@@ -545,8 +510,7 @@
 .ui.ui.toast-container .toast-box .center.aligned.toast > .ui.image,
 .ui.ui.toast-container .toast-box .centered.toast > i.icon:not(.close),
 .ui.ui.toast-container .toast-box .center.aligned.toast > i.icon:not(.close) {
-  -ms-flex-item-align: center;
-      align-self: center;
+  align-self: center;
 }
 .ui.toast-container .toast-box .toast .centered.content,
 .ui.toast-container .toast-box .toast .center.aligned.content {
