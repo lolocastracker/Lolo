@@ -84,9 +84,9 @@ use lolo_db;
  
  CREATE TABLE IF NOT EXISTS lolo_locust_in_report (
 	reportId INT NOT NULL,
-    locustId INT NOT NULL,
-    FOREIGN KEY (reportId) REFERENCES lolo_report(reportId),
-    FOREIGN KEY (locustId) REFERENCES lolo_locust(locustId)
+   locustId INT NOT NULL,
+   FOREIGN KEY (reportId) REFERENCES lolo_report(reportId),
+   FOREIGN KEY (locustId) REFERENCES lolo_locust(locustId)
  );
  
  CREATE TABLE IF NOT EXISTS lolo_location(
@@ -97,5 +97,25 @@ use lolo_db;
     FOREIGN KEY (reportId) REFERENCES lolo_report(reportId)
  );
 
+ CREATE TABLE IF NOT EXISTS lolo_image(
+    imageId INT NOT NULL AUTO_INCREMENT,
+    `path` VARCHAR(200) NOT NULL,
+    PRIMARY KEY(imageId)
+ );
+
+ CREATE TABLE IF NOT EXISTS lolo_image_in_report(
+    reportId INT NOT NULL,
+    imageId INT NOT NULL,
+    FOREIGN KEY(reportId) REFERENCES lolo_location(reportId),
+    FOREIGN KEY(imageId) REFERENCES lolo_image(imageId)
+ );
  
- 
+
+-- how to truncate table w/ foreign keys
+-- SET FOREIGN_KEY_CHECKS = 0; 
+-- TRUNCATE table $table_name; 
+-- SET FOREIGN_KEY_CHECKS = 1;
+
+-- count how many rows are in your table
+-- SELECT COUNT(*) FROM table;
+

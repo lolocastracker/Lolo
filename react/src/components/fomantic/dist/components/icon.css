@@ -107,7 +107,6 @@ i.link.icon:not(.disabled),
 i.link.icons:not(.disabled) {
   cursor: pointer;
   opacity: 0.8;
-  -webkit-transition: opacity 0.1s ease;
   transition: opacity 0.1s ease;
 }
 i.link.icon:hover,
@@ -123,19 +122,16 @@ i.circular.icon {
   border-radius: 500em !important;
   line-height: 1 !important;
   padding: 0.5em 0 !important;
-  -webkit-box-shadow: 0 0 0 0.1em rgba(0, 0, 0, 0.1) inset;
-          box-shadow: 0 0 0 0.1em rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 0 0 0.1em rgba(0, 0, 0, 0.1) inset;
   width: 2em !important;
   height: 2em !important;
 }
 i.circular.icon.colored {
-  -webkit-box-shadow: 0 0 0 0.1em currentColor inset;
-          box-shadow: 0 0 0 0.1em currentColor inset;
+  box-shadow: 0 0 0 0.1em currentColor inset;
 }
 i.circular.inverted.icon {
   border: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 /*-------------------
@@ -271,17 +267,14 @@ i.bordered.icon {
   width: 2em;
   height: 2em;
   padding: 0.5em 0 !important;
-  -webkit-box-shadow: 0 0 0 0.1em rgba(0, 0, 0, 0.1) inset;
-          box-shadow: 0 0 0 0.1em rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 0 0 0.1em rgba(0, 0, 0, 0.1) inset;
 }
 i.bordered.icon.colored {
-  -webkit-box-shadow: 0 0 0 0.1em currentColor inset;
-          box-shadow: 0 0 0 0.1em currentColor inset;
+  box-shadow: 0 0 0 0.1em currentColor inset;
 }
 i.bordered.inverted.icon {
   border: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 /*-------------------
@@ -626,14 +619,12 @@ i.bordered.icons,
 i.circular.icons {
   width: 2em;
   height: 2em;
-  -webkit-box-shadow: 0 0 0 0.1em rgba(0, 0, 0, 0.1) inset;
-          box-shadow: 0 0 0 0.1em rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 0 0 0.1em rgba(0, 0, 0, 0.1) inset;
   vertical-align: middle;
 }
 i.bordered.icons.colored,
 i.circular.icons.colored {
-  -webkit-box-shadow: 0 0 0 0.1em currentColor inset;
-          box-shadow: 0 0 0 0.1em currentColor inset;
+  box-shadow: 0 0 0 0.1em currentColor inset;
 }
 i.circular.icons {
   border-radius: 500em;
@@ -649,8 +640,7 @@ i.circular.icons i.icon:first-child {
 i.bordered.inverted.icons,
 i.circular.inverted.icons {
   border: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   background-color: #1B1C1D;
   color: #FFFFFF;
 }

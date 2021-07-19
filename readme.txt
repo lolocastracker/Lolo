@@ -48,7 +48,7 @@ Set up MyBB
 	* It will take you to the MyBB installation if you haven't installed it already
 		This is MyBB installation's directions: https://docs.mybb.com/1.8/install/
 	* When you get to the Database Configuration:
-		For Database Server Hostname, put that as the MySQL HOSTNAME:3306
+		For Database Server Hostname, put that as the MySQL HOSTNAME:3306 or db (as defined in the docker-composed.yml file) 
 		Database Username: mytestuser
 		Database Password: mypassword
 	* In the board configuration:
@@ -84,3 +84,38 @@ Set up MyBB
 
 
 
+Populate your database:
+1) Open terminal where datascript.sql file is at
+2) docker exec -i db mysql -uroot -ptestpass mysql < datascript.sql 
+** Note: This will take around ~3-10 minutes. Also, whatever data you have in your lolo_locust, lolo_report, lolo_locust_in_report, lolo_location will be erased. If you don't want that, then open datascript.sql and comment out line 2-7.
+** Note: db will return this error at the end
+	ERROR 1452 (23000) at line 37361: Cannot add or update a child row: a foreign key constraint fails (`lolo_db`.`lolo_location`, CONSTRAINT `lolo_location_ibfk_1` FOREIGN KEY (`reportId`) REFERENCES `lolo_report` (`reportId`))
+	This error happens because you have more location entries than reports. Ignore this error.
+** Note: after successful population of the tables, you should have
+			mysql> SELECT COUNT(*) FROM lolo_report;
+			+----------+
+			| COUNT(*) |
+			+----------+
+			|    10006 |
+			+----------+
+
+			mysql> SELECT COUNT(*) FROM lolo_location;
+			+----------+
+			| COUNT(*) |
+			+----------+
+			|    10006 |
+			+----------+
+
+			mysql> SELECT COUNT(*) FROM lolo_locust;
+			+----------+
+			| COUNT(*) |
+			+----------+
+			|        3 |
+			+----------+
+
+			mysql> SELECT COUNT(*) FROM lolo_locust_in_report;
+			+----------+
+			| COUNT(*) |
+			+----------+
+			|    17338 |
+			+----------+

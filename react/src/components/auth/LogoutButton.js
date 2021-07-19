@@ -3,12 +3,17 @@ import { useKeycloak } from '@react-keycloak/web';
 
 import React from "react";
 const LogoutButton = () => {
-  const { keycloak, initialized } = useKeycloak()
+  const { keycloak, initialized } = useKeycloak();
   return (
     <button
       className="btn btn-danger btn-block"
       onClick={() =>
-        keycloak.logout()
+        {
+          document.cookie=`mybbuser=`
+            keycloak.logout()
+        }
+       
+      
       }
     >
       Log Out
