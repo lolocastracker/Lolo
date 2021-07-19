@@ -12,7 +12,7 @@ const Markers = ({ reports, onMarkerClick }) => {
           position={[report.lat, report.long]}
           eventHandlers={{
             // click: (e) => getReportData(report),
-            click: (e) => onMarkerClick(report),
+            click: () => onMarkerClick(report), // update state (curReport) in MapPage
           }}
         ></Marker>
       ))}

@@ -7,40 +7,11 @@ import reports from '../components/map/fakeData.js'
 
 const MapPage = () => {
   // Testing, later get these from back-end
-  // const reports = [
-  //   { id: 1, gps: [9.05, 39.75] },
-  //   { id: 2, gps: [9.02, 39.72] },
-  // ]
   // Do we need to use state?
   // const [reports, setReports] = useState([
   //   { id: 1, gps: [9.05, 39.75] },
   //   { id: 2, gps: [9.02, 39.72] },
   // ])
-  // const reports = [
-  //   {
-  //     id: 1,
-  //     comment:
-  //       'Many locusts here. Many locusts here. Many locusts here. Many locusts here.',
-  //     date: '1/1/2021',
-  //     time: '14:35',
-  //     location: 'Kenya (extremely long name right here)',
-  //     lat: 9.0501,
-  //     long: 39.7501,
-  //     type: 'Adult (brown)',
-  //     path: 'https://i.ibb.co/smRzRC3/locust-wiki.jpg',
-  //   },
-  //   {
-  //     id: 2,
-  //     comment: 'Locusts hatching',
-  //     date: '3/5/2021',
-  //     time: '8:02',
-  //     location: 'Kenya',
-  //     lat: 9.0102,
-  //     long: 39.7102,
-  //     type: 'Hoppers',
-  //     path: 'https://i.ibb.co/JvfHJQw/Locusts-feeding-wiki.jpg',
-  //   },
-  // ]
 
   // Initialize state: curReport is a report object, setCurReport is a function
   // This should be updated later to use the most recent report
@@ -69,12 +40,20 @@ const MapPage = () => {
           <Grid.Column textAlign='center'>
             <Segment>
               <Header as='h2'>Recent Sightings</Header>
-              <ReportTable reports={reports} />
+              <ReportTable
+                reports={reports}
+                curReport={curReport}
+                onRowClick={updateCurReport}
+              />
             </Segment>
           </Grid.Column>
           <Grid.Column>
-            <Map reports={reports} onMarkerClick={updateCurReport} />
-            <Report curReport={curReport}></Report>
+            <Map
+              reports={reports}
+              curReport={curReport}
+              onMarkerClick={updateCurReport}
+            />
+            <Report curReport={curReport} />
           </Grid.Column>
         </Grid>
       </Container>

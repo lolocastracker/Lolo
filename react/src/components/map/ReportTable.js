@@ -1,8 +1,7 @@
 import { Table } from 'semantic-ui-react'
 
-let numRows = 14
-
-const ReportTable = ({ reports }) => {
+const ReportTable = ({ reports, curReport, onRowClick }) => {
+  const numRows = 14
   return (
     <>
       <Table compact celled selectable unstackable>
@@ -15,16 +14,18 @@ const ReportTable = ({ reports }) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {reports.slice(0, numRows).map((report) => {
-            return (
-              <Table.Row>
-                <Table.Cell>{report.date}</Table.Cell>
-                <Table.Cell>{report.time}</Table.Cell>
-                <Table.Cell>{report.location}</Table.Cell>
-                <Table.Cell>{report.type}</Table.Cell>
-              </Table.Row>
-            )
-          })}
+          {reports.slice(0, numRows).map((report) => (
+            <Table.Row
+              key={report.id}
+              active={report.id === curReport.id}
+              onClick={() => onRowClick(report)} // update state (curReport) in MapPage
+            >
+              <Table.Cell>{report.date}</Table.Cell>
+              <Table.Cell>{report.time}</Table.Cell>
+              <Table.Cell>{report.location}</Table.Cell>
+              <Table.Cell>{report.type}</Table.Cell>
+            </Table.Row>
+          ))}
         </Table.Body>
       </Table>
     </>
