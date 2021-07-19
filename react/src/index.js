@@ -44,14 +44,12 @@ const onEvent = (event, error) => {
   }
 }
 
-
-
 ReactDOM.render(
   <ReactKeycloakProvider
   authClient={keycloak}
   onEvent={onEvent}>
  
     <App />
-    </ReactKeycloakProvider>,
-  document.getElementById("root")
+    </ReactKeycloakProvider> 
+  ,document.getElementById("root")
 );

@@ -12,6 +12,7 @@ import hashlib
 
 app = Flask(__name__)
 
+
 @app.route("/api/user/test")
 def hello2():
     return "Hello User!"

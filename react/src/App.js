@@ -16,7 +16,7 @@ export default function App(){
       return <h3>Loading ... !!!</h3>;
   }
     return(
-        //Profile Page is Protected so login Required, Redirects to Home Page After
+        // Profile Page is Protected so login Required, Redirects to Home Page After
         <BrowserRouter>
        <Switch>
             <PrivateRoute roles={['users']} path="/Profile" component={ProfilePage}/>

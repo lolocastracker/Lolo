@@ -12,7 +12,7 @@ export default function MainPageTest() {
   return (
 <Fragment>
   <AuthButton></AuthButton>
-<Loader className="ui active brown inline loader large">Loading2 </Loader>
+<Loader className="ui active brown inline loader large">Loading23 </Loader>
 llllllllllllllll
 <Button className="red basic">Click Here</Button>
 <Card>
