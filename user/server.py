@@ -10,12 +10,26 @@ from password_generator import PasswordGenerator
 import os
 import hashlib
 
-app = Flask(__name__)
 
+#LoadEnv Vars
+from dotenv import load_dotenv
+from pathlib import Path
+dotenv_path = Path('../env/.env')
+load_dotenv(dotenv_path=dotenv_path)
+
+
+DB_NAME = os.getenv('DB_NAME')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_USER = os.getenv('DB_USER')
+KEY_USER = os.getenv('KEY_USER')
+KEY_PASSWORD= os.getenv('KEY_PASSWORD)
+
+app = Flask(__name__)
 
 @app.route("/api/user/test")
 def hello2():
     return "Hello User!"
+
 
 #get a token for user management, keycloak
 def get_token():
@@ -115,7 +129,7 @@ def create_pool():
     """ Connect to MySQL database """
     conn = None
     try:
-        config={"user":'root', "database":'lolo_db',"password":"testpass","host":"db"}
+        config={"user":DB_USER, "database":DB_NAME,"password":DB_PASSWORD,"host":"db"}
         conn =  pooling.MySQLConnectionPool(pool_size = 32,**config)
         return conn
     except Error as e:

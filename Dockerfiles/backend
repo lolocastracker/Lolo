@@ -8,3 +8,4 @@ RUN pip install requests
 RUN pip install mysql-connector-python
 RUN pip install beautifulsoup4
 RUN pip install random-password-generator
+RUN pip install python-dotenv

@@ -1,8 +1,21 @@
 from flask import Flask
-app = Flask(__name__)
 from mysql.connector import pooling
 from mysql.connector import Error
-    
+
+import os 
+
+#LoadEnv Vars
+from dotenv import load_dotenv
+from pathlib import Path
+dotenv_path = Path('../env/.env')
+load_dotenv(dotenv_path=dotenv_path)
+
+
+DB_NAME = os.getenv('DB_NAME')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_USER = os.getenv('DB_USER')
+
+app = Flask(__name__) 
 @app.route("/api/comm/test")
 def hello2():
     return "Hello World2!"
@@ -13,7 +26,7 @@ def create_pool():
     """ Connect to MySQL database """
     conn = None
     try:
-        config={"user":'root', "database":'lolo_db',"password":"testpass","host":"db"}
+        config={"user":DB_USER, "database":DB_NAME,"password":DB_PASSWORD,"host":"db"}
         conn =  pooling.MySQLConnectionPool(**config)
         return conn
     except Error as e:
