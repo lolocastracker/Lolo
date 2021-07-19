@@ -116,14 +116,14 @@ services:
     container_name: keycloak
     restart: always   
     image: jboss/keycloak:latest
-    # build:
-    #   context: .
-    #   dockerfile: ./Dockerfiles/keycloak
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/keycloak
     ports:
       - 8090:8443
     environment:
-    # - KEYCLOAK_USER=admin
-    # - KEYCLOAK_PASSWORD=admin
+    - KEYCLOAK_USER=admin
+    - KEYCLOAK_PASSWORD=admin
     - DB_VENDOR=mysql
     - DB_ADDR=db
     - DB_USER=root
