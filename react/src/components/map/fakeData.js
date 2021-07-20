@@ -31,7 +31,7 @@ const reports = [
     lat: 9.0702,
     long: 39.7102,
     type: 'Hoppers',
-    path: 'https://i.ibb.co/JvfHJQw/Locusts-feeding-wiki.jpg',
+    path: '../assets/reportpics/Locust1.PNG',
   },
   {
     id: 4,
