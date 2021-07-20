@@ -21,8 +21,8 @@ load_dotenv(dotenv_path=dotenv_path)
 DB_NAME = os.getenv('DB_NAME')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_USER = os.getenv('DB_USER')
-KEY_USER = os.getenv('KEY_USER')
-KEY_PASSWORD= os.getenv('KEY_PASSWORD)
+CLOAK_USER = os.getenv('CLOAK_USER')
+CLOAK_PASSWORD= os.getenv('CLOAK_PASSWORD')
 
 app = Flask(__name__)
 
@@ -33,7 +33,7 @@ def hello2():
 
 #get a token for user management, keycloak
 def get_token():
-    adminlogin={"username":"admin","password":'admin',"grant_type":"password","client_id":"admin-cli"}
+    adminlogin={"username":CLOAK_USER,"password":CLOAK_PASSWORD,"grant_type":"password","client_id":"admin-cli"}
     headers={"Content-Type": "application/x-www-form-urlencoded"}
     url="http://keycloak:8080/auth/realms/master/protocol/openid-connect/token"
     s=req.post(url,data=adminlogin,headers=headers)

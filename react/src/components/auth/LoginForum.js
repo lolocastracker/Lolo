@@ -1,3 +1,6 @@
+
+import keycloak from './Keycloak.js'
+
 export async function LoginForum(){
     let cookie_test=Object.fromEntries(document.cookie.split('; ').map(c => {
       const [ key, ...v ] = c.split('=');
