@@ -8,7 +8,7 @@ import { PrivateRoute } from "./components/auth/PrivateRoute.js"
 import MainPageTest from "./views/MainPageTest.js"
 import MapPage from "./views/MapPage.js"
 import ProfilePage from "./views/ProfilePage.js";
-
+import ReportPage from "./views/ReportPage.js";
 export default function App(){
   const { keycloak, initialized } = useKeycloak()
  
@@ -20,9 +20,8 @@ export default function App(){
         <BrowserRouter>
        <Switch>
             <PrivateRoute roles={['users']} path="/Profile" component={ProfilePage}/>
-                      <Route path="/map">
-          <MapPage />
-        </Route>
+          <Route path="/map"><MapPage /></Route>
+          <Route path="/report"><ReportPage/></Route>
         <Route path="/"> 
               <MainPageTest/>
               </Route> 
