@@ -13,7 +13,17 @@ import {
     Radio,
     Select,
     TextArea,
+    Icon
   } from 'semantic-ui-react'
+
+// adding date
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { forwardRef } from 'react'
+import React from "react";
+
+// const CalendarIcon = (onClick) => <div className="calendarIcon"><Icon name="calendar outline" onClick={onClick}/></div>; 
+
 
 const ReportPage = () =>{
     const [curReport, setCurReport] = useState(reports[0])
@@ -21,6 +31,18 @@ const ReportPage = () =>{
     const updateCurReport = (report) => {
         setCurReport(report)
     }
+    // getting the date
+    const ref = React.createRef();
+    const [startDate, setStartDate] = useState("");  // these are the variables for the dates
+    const CalendarIcon = forwardRef(({ value, onClick }, ref) => (
+        <Icon name="calendar outline" size="big" onClick={onClick} ref={ref}/>
+    )); // when you click the icon, it should display the date
+    
+    // const updateDateInputBox = () =>{
+
+    // }
+    
+    
     return(
         <div>
             <Container style={{marginTop:'7em'}}>
@@ -47,18 +69,37 @@ const ReportPage = () =>{
                         <Form.Field
                             control={Input}
                             label = "Latitude"
-                            placeHolder="Input Latitude"
+                            placeholder="Input Latitude"
                         />
                         <Form.Field
                             control={Input}
                             label="Longtitude"
-                            placeHolder="Input Longtitude"
+                            placeholder="Input Longtitude"
                         />
                     </Form.Group>
-                    <Form.Field 
-                        label='Date' 
-                        control={Input} 
-                        start='1' end='7' />
+                    <Form.Field label="Date"/>
+                    <Form.Group>
+                        {/* <Form.Field label="Date"
+                            control={Input}
+                            placeholder={startDate ? startDate.toDateString() : "     "}/>                         */}
+                        
+                        <Form.Field >
+                            <DatePicker
+                                showTimeSelect
+                                selected={startDate}
+                                onChange={(date) => setStartDate(date)}
+                                />
+                        </Form.Field>
+                        <Form.Field>
+                            <DatePicker showTimeSelect 
+                                        selected={startDate} 
+                                        onChange={(date) => setStartDate(date)}
+                                        customInput={<CalendarIcon ref={ref}/>}/>
+                        </Form.Field>
+                    </Form.Group>
+                   
+                    
+                    
                     <Form.Field
                         control={TextArea}
                         label='Comment'
