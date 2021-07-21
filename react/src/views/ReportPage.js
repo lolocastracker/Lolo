@@ -1,9 +1,6 @@
 import { useState } from 'react'
-import Map from '../components/map/Map.js'
-import Report from '../components/map/Report.js'
-import ReportTable from '../components/map/ReportTable.js'
+import MapReport from '../components/map/Map_Report.js'
 import { Header, Container, Input, Grid, Segment } from 'semantic-ui-react'
-import reports from '../components/map/fakeData.js'
 
 // for the forms 
 import {
@@ -22,15 +19,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import { forwardRef } from 'react'
 import React from "react";
 
-// const CalendarIcon = (onClick) => <div className="calendarIcon"><Icon name="calendar outline" onClick={onClick}/></div>; 
 
 
 const ReportPage = () =>{
-    const [curReport, setCurReport] = useState(reports[0])
+    // const [curReport, setCurReport] = useState(reports[0])
      // Update the state's current report
-    const updateCurReport = (report) => {
-        setCurReport(report)
-    }
+    // const updateCurReport = (report) => {
+    //     setCurReport(report)
+    // }
+
+    
     // getting the date
     const ref = React.createRef();
     const [startDate, setStartDate] = useState("");  // these are the variables for the dates
@@ -55,7 +53,7 @@ const ReportPage = () =>{
        return {result, uploader};
    }
     const {result, uploader}=useDisplayImage();
-
+    
     return(
         <div>
             <Container style={{marginTop:'7em'}}>
@@ -64,11 +62,7 @@ const ReportPage = () =>{
                         <Header as="h1">Report Page</Header>
                     </Grid.Row>
                     <Grid.Row>
-                        <Map
-                        reports={reports}
-                        curReport={curReport}
-                        onMarkerClick={updateCurReport}
-                        />
+                        <MapReport/>
                     </Grid.Row>
                     
                 </Grid>
