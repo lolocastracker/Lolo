@@ -16,13 +16,13 @@ const ReportTable = ({ reports, curReport, onRowClick }) => {
         <Table.Body>
           {reports.slice(0, numRows).map((report) => (
             <Table.Row
-              key={report.id}
-              active={report.id === curReport.id}
+              key={report.reportId}
+              active={report.reportId === curReport.reportId}
               onClick={() => onRowClick(report)} // update state (curReport) in MapPage
             >
-              <Table.Cell>{report.date}</Table.Cell>
-              <Table.Cell>{report.time}</Table.Cell>
-              <Table.Cell>{report.location}</Table.Cell>
+              <Table.Cell>{report.date.slice(5,10).concat('-',report.date.slice(0,4))}</Table.Cell>
+              <Table.Cell>{report.date.slice(11,16)}</Table.Cell>
+              <Table.Cell>{report.address}</Table.Cell>
               <Table.Cell>{report.type}</Table.Cell>
             </Table.Row>
           ))}

@@ -8,7 +8,7 @@ const Markers = ({ reports, onMarkerClick }) => {
     <>
       {reports.map((report) => (
         <Marker
-          key={report.id}
+          key={report.reportId}
           position={[report.lat, report.long]}
           eventHandlers={{
             // click: (e) => getReportData(report),
