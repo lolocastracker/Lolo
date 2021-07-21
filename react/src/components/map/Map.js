@@ -7,7 +7,7 @@ const Map = ({ reports, curReport, onMarkerClick }) => {
   return (
     <div>
       <MapContainer
-        id='mapContainer'
+        className='mapContainer'
         center={[curReport.lat, curReport.long]} // Initial position only (immutable)
         zoom={10}
       >

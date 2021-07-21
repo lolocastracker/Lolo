@@ -2,7 +2,14 @@ import { useState, useEffect } from 'react'
 import Map from '../components/map/Map.js'
 import Report from '../components/map/Report.js'
 import ReportTable from '../components/map/ReportTable.js'
-import { Header, Container, Input, Grid, Segment } from 'semantic-ui-react'
+import {
+  Header,
+  Container,
+  Input,
+  Grid,
+  Segment,
+  Button,
+} from 'semantic-ui-react'
 // import reports from '../components/map/fakeData.js'
 
 const MapPage = () => {
@@ -60,7 +67,7 @@ const MapPage = () => {
       // <div></div>
       // <div>{curReport.address}</div>
       // <div>{reports[0].address}</div>
-    // )
+      // )
 
       <div>
         <Container style={{ marginTop: '7em' }}>
@@ -95,6 +102,13 @@ const MapPage = () => {
               <Report curReport={curReport} />
             </Grid.Column>
           </Grid>
+          {/* <div>
+            <Button floated='left'>
+              <Header as='h2'>
+                Report Sighting <i class='angle right icon'></i>
+              </Header>
+            </Button>
+          </div> */}
         </Container>
       </div>
     )
