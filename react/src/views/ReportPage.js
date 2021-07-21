@@ -112,16 +112,20 @@ const ReportPage = () =>{
                                         customInput={<CalendarIcon ref={ref}/>}/>
                         </Form.Field>
                     </Form.Group>
-                   
-                    
+                    <Form.Field label="Locust Types (Select all that apply)"/>
+                    <Form.Group>
+                        <Form.Field label='Eggs' control='input' type='checkbox' />
+                        <Form.Field label='Adult' control='input' type='checkbox' />
+                        <Form.Field label='Hopper' control='input' type='checkbox' />
+                    </Form.Group>
                     
                     <Form.Field
                         control={TextArea}
                         label='Comment'
                         placeholder='Add a comment...'
                         />
+                        
                     <Form.Field label="Picture"/>
-
                     {/* This is to take in pictures - can change it later  */}
                     <Form.Field>
                         <input
@@ -140,10 +144,8 @@ const ReportPage = () =>{
                     {/* Button to the submit sight page */}
                     <Form.Field control={Button}>Submit Sighting</Form.Field>
 
-                </Form>
+                </Form>   
 
-                
-                
             </Container>
         </div>
     ) 
