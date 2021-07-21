@@ -38,11 +38,23 @@ const ReportPage = () =>{
         <Icon name="calendar outline" size="big" onClick={onClick} ref={ref}/>
     )); // when you click the icon, it should display the date
     
-    // const updateDateInputBox = () =>{
-
-    // }
-    
-    
+   // setting images
+   const [image, setImage]=useState(""); // the image here is the actual image. Calling image.name will give its name
+   const imageRef = React.useRef(null);
+   function useDisplayImage(){
+       const [result, setResult]=useState("");
+       function uploader(e){
+           const imageFile=e.target.files[0];
+           const reader=new FileReader();
+           reader.addEventListener("load", (e)=>{
+               setResult(e.target.result);
+           });
+           reader.readAsDataURL(imageFile);
+       }
+    //    console.log("Image name=" + image.name);
+       return {result, uploader};
+   }
+    const {result, uploader}=useDisplayImage();
     return(
         <div>
             <Container style={{marginTop:'7em'}}>
@@ -84,11 +96,14 @@ const ReportPage = () =>{
                             placeholder={startDate ? startDate.toDateString() : "     "}/>                         */}
                         
                         <Form.Field >
+                            {/* temporary solution to make input box correspond to the calendar and vice versa */}
                             <DatePicker
                                 showTimeSelect
+                                placeholderText="MM/DD/YY"
+                                open={false}
                                 selected={startDate}
-                                onChange={(date) => setStartDate(date)}
-                                />
+                                onChange={(date) => setStartDate(date)}/>
+                                
                         </Form.Field>
                         <Form.Field>
                             <DatePicker showTimeSelect 
@@ -105,38 +120,28 @@ const ReportPage = () =>{
                         label='Comment'
                         placeholder='Add a comment...'
                         />
+                    <Form.Field label="Picture"/>
+
+                    {/* This is to take in pictures - can change it later  */}
+                    <Form.Field>
+                        <input
+                            type="file"
+                            onChange={(e)=>{
+                                setImage(e.target.files[0]);
+                                uploader(e);
+                            }}
+                        />
+                    </Form.Field>
+                    <Form.Field>
+                        {/* alt is img description - this is to show the pics on screen*/}
+                        {result && <img ref={imageRef} src={result} alt="" width="300" height="300"/>}
+                    </Form.Field>                   
+                    
+                    {/* Button to the submit sight page */}
                     <Form.Field control={Button}>Submit Sighting</Form.Field>
 
                 </Form>
 
-                {/* <Grid>
-                    <Grid.Row>
-                        <Header as="h2">Location</Header>
-                    </Grid.Row>
-                </Grid>
-                <Grid stackable columns={2}>
-                    <Grid.Column>
-                        <Header as="h2">Latitude</Header>
-                    </Grid.Column>
-                    <Grid.Column textAlign='Center'>
-                        <Header as="h2">Longtitude</Header>
-                    </Grid.Column>
-                </Grid>
-                <Grid>
-                    <Grid.Row>
-                        <Header as="h2">Date Seen</Header>
-                    </Grid.Row>
-                </Grid>
-                <Grid>
-                    <Grid.Row>
-                        <Header as="h2">Comment</Header>
-                    </Grid.Row>
-                </Grid>
-                <Grid>
-                    <Grid.Row>
-                        <Header as="h2">Media</Header>
-                    </Grid.Row>
-                </Grid> */}
                 
                 
             </Container>

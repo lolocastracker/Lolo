@@ -31,5 +31,4 @@ docker rm keycloak
 
 docker network create -d bridge my-net
 sleep 2
-docker-compose -f ./docker-compose.yml build
 docker-compose -f ./docker-compose.yml up
