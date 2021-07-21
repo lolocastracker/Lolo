@@ -4,7 +4,6 @@ import Report from '../components/map/Report.js'
 import ReportTable from '../components/map/ReportTable.js'
 import { Header, Container, Input, Grid, Segment } from 'semantic-ui-react'
 import reports from '../components/map/fakeData.js'
-import { Button } from 'semantic-ui-react'
 
 const MapPage = () => {
   // Testing, later get these from back-end
@@ -23,11 +22,7 @@ const MapPage = () => {
     setCurReport(report)
   }
 
-  // redirect
-  const redirect = (url) =>{
-    console.log("redirecting to: " + url);
-    window.location.href=url;
-  }
+
   return (
     <div>
       <Container style={{ marginTop: '7em' }}>
@@ -62,8 +57,6 @@ const MapPage = () => {
             <Report curReport={curReport} />
           </Grid.Column>
         </Grid>
-        <button class="ui button"
-              onClick={()=> redirect('/report')}>Report Sighting</button>
       </Container>
       
     </div>

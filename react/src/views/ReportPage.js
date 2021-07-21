@@ -55,6 +55,7 @@ const ReportPage = () =>{
        return {result, uploader};
    }
     const {result, uploader}=useDisplayImage();
+
     return(
         <div>
             <Container style={{marginTop:'7em'}}>
