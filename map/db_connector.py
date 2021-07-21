@@ -30,7 +30,7 @@ def execute_query(db_connection = None, query = None, query_params = ()):
 
     print("Executing %s with %s" % (query, query_params));
 
-    cursor = db_connection.cursor(buffered=True)
+    cursor = db_connection.cursor(dictionary=True, buffered=True)
 
     '''
     params = tuple()
