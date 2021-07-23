@@ -57,15 +57,14 @@ const ReportPage = () =>{
     return(
         <div>
             <Container style={{marginTop:'7em'}}>
+                
                 <Grid textAlign="center">
                     <Grid.Row>
                         <Header as="h1">Report Page</Header>
                     </Grid.Row>
-                    <Grid.Row>
-                        <MapReport/>
-                    </Grid.Row>
                     
                 </Grid>
+                <MapReport/>
                 <Grid>
                     <Grid.Row>
                         <Header as="h2">Location</Header>
