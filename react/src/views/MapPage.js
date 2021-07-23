@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Map from '../components/map/Map.js'
 import Report from '../components/map/Report.js'
@@ -75,12 +76,12 @@ const MapPage = () => {
             <Grid.Row>
               <Header as='h1'>DESERT LOCUST MAP</Header>
             </Grid.Row>
-            <Grid.Row>
+            {/* <Grid.Row>
               <Input
                 label={{ icon: 'search', color: 'blue' }}
                 placeholder='Enter a location...'
               />
-            </Grid.Row>
+            </Grid.Row> */}
           </Grid>
           <Grid stackable columns={2}>
             <Grid.Column textAlign='center'>
@@ -102,13 +103,19 @@ const MapPage = () => {
               <Report curReport={curReport} />
             </Grid.Column>
           </Grid>
-          {/* <div>
-            <Button floated='left'>
-              <Header as='h2'>
-                Report Sighting <i class='angle right icon'></i>
-              </Header>
-            </Button>
-          </div> */}
+          <Grid>
+            <Grid.Row>
+              <Grid.Column>
+                <Link to='/report'>
+                  <Button basic>
+                    <Header as='h2' style={{ marginTop: 0 }}>
+                      Report Sighting <i className='angle right icon'></i>
+                    </Header>
+                  </Button>
+                </Link>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         </Container>
       </div>
     )
