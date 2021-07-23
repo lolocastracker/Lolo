@@ -2,9 +2,10 @@ import { Header, Grid, Segment } from 'semantic-ui-react'
 
 const Report = ({ curReport }) => {
   const year = curReport.date.slice(0, 4)
-  // const photo = require(`../../assets/${curReport.path}`).default;
-  // const photo = require(`../../assets/check.png`).default
-  const photo = require(`../../assets/reportpics/Locust2.PNG`).default
+
+  const photo = curReport.path
+    ? require(`../../assets/reportpics/${curReport.path}`).default
+    : null
 
   return (
     <Segment style={{ marginTop: '2rem' }}>
@@ -33,7 +34,6 @@ const Report = ({ curReport }) => {
         <Grid.Column>
           {true && (
             <img
-              // src={curReport.path}
               // src='/assets/check.png'
               src={photo}
               height='165'
