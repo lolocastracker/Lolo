@@ -22,11 +22,10 @@ import React from "react";
 
 
 const ReportPage = () =>{
-    // const [curReport, setCurReport] = useState(reports[0])
-     // Update the state's current report
-    // const updateCurReport = (report) => {
-    //     setCurReport(report)
-    // }
+    //map
+    const [position, setPosition] = useState(null)
+    console.log("ReportPage: position="+position);
+     
 
     
     // getting the date
@@ -35,7 +34,7 @@ const ReportPage = () =>{
     const CalendarIcon = forwardRef(({ value, onClick }, ref) => (
         <Icon name="calendar outline" size="big" onClick={onClick} ref={ref}/>
     )); // when you click the icon, it should display the date
-    
+    console.log("ReportPage date=" + startDate);
    // setting images
    const [image, setImage]=useState(""); // the image here is the actual image. Calling image.name will give its name
    const imageRef = React.useRef(null);
@@ -54,6 +53,18 @@ const ReportPage = () =>{
    }
     const {result, uploader}=useDisplayImage();
     
+   // submit button 
+   // must have a date and coordinates
+   const submitButton = ()=>{
+       if(position===null || startDate===""){
+           alert("Please fill in the coordinates and/or date for the report.");
+       } else{
+           // check if users added locust types, comment, pictures
+           console.log("Submit Button Success!");
+       }
+       
+   };
+
     return(
         <div>
             <Container style={{marginTop:'7em'}}>
@@ -64,23 +75,22 @@ const ReportPage = () =>{
                     </Grid.Row>
                     
                 </Grid>
-                <MapReport/>
-                <Grid>
-                    <Grid.Row>
-                        <Header as="h2">Location</Header>
-                    </Grid.Row>
-                </Grid>
+                {/* MapReport will update the coord position if user clicked on the map */}
+                <MapReport onPositionChange={(coor)=>setPosition(coor)}/>
+                
                 <Form>
                     <Form.Group widths="equal">
                         <Form.Field
                             control={Input}
                             label = "Latitude"
                             placeholder="Input Latitude"
+                            value = {position===null?"": position.lat}
                         />
                         <Form.Field
                             control={Input}
                             label="Longtitude"
                             placeholder="Input Longtitude"
+                            value = {position===null?"": position.lng}
                         />
                     </Form.Group>
                     <Form.Field label="Date"/>
@@ -136,7 +146,7 @@ const ReportPage = () =>{
                     </Form.Field>                   
                     
                     {/* Button to the submit sight page */}
-                    <Form.Field control={Button}>Submit Sighting</Form.Field>
+                    <Form.Field control={Button} onClick={submitButton}>Submit Sighting</Form.Field>
 
                 </Form>   
 
