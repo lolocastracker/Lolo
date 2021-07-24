@@ -52,7 +52,15 @@ const ReportPage = () =>{
        return {result, uploader};
    }
     const {result, uploader}=useDisplayImage();
-    
+   // create list for the locust types
+   
+//    const [locustTypesList, setlocustTypeList] = useState([]); // initially emptyList
+
+//    function addLocustType(){
+//        setlocustTypeList([locustTypesList, ])
+//    }
+
+
    // submit button 
    // must have a date and coordinates
    const submitButton = ()=>{
