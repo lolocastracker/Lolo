@@ -14,7 +14,19 @@ load_dotenv(dotenv_path=dotenv_path)
 DB_NAME = os.getenv('DB_NAME')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_USER = os.getenv('DB_USER')
-    
+
+#pool 
+def create_pool():
+    """ Connect to MySQL database """
+    conn = None
+    try:
+        config={"user":DB_USER, "database":DB_NAME,"password":DB_PASSWORD,"host":"db"}
+        conn =  pooling.MySQLConnectionPool(pool_size = 32,**config)
+        return conn
+    except Error as e:
+        print(e)
+t=create_pool()
+
 @app.route("/api/map/test")
 def hello2():
     return "Hello Map!"
@@ -50,4 +62,4 @@ if __name__ == "__main__":
     connection_objt = t.get_connection()
    # insert(connection_objt) # call the db
     print(connection_objt)
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0')

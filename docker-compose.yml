@@ -1,107 +1,99 @@
-version: '3'
+version: '3.2'
 services:
  #databases
-  db:
-    image: mysql:8.0
-    container_name: db
-    user: 1000:1000
-    command: --default-authentication-plugin=mysql_native_password 
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - ./Database:/var/lib/mysql
+  # db:
+  #   image: mysql:8.0
+  #   container_name: db
+  #   user: 1000:1000
+  #   command: --default-authentication-plugin=mysql_native_password 
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+  #     MYSQL_DATABASE: ${DB_NAME}
+  #     MYSQL_USER: ${DB_USER}
+  #     MYSQL_PASSWORD: ${DB_PASSWORD}
+  #   volumes:
+  #     - ./Database:/var/lib/mysql
 
-  adminer:
-    image: adminer
-    restart: always
-    container_name: adminer
-    ports:
-     - 8600:8080
-    environment: 
-      ADMINER_DEFAULT_SERVER: db
+#   adminer:
+#     image: adminer
+#     restart: always
+#     container_name: adminer
+#     ports:
+#      - 8600:8080
+#     environment: 
+#       ADMINER_DEFAULT_SERVER: db
 
 
   #backend services
-  map:
-     container_name: map
-     image: backend
-     build:
-       context: .
-       dockerfile: ./Dockerfiles/backend
-     ports:
-       - 6000:5000
-     volumes:
-       - ./map:/target
-       - ./env:/env
-     command:  /wait-for-it.sh -t 200 db:3306 -- python3 ./target/server.py
-  comm:
-     container_name: comm
-     image: backend
-     ports:
-       - 6200:5000
-     volumes:
-       - ./comm:/target
-       - ./env:/env
-     command:  /wait-for-it.sh -t 200 db:3306 -- python3 ./target/server.py
-  user:  
-    container_name: user
-    image: backend
-    ports:
-       - 6400:5000
-    restart: always
-    volumes:
-       - ./user:/target
-       - ./env:/env
-    command:  /wait-for-it.sh -t 200 db:3306 -- python3 ./target/server.py
+  # map:
+  #    container_name: map
+  #    image: 127.0.0.1:5000/backend
+  #    build:
+  #      context: .
+  #      dockerfile: ./Dockerfiles/backend
+  #    volumes:
+  #      - ./map:/target
+  #      - ./env:/env
+  #    command:  /wait-for-it.sh -t 200 db:3306 -- gunicorn --workers 1 --bind 0.0.0.0:5000 --chdir ./target server:app
+#   comm:
+#      container_name: comm
+#      image: 127.0.0.1:5000/backend
+#      volumes:
+#        - ./comm:/target
+#        - ./env:/env
+#      command:  /wait-for-it.sh -t 200 db:3306 -- gunicorn --workers 1 --bind 0.0.0.0:5000 --chdir ./target server:app
+#   user:  
+#     container_name: user
+#     image: 127.0.0.1:5000/backend
+#     restart: always
+#     volumes:
+#        - ./user:/target
+#        - ./env:/env
+#     command:  /wait-for-it.sh -t 200 db:3306 -- gunicorn --workers 1 --bind 0.0.0.0:5000 --chdir ./target server:app
 
-#frontend   
-  react:
-    container_name: react
-    image: react
-    restart: always
-    build:
-        context: .
-        dockerfile: ./Dockerfiles/react
-    ports:
-      - 7000:3000
-    volumes:
-      - ./react:/target
-    command: npm start --prefix target
+# #frontend   
+#   react:
+#     container_name: react
+#     image: 127.0.0.1:5000/react
+#     restart: always
+#     build:
+#         context: .
+#         dockerfile: ./Dockerfiles/react
+#     volumes:
+#       - ./react:/target
+#     command: npm start --prefix target
  
-#forum
+# #forum
 
-  mybb:
-    container_name: mybb
-    image: mybb/mybb:1.8.26
-    volumes:
-    - ./mybb:/var/www/html/:rw
+#   mybb:
+#     container_name: mybb
+#     image: mybb/mybb:1.8.26
+#     volumes:
+#     - ./mybb:/var/www/html/:rw
 
  
-#routing
-  nginx:
-    container_name: nginx
-    restart: always   
-    image: nginx  
-    build:
-      context: .
-      dockerfile: ./Dockerfiles/nginx
-    ports:
-      - 3000:3000
-      - 8080:80
-    volumes:
-      - ./nginx:/etc/nginx/conf.d
-      - ./mybb:/var/www/html:ro
-    command: /wait-for-it.sh -t 200 map:5000 -- /wait-for-it.sh -t 200 user:5000 -- /wait-for-it.sh -t 200 comm:5000 -- /wait-for-it.sh -t 200 react:3000 -- nginx -g "daemon off";
+# #routing
+#   nginx:
+#     container_name: nginx
+#     restart: always   
+#     image: 127.0.0.1:5000/nginx  
+#     build:
+#       context: .
+#       dockerfile: ./Dockerfiles/nginx
+#     ports:
+#       - 3000:3000
+#       - 8080:80
+#     volumes:
+#       - ./nginx:/etc/nginx/conf.d
+#       - ./mybb:/var/www/html:ro
+#     command: /wait-for-it.sh -t 200 map:5000 -- /wait-for-it.sh -t 200 user:5000 -- /wait-for-it.sh -t 200 comm:5000 -- /wait-for-it.sh -t 200 react:3000 -- nginx -g "daemon off";
   
 #Passwords
   keycloak:
     container_name: keycloak
     restart: always   
-    image: jboss/keycloak:latest
+    image: 127.0.0.1:5000/jboss/keycloak:latest
     build:
       context: .
       dockerfile: ./Dockerfiles/keycloak
@@ -119,9 +111,8 @@ services:
     - KEYCLOAK_IMPORT=/tmp/key.json
     volumes:
      - ./keycloak:/tmp
+
   
-
-
 
 
 

@@ -9,7 +9,7 @@ from flask import request as flaskreq
 from password_generator import PasswordGenerator
 import os
 import hashlib
-
+import time
 
 #LoadEnv Vars
 from dotenv import load_dotenv
@@ -25,9 +25,24 @@ CLOAK_USER = os.getenv('CLOAK_USER')
 CLOAK_PASSWORD= os.getenv('CLOAK_PASSWORD')
 
 app = Flask(__name__)
+#pool 
+def create_pool():
+    """ Connect to MySQL database """
+    conn = None
+    try:
+        config={"user":DB_USER, "database":DB_NAME,"password":DB_PASSWORD,"host":"db"}
+        conn =  pooling.MySQLConnectionPool(pool_size = 32,**config)
+        return conn
+    except Error as e:
+        print(e)
+t=create_pool()
 
 @app.route("/api/user/test")
 def hello2():
+    return "Hello User!"
+
+@app.route("/api/user/")
+def hello23():
     return "Hello User!"
 
 
@@ -61,14 +76,14 @@ def forum_login():
     userinfo=get_userinfo(id)
     if userinfo.get("error")!=None:
         return userinfo
-    username=userinfo.get("username")
+    username=userinfo.get("username") 
     email=userinfo.get("email")
     pwo = PasswordGenerator()
     pwo.minnumbers = 10
     pwo.minschars = 2
-    password=pwo.generate()
+    password=pwo.generate()  
     if check_username(username)=="":
-        return new_forumuser(username,password,email)
+        new_forumuser(username,password,email)
     t=get_cookie(username)
     return {"mybbuser":t}
 
@@ -89,6 +104,7 @@ def check_username(username):
     return ""
 
 def new_forumuser(username,password,email):
+    curr=int(time.time())
     salt=os.urandom(5).hex()
     loginkey=os.urandom(24).hex()
     saltedh=hashlib.md5(salt.encode('utf-8')).hexdigest()
@@ -98,9 +114,9 @@ def new_forumuser(username,password,email):
     query= "SET sql_mode = '';"
     cursor = connection_objt.cursor()
     cursor.execute(query) 
-    query =("INSERT INTO lolobb_users (username, password, salt, email, usergroup,loginkey) " 
-    "VALUES (%s,%s,%s,%s,%s,%s)")
-    cursor.execute(query,(username,hash,salt,email,2,loginkey))
+    query =("INSERT INTO lolobb_users (username, password, salt, email, usergroup,loginkey,regdate) " 
+    "VALUES (%s,%s,%s,%s,%s,%s,%s)")
+    cursor.execute(query,(username,hash,salt,email,2,loginkey,curr))
     connection_objt.close()
 
    
@@ -112,7 +128,6 @@ def get_cookie(username):
          "WHERE username = %s")
     cursor.execute(query,(username,)) 
     myresult = cursor.fetchall()
-    app.logger.debug(myresult)
     uid=""
     key=""
     for data in myresult:
@@ -123,22 +138,10 @@ def get_cookie(username):
     return f"{uid}_{key};domain=lolo.gq"
 
 
-#weird things going on with pool
-# 3 explicity call pool fuinction
-def create_pool():
-    """ Connect to MySQL database """
-    conn = None
-    try:
-        config={"user":DB_USER, "database":DB_NAME,"password":DB_PASSWORD,"host":"db"}
-        conn =  pooling.MySQLConnectionPool(pool_size = 32,**config)
-        return conn
-    except Error as e:
-        print(e)
+
 
 
 
 if __name__ == "__main__":
-    t=create_pool()
-    app.run(host='0.0.0.0', debug=True)
-
+    app.run(host='0.0.0.0')
 

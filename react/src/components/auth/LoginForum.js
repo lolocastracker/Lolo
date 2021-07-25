@@ -1,7 +1,11 @@
 
-import keycloak from './Keycloak.js'
 
-export async function LoginForum(){
+
+
+
+
+
+async function login(keycloak){
     let cookie_test=Object.fromEntries(document.cookie.split('; ').map(c => {
       const [ key, ...v ] = c.split('=');
       return [ key, v.join('=') ];
@@ -26,15 +30,23 @@ export async function LoginForum(){
     console.log(`mybbuser=${cookie}`)
     document.cookie=`mybbuser=${cookie}`  
   }
-  const onEvent = (event, error) => {
-    if (event=="onAuthSuccess"){
-      login()
+  export default function LoginForum(event,error,keycloak){
+    console.log(event,error,keycloak)
+  
+    
+    if(error){
+        console.log(error)
     }
-    else if(event=="onTokenExpired"){
-      document.cookie=`mybbuser=;domain=lolo.gq` 
+    if (event==="onAuthSuccess"){
+      login(keycloak)
+    }
+    else if(event==="onTokenExpired"){
+      console.log("dddd")
+      document.cookie=`mybbuser=` 
     }
   
-    else if(event=="onAuthRefreshSuccess "){
-      login() 
+    else if(event==="onAuthRefreshSuccess "){
+      console.log("dddsgag")
+      login(keycloak) 
     }
   }

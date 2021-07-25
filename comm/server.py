@@ -16,6 +16,18 @@ DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_USER = os.getenv('DB_USER')
 
 app = Flask(__name__) 
+
+def create_pool():
+    """ Connect to MySQL database """
+    conn = None
+    try:
+        config={"user":DB_USER, "database":DB_NAME,"password":DB_PASSWORD,"host":"db"}
+        conn =  pooling.MySQLConnectionPool(pool_size = 32,**config)
+        return conn
+    except Error as e:
+        print(e)
+t=create_pool()
+
 @app.route("/api/comm/test")
 def hello2():
     return "Hello World2!"
@@ -39,4 +51,4 @@ if __name__ == "__main__":
     print(t,t)
     connection_objt = t.get_connection()
     print(connection_objt)
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0')
