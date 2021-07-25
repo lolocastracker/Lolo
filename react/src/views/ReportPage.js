@@ -65,12 +65,7 @@ const ReportPage = () =>{
    }
     const {result, uploader}=useDisplayImage();
    // create list for the locust types
-   
-//    const [locustTypesList, setlocustTypeList] = useState([]); // initially emptyList
-
-//    function addLocustType(){
-//        setlocustTypeList([locustTypesList, ])
-//    }
+//    const LocustTypes = []; 
 
 
    // submit button 
