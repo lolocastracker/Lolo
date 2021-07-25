@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import MapReport from '../components/map/Map_Report.js'
 import { Header, Container, Input, Grid, Segment } from 'semantic-ui-react'
 
@@ -19,7 +19,18 @@ import "react-datepicker/dist/react-datepicker.css";
 import { forwardRef } from 'react'
 import React from "react";
 
-
+function convertDate(date){
+    // date is a Datetime object
+    // convert date Object to format YYYY-MM-DD HH:MM:SS
+    var mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2),
+        hr = ("0" + date.getHours()).slice(-2),
+        min=("0" + date.getMinutes()).slice(-2),
+        sec = ("0" + date.getSeconds()).slice(-2);
+    var d = [date.getFullYear(), mnth, day].join("-");
+    var time = [hr, min, sec].join(":");
+    return d + " " + time
+}
 
 const ReportPage = () =>{
     //map
@@ -37,6 +48,7 @@ const ReportPage = () =>{
     console.log("ReportPage date=" + startDate);
    // setting images
    const [image, setImage]=useState(""); // the image here is the actual image. Calling image.name will give its name
+   const [imageName, setImageName]=useState("");
    const imageRef = React.useRef(null);
    function useDisplayImage(){
        const [result, setResult]=useState("");
@@ -63,14 +75,37 @@ const ReportPage = () =>{
 
    // submit button 
    // must have a date and coordinates
-   const submitButton = ()=>{
+   const SubmitButton = (e)=>{
+       e.preventDefault(); // prevent default 
+       // limit image size 
        if(position===null || startDate===""){
            alert("Please fill in the coordinates and/or date for the report.");
        } else{
-           // check if users added locust types, comment, pictures
-           console.log("Submit Button Success!");
+            // get data to send to backend
+            const datetime = convertDate(startDate)
+            console.log("datetime="+ datetime)
+            const sendtoBackend={
+                date: datetime,
+                latlng: position,
+                imgName: imageName,
+                img:result, 
+            };
+
+            console.log("Sending data to the backend!");
+            // state for AJAX request
+            // const [error, setError] = useState(null);
+            // const [message, setMessage]=useState("");
+            
+            fetch('/api/map/submit', {
+                    method: 'POST',
+                    headers:{'Content-Type': 'application/json'},
+                    body: JSON.stringify(sendtoBackend)
+                })
+                    .then((response)=>response.json())
+                    .then((data) => console.log(data))
+                    .catch((err)=> console.log(err))
+                       
        }
-       
    };
 
     return(
@@ -87,6 +122,11 @@ const ReportPage = () =>{
                 <MapReport onPositionChange={(coor)=>setPosition(coor)}/>
                 
                 <Form>
+                    <Form.Field
+                        control={Input}
+                        label='Location'
+                        placeholder='State/Town, Country'
+                        />
                     <Form.Group widths="equal">
                         <Form.Field
                             control={Input}
@@ -144,6 +184,7 @@ const ReportPage = () =>{
                             type="file"
                             onChange={(e)=>{
                                 setImage(e.target.files[0]);
+                                setImageName(e.target.files[0].name);
                                 uploader(e);
                             }}
                         />
@@ -154,7 +195,7 @@ const ReportPage = () =>{
                     </Form.Field>                   
                     
                     {/* Button to the submit sight page */}
-                    <Form.Field control={Button} onClick={submitButton}>Submit Sighting</Form.Field>
+                    <Form.Field control={Button} onClick={SubmitButton}>Submit Sighting</Form.Field>
 
                 </Form>   
 
