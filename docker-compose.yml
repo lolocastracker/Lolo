@@ -36,6 +36,7 @@ services:
        - 6000:5000
      volumes:
        - ./map:/target
+       - ./react/src/assets:/target/assets
      command:  /wait-for-it.sh -t 200 db:3306 -- python3 ./target/server.py
   comm:
      container_name: comm

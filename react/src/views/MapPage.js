@@ -1,8 +1,16 @@
+import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Map from '../components/map/Map.js'
 import Report from '../components/map/Report.js'
 import ReportTable from '../components/map/ReportTable.js'
-import { Header, Container, Input, Grid, Segment } from 'semantic-ui-react'
+import {
+  Header,
+  Container,
+  Input,
+  Grid,
+  Segment,
+  Button,
+} from 'semantic-ui-react'
 // import reports from '../components/map/fakeData.js'
 
 const MapPage = () => {
@@ -60,7 +68,7 @@ const MapPage = () => {
       // <div></div>
       // <div>{curReport.address}</div>
       // <div>{reports[0].address}</div>
-    // )
+      // )
 
       <div>
         <Container style={{ marginTop: '7em' }}>
@@ -68,12 +76,12 @@ const MapPage = () => {
             <Grid.Row>
               <Header as='h1'>DESERT LOCUST MAP</Header>
             </Grid.Row>
-            <Grid.Row>
+            {/* <Grid.Row>
               <Input
                 label={{ icon: 'search', color: 'blue' }}
                 placeholder='Enter a location...'
               />
-            </Grid.Row>
+            </Grid.Row> */}
           </Grid>
           <Grid stackable columns={2}>
             <Grid.Column textAlign='center'>
@@ -94,6 +102,19 @@ const MapPage = () => {
               />
               <Report curReport={curReport} />
             </Grid.Column>
+          </Grid>
+          <Grid>
+            <Grid.Row>
+              <Grid.Column>
+                <Link to='/report'>
+                  <Button basic>
+                    <Header as='h2' style={{ marginTop: 0 }}>
+                      Report Sighting <i className='angle right icon'></i>
+                    </Header>
+                  </Button>
+                </Link>
+              </Grid.Column>
+            </Grid.Row>
           </Grid>
         </Container>
       </div>

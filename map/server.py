@@ -3,7 +3,6 @@ import db_connector as db
 import os 
 import base64
 
-# Configuration
 app = Flask(__name__)
 
 @app.route("/api/map/test")
@@ -24,7 +23,7 @@ def get_reports():
     LEFT JOIN lolo_image USING (imageId)
     ORDER BY date DESC LIMIT 20;'''
     
-    db_connection = db.create_pool().get_connection()
+    db_connection = db_pool.get_connection()
     cursor = db.execute_query(db_connection=db_connection, query=query)
     result = json.dumps(cursor.fetchall())
 
@@ -62,4 +61,5 @@ def postReport():
     return {"message": "success"}
 # Listener
 if __name__ == "__main__":
+    db_pool = db.create_pool()
     app.run(host='0.0.0.0', debug=True) 
