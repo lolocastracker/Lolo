@@ -4,7 +4,8 @@ import { Redirect, Route } from 'react-router-dom';
 
 
 export function PrivateRoute({ component: Component, roles, ...rest }) {
-    const { keycloak, initialized } = useKeycloak()
+    const { keycloak } = useKeycloak()
+    let data=rest.data
 
     const isAutherized = (roles) => {
         if (keycloak && roles) {
@@ -18,13 +19,10 @@ export function PrivateRoute({ component: Component, roles, ...rest }) {
     }
 
     return (
-        <Route
-            {...rest}
-            render={props => {
-                return isAutherized(roles)
-                    ? <Component {...props} />
-                    : <Redirect to={{ pathname: '/', }} />
-            }}
-        />
+        <Route {...rest}>
+        {isAutherized(roles)? <Component data={data}/> : <Redirect to={{ pathname: '/', }} />}
+
+        </Route>
+     
     )
 }

@@ -1,0 +1,31 @@
+version: '3.6'
+services:
+ #databases
+  adminer:
+    image: adminer
+    restart: always
+    container_name: adminer
+    ports:
+     - 8600:8080
+    environment: 
+      ADMINER_DEFAULT_SERVER: db
+    networks:
+        - my-overlay 
+  db:
+    image: mysql:8.0
+    container_name: db
+    user: 1000:1000
+    command: --default-authentication-plugin=mysql_native_password 
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./Database:/var/lib/mysql
+    networks:
+        - my-overlay  
+
+
+
