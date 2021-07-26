@@ -64,9 +64,28 @@ const ReportPage = () =>{
        return {result, uploader};
    }
     const {result, uploader}=useDisplayImage();
-   // create list for the locust types
-//    const LocustTypes = []; 
 
+   // handling checkbox
+   const [locustArr, updatelocustArr] = useState([]); // this is the list of of checkbox
+   const checkboxHandler = (e)=>{
+       const checked = e.target.checked; // returns true if clicked
+       if (checked===true){
+            console.log("Add LocustType="+ e.target.name);
+            updatelocustArr(prevArr => [...prevArr, e.target.name]);
+       }else{
+           // not check, then remove the locust
+           console.log("Remove LocustType= "+ e.target.name);
+           const value = e.target.name;
+           updatelocustArr(locustArr.filter(type => type !== value));
+       }
+       console.log("LocustTypeArray = " + locustArr.toString());
+
+   }
+
+   // handle location input box
+   const [address, updateAddress] = useState("");
+   // handle comment 
+   const [commentBody, updateCommentBody] = useState("");
 
    // submit button 
    // must have a date and coordinates
@@ -84,6 +103,9 @@ const ReportPage = () =>{
                 latlng: position,
                 imgName: imageName,
                 img:result, 
+                locustType:locustArr,
+                comment: commentBody,
+                addr: address
             };
 
             console.log("Sending data to the backend!");
@@ -121,6 +143,7 @@ const ReportPage = () =>{
                         control={Input}
                         label='Location'
                         placeholder='State/Town, Country'
+                        onChange={(e)=> updateAddress(e.target.value)}
                         />
                     <Form.Group widths="equal">
                         <Form.Field
@@ -161,15 +184,16 @@ const ReportPage = () =>{
                     </Form.Group>
                     <Form.Field label="Locust Types (Select all that apply)"/>
                     <Form.Group>
-                        <Form.Field label='Eggs' control='input' type='checkbox' />
-                        <Form.Field label='Adult' control='input' type='checkbox' />
-                        <Form.Field label='Hopper' control='input' type='checkbox' />
+                        <Form.Field label='Eggs' control='input' type='checkbox' name="Eggs" onChange={checkboxHandler}/>
+                        <Form.Field label='Adult' control='input' type='checkbox' name="Adult" onChange={checkboxHandler}/>
+                        <Form.Field label='Hopper' control='input' type='checkbox' name="Hopper" onChange={checkboxHandler}/>
                     </Form.Group>
                     
                     <Form.Field
                         control={TextArea}
                         label='Comment'
                         placeholder='Add a comment...'
+                        onChange={(e)=> updateCommentBody(e.target.value)}
                         />
                         
                     <Form.Field label="Picture"/>
@@ -177,6 +201,7 @@ const ReportPage = () =>{
                     <Form.Field>
                         <input
                             type="file"
+                            accept=".jpg, .jpeg, .png"
                             onChange={(e)=>{
                                 setImage(e.target.files[0]);
                                 setImageName(e.target.files[0].name);

@@ -2,7 +2,7 @@ from flask import Flask, json,request
 import db_connector as db
 import os 
 import base64
-
+import uuid #create unique filename
 app = Flask(__name__)
 
 @app.route("/api/map/test")
@@ -43,23 +43,41 @@ def postReport():
     date = data.get('date')
     position = data.get('latlng')
     imageName = data.get('imgName')
-    print("date", date)
-    print("latlng", position)
-    print("imageName", imageName)
-    print("image=", data.get("img").split("base64,")[1])
+    locustType = data.get('locustType')
+    reportBody = data.get('reportBody')
+    addr = data.get("addr")
+    # print("date", date)
+    # print("latlng", position)
+    # print("imageName", imageName)
+    # print("locustType", locustType, "type=", type(locustType))
+    # print("addr", addr)
+    # print("comment", reportBody)
+
+    if (imageName!= ''):
+        path = os.path.join(os.getcwd(), "target/assets/reportpics")
+        imageName = saveImage(data.get("img").split("base64,")[1], path, imageName)
+        print("New image name = ", imageName)
+    ## mysql query request
+    ## position and date will always be given 
+
+
+    return {"message": "success"}
+# Listener
+
+def saveImage(img, path, imgName):
+    # given image in string base64, save the images in that path
+    # and return the name that the image is saved under
+    newImageName = str(uuid.uuid4()) # create a unique name 
+    extension = imgName.split(".")[1]
+    image = open(f"{path}/{newImageName}.{extension}", "wb")
 
     # The image sent from the frontend is in string (because we jsonified it)
     # the actual image is in base64 in string format, so must write the image this way
-    imageOpen = open(f"{imageName}", "wb")
-    imageOpen.write(base64.b64decode((data.get('img').split("base64,")[1])))
-    imageOpen.close()
+    image.write(base64.b64decode(img))
+    image.close()
+    return newImageName
 
-    imageOpen = open(f"{imageName}", "r")
-    print("FILE ")
-    print(imageOpen)
-    imageOpen.close()
-    return {"message": "success"}
-# Listener
+
 if __name__ == "__main__":
     db_pool = db.create_pool()
     app.run(host='0.0.0.0', debug=True) 
