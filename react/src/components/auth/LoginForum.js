@@ -31,7 +31,7 @@ async function login(keycloak){
     document.cookie=`mybbuser=${cookie}`  
   }
   export default function LoginForum(event,error,keycloak){
-    console.log(event,error,keycloak)
+    console.log("Event: ",event,"Error: ",error,keycloak)
   
     
     if(error){

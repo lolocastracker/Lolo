@@ -1,0 +1,33 @@
+version: '3.6'
+services:
+#routing
+  nginx:
+    container_name: nginx
+    restart: always   
+    image: 127.0.0.1:5000/nginx  
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/nginx
+    ports:
+      - 3000:3000
+      - 8080:80
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./mybb:/var/www/html:ro
+    command: /wait-for-it.sh -t 200 map:5000 -- /wait-for-it.sh -t 200 user:5000 -- /wait-for-it.sh -t 200 comm:5000 -- /wait-for-it.sh -t 200 react:3000 -- nginx -g "daemon off";
+    networks:
+      - my-overlay   
+#forum
+
+  mybb:
+    container_name: mybb
+    image: mybb/mybb:1.8.26
+    volumes:
+    - ./mybb:/var/www/html/:rw
+    networks:
+      - my-overlay 
+networks:
+  my-overlay:
+    external: true
+    driver: overlay
+     
