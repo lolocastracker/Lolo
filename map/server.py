@@ -1,4 +1,6 @@
-from flask import Flask
+from flask import Flask, json
+import db_connector as db
+
 app = Flask(__name__)
 from mysql.connector import pooling
 from mysql.connector import Error
@@ -9,7 +11,6 @@ from dotenv import load_dotenv
 from pathlib import Path
 dotenv_path = Path('../env/.env')
 load_dotenv(dotenv_path=dotenv_path)
-
 
 DB_NAME = os.getenv('DB_NAME')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
@@ -27,39 +28,26 @@ def create_pool():
         print(e)
 t=create_pool()
 
+
 @app.route("/api/map/test")
 def hello2():
     return "Hello Map!"
-    
-#weird things going on with pool
-# 3 explicity call pool fuinction
-def create_pool():
-    """ Connect to MySQL database """
-    conn = None
-    try:
-        config={"user":DB_USER, "database":DB_NAME,"password":DB_PASSWORD,"host":"db"}
-        conn =  pooling.MySQLConnectionPool(**config)
-        return conn
-    except Error as e:
-        print(e)
-
-# def insert(connection_object ):
-#     if connection_object.is_connected():
-#         cursor = connection_object.cursor()
-#         cursor.execute("INSERT INTO lolo_locust(type) VALUES ('Eggs');")
-#         print("Executed")
-#         connection_object.commit()
-#         connection_object.close()
-#     print("Done with Insert function in /map/server.py")
-#         # record = cursor.fetchone()
-
-
-
-if __name__ == "__main__":
-    print(DB_USER)
-    t=create_pool()
-    print(t)
-    connection_objt = t.get_connection()
-   # insert(connection_objt) # call the db
-    print(connection_objt)
-    app.run(host='0.0.0.0')
+  
+@app.route('/api/map/reports')
+def get_reports():
+    query = '''SELECT reportId, body, DATE_FORMAT(date, '%Y-%m-%d %H:%i') date,
+    type, address, cast(lat as char(11)) lat, cast(`long` as char(10)) `long`, path 
+    FROM (SELECT reportId, body, date, GROUP_CONCAT(type SEPARATOR ", ") 'type'
+    FROM lolo_report 
+    LEFT JOIN lolo_locust_in_report USING (reportId)
+    LEFT JOIN lolo_locust USING (locustId) GROUP BY reportId) as t1
+    LEFT JOIN lolo_location USING (reportId)
+    LEFT JOIN lolo_image_in_report USING (reportId)
+    LEFT JOIN lolo_image USING (imageId)
+    ORDER BY date DESC LIMIT 20;'''
+  
+    db_connection = db_pool.get_connection()
+    cursor = db.execute_query(db_connection=db_connection, query=query)
+    result = json.dumps(cursor.fetchall())
+    db_connection.close()
+    return result

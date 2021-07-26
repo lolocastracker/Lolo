@@ -34,6 +34,7 @@ services:
        dockerfile: ./Dockerfiles/backend
      volumes:
        - ./map:/target
+       - ./react/src/assets:/target/assets
        - ./env:/env
      command:  /wait-for-it.sh -t 200 db:3306 -- gunicorn --workers 1 --bind 0.0.0.0:5000 --chdir ./target server:app
   comm:
