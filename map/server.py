@@ -52,25 +52,50 @@ def postReport():
         print(data)
         date = data.get('date')
         position = data.get('latlng')
-        imageName = data.get('imgName')
-        locustType = data.get('locustType')
+        imageName = data.get('imgName') if data.get('imgName') != '' else None
+        locustType = data.get('locustType') if data.get('locustType')!= [] else None 
         reportBody = data.get('reportBody')
         addr = data.get("addr")
+        lat = position.get("lat")
+        lng = position.get("lng")
         # print("date", date)
-        # print("latlng", position)
+        print("latlng", position.get("lat"), position.get("lng"))
         # print("imageName", imageName)
         # print("locustType", locustType, "type=", type(locustType))
         # print("addr", addr)
         # print("comment", reportBody)
 
-        if (imageName!= ''):
+
+
+        if (imageName!= None):
             path = os.path.join(os.getcwd(), "target/assets/reportpics")
             imageName = saveImage(data.get("img").split("base64,")[1], path, imageName)
             print("New image name = ", imageName)
+        if (locustType!=None):
+            tempString = locustType[0]
+            for i in locustType[1:]:
+                tempString+=","
+                tempString+=i
+            locustType=tempString
         ## mysql query request
         ## position and date will always be given 
+
+    # IN dateP DATETIME,
+    # IN bodyP TEXT,
+    # IN addrP VARCHAR(200),
+    # IN lat DECIMAL(10,8),
+    # IN lng DECIMAL(11,8),
+    # IN imagePathP VARCHAR(200),
+    # IN locustTypeP VARCHAR(200))
+        query = '''CALL addReport(%s,%s,%s,%s,%s,%s,%s);'''
+        db_connection = db_pool.get_connection()
+        cursor = db.execute_query(db_connection=db_connection, query=query,query_params=(date,reportBody,addr,lat, lng,imageName,locustType))
+
+        cursor.close()
+        db_connection.close()
     except Exception as e:
         print("map/server.py Error!")
+        print(e)
         return {"status": "fail", "message": e}
 
     return {"status": "success","message": ""}
@@ -88,7 +113,7 @@ def saveImage(img, path, imgName):
     # the actual image is in base64 in string format, so must write the image this way
     image.write(base64.b64decode(img))
     image.close()
-    return newImageName
+    return newImageName+"."+extension
 
 
 if __name__ == "__main__":

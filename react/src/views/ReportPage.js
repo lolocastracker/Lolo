@@ -187,8 +187,8 @@ const ReportPage = () =>{
                     <Form.Field label="Locust Types (Select all that apply)"/>
                     <Form.Group>
                         <Form.Field label='Eggs' control='input' type='checkbox' name="Eggs" onChange={checkboxHandler}/>
-                        <Form.Field label='Adult' control='input' type='checkbox' name="Adult" onChange={checkboxHandler}/>
-                        <Form.Field label='Hopper' control='input' type='checkbox' name="Hopper" onChange={checkboxHandler}/>
+                        <Form.Field label='Adults' control='input' type='checkbox' name="Adults" onChange={checkboxHandler}/>
+                        <Form.Field label='Hoppers' control='input' type='checkbox' name="Hoppers" onChange={checkboxHandler}/>
                     </Form.Group>
                     
                     
