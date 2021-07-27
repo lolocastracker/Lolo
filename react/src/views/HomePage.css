@@ -41,17 +41,17 @@
   font-weight: bold;
 } */
 
-.titles {
-  /* font-size: 74.6px; */
+/* .titles {
+  font-size: 74.6px;
   font-size: 60px;
-  /* font-size: 4vw; */
+  font-size: 4vw;
   font-weight: bold;
   margin-bottom: 0.5rem;
-}
+} */
 
-h1.ui.header {
+/* h1.ui.header {
   font-size: 4.25rem;
-}
+} */
 
 /* .ui.grid {
   margin-top: 4rem;
@@ -77,10 +77,10 @@ h1.ui.header {
   height: 13.8rem;
 }
 
-.ui.basic.button {
+/* .ui.basic.button {
   box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
   margin-right: -9%;
-}
+} */
 
 .ui.button {
   padding: 1em 1.4em 0.6em 1.9em;

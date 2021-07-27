@@ -107,7 +107,7 @@ const MapPage = () => {
             <Grid.Row>
               <Grid.Column>
                 <Link to='/report'>
-                  <Button basic>
+                  <Button>
                     <Header as='h2' style={{ marginTop: 0 }}>
                       Report Sighting <i className='angle right icon'></i>
                     </Header>
