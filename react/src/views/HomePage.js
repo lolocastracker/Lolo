@@ -33,8 +33,8 @@ const HomePage = () => {
             <Header as='h1'>VIEW</Header>
             <Image src={view_img} centered />
             <Link to='/map'>
-              <Button basic>
-                <Header as='h3'>
+              <Button>
+                <Header as='h2'>
                   View Locusts <i className='angle right icon'></i>
                 </Header>
               </Button>
@@ -46,8 +46,8 @@ const HomePage = () => {
             <Header as='h1'>REPORT</Header>
             <Image src={report_img} centered />
             <Link to='/report'>
-              <Button basic>
-                <Header as='h3'>
+              <Button>
+                <Header as='h2'>
                   Report Locusts <i className='angle right icon'></i>
                 </Header>
               </Button>
@@ -59,8 +59,8 @@ const HomePage = () => {
             <Header as='h1'>FORUM</Header>
             <Image src={forum_img} centered />
             <Link to='/forum'>
-              <Button basic>
-                <Header as='h3'>
+              <Button>
+                <Header as='h2'>
                   Learn More <i className='angle right icon'></i>
                 </Header>
               </Button>
