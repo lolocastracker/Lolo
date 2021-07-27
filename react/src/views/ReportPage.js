@@ -107,7 +107,8 @@ const ReportPage = () =>{
                 comment: commentBody,
                 addr: address
             };
-
+            console.log("image size="+image.name);
+            console.log("image size="+image.size);
             console.log("Sending data to the backend!");
             // state for AJAX request
             // const [error, setError] = useState(null);
@@ -143,6 +144,7 @@ const ReportPage = () =>{
                         control={Input}
                         label='Location'
                         placeholder='State/Town, Country'
+                        maxLength="200"
                         onChange={(e)=> updateAddress(e.target.value)}
                         />
                     <Form.Group widths="equal">
@@ -189,10 +191,14 @@ const ReportPage = () =>{
                         <Form.Field label='Hopper' control='input' type='checkbox' name="Hopper" onChange={checkboxHandler}/>
                     </Form.Group>
                     
+                    
+                    {/* Limit the comment to about 65500 characters because
+                        MySQL TEXT allows for 65,535 characters/bytes */}
                     <Form.Field
                         control={TextArea}
                         label='Comment'
                         placeholder='Add a comment...'
+                        maxLength="65500"
                         onChange={(e)=> updateCommentBody(e.target.value)}
                         />
                         
@@ -203,9 +209,29 @@ const ReportPage = () =>{
                             type="file"
                             accept=".jpg, .jpeg, .png"
                             onChange={(e)=>{
-                                setImage(e.target.files[0]);
-                                setImageName(e.target.files[0].name);
-                                uploader(e);
+                                console.log("no image="+ e.target.files[0])
+                                if (e.target.files[0]===null ||e.target.files[0]===undefined){
+                                    // if user upload an image and decide to cancel the upload
+                                    // do nothing
+                                    console.log("Cancel image upload");
+                                }
+                                else if (e.target.files[0].size>=5e+6){
+                                    alert("Image size exceeds 5MB!");
+                                }
+                                else{
+                                    // file is good, now check if it is valid image file
+                                    var idxDot = e.target.files[0].name.lastIndexOf(".") + 1;
+                                    var extFile = e.target.files[0].name.substr(idxDot, e.target.files[0].name.length).toLowerCase();
+                                    if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+                                        setImage(e.target.files[0]);
+                                        setImageName(e.target.files[0].name);
+                                        uploader(e);
+                                    }
+                                    else{
+                                        alert("Image is not in .JPG, .PNG, or PJEG!");
+                                    }
+                                }
+                                
                             }}
                         />
                     </Form.Field>

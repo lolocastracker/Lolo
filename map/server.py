@@ -3,6 +3,7 @@ import db_connector as db
 import os 
 import base64
 import uuid #create unique filename
+
 app = Flask(__name__)
 
 @app.route("/api/map/test")
@@ -31,6 +32,14 @@ def get_reports():
 
     return result
 
+
+@app.errorhandler(413)
+def image_too_big(e):
+    ## error 413 is payload too large - probably because
+    ## the images is too big
+    print("map/server.py")
+    return 'File Too Large', 413
+
 @app.route('/api/map/submit', methods=['POST'])
 def postReport():
     '''accept post request from ReportPage and input those data into the database'''
@@ -38,30 +47,34 @@ def postReport():
     # db_connection = db.create_pool().get_connection()
     # cursor = db.execute_query(db_connection=db_connection, query=query)
     # db_connection.close()
-    data = request.get_json()
-    print(data)
-    date = data.get('date')
-    position = data.get('latlng')
-    imageName = data.get('imgName')
-    locustType = data.get('locustType')
-    reportBody = data.get('reportBody')
-    addr = data.get("addr")
-    # print("date", date)
-    # print("latlng", position)
-    # print("imageName", imageName)
-    # print("locustType", locustType, "type=", type(locustType))
-    # print("addr", addr)
-    # print("comment", reportBody)
+    try:
+        data = request.get_json()
+        print(data)
+        date = data.get('date')
+        position = data.get('latlng')
+        imageName = data.get('imgName')
+        locustType = data.get('locustType')
+        reportBody = data.get('reportBody')
+        addr = data.get("addr")
+        # print("date", date)
+        # print("latlng", position)
+        # print("imageName", imageName)
+        # print("locustType", locustType, "type=", type(locustType))
+        # print("addr", addr)
+        # print("comment", reportBody)
 
-    if (imageName!= ''):
-        path = os.path.join(os.getcwd(), "target/assets/reportpics")
-        imageName = saveImage(data.get("img").split("base64,")[1], path, imageName)
-        print("New image name = ", imageName)
-    ## mysql query request
-    ## position and date will always be given 
+        if (imageName!= ''):
+            path = os.path.join(os.getcwd(), "target/assets/reportpics")
+            imageName = saveImage(data.get("img").split("base64,")[1], path, imageName)
+            print("New image name = ", imageName)
+        ## mysql query request
+        ## position and date will always be given 
+    except Exception as e:
+        print("map/server.py Error!")
+        return {"status": "fail", "message": e}
 
-
-    return {"message": "success"}
+    return {"status": "success","message": ""}
+        
 # Listener
 
 def saveImage(img, path, imgName):
