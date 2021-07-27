@@ -119,3 +119,97 @@ use lolo_db;
 -- count how many rows are in your table
 -- SELECT COUNT(*) FROM table;
 
+
+
+-- -- create a addLocust procedure
+-- DROP PROCEDURE IF EXISTS `lolo_db`.`addLocust`;
+-- DELIMITER //
+-- CREATE PROCEDURE addLocust(
+--    IN reportId INT, 
+--    IN locustType VARCHAR(200)
+-- )
+-- BEGIN
+--    DECLARE _next TEXT DEFAULT NULL;
+--    DECLARE _nextlen INT DEFAULT NULL;
+--    -- for every locusts in the locustType string, check with the 
+--    -- lolo_locust table, get its locustid, then put that in the lolo_locust_in_report table
+--    -- assuming that the locust type we take in already exist in lolo_locust table
+--    IF (locustType IS NOT NULL OR locustType <> '') THEN
+--       iterator:
+--       LOOP 
+--          IF CHAR_LENGTH(TRIM(locustType))=0 OR locustType IS NULL THEN
+--             LEAVE iterator;
+--          END IF;
+--          -- split the string and get the first item, and save the length of it 
+--          SET _next = SUBSTRING_INDEX(locustType,",",1);
+--          SET _nextlen = CHAR_LENGTH(_next); 
+--          -- find the locustId in our lolo_locust table
+--          SELECT @loid := locustId FROM lolo_locust WHERE type = _next;
+
+--          INSERT INTO lolo_locust_in_report(`reportId`,`locustId`) VALUES (reportId, @loid); 
+--          SET locustType = INSERT(locustType, 1, _nextlen+1, '');
+--       END LOOP;
+--    END IF;
+-- END//
+-- DELIMITER ;
+
+
+
+
+#DROP PROCEDURE IF EXISTS `lolo_db`.`addReport`;
+DELIMITER //
+
+CREATE PROCEDURE addReport(
+    IN dateP DATETIME,
+    IN bodyP TEXT,
+    IN addr VARCHAR(200),
+    IN lat DECIMAL(10,8),
+    IN lng DECIMAL(11,8),
+    IN imagePath VARCHAR(200),
+    IN locustType VARCHAR(200)
+)
+BEGIN
+   DECLARE _next TEXT DEFAULT NULL;
+   DECLARE _nextlen INT DEFAULT NULL;
+   DECLARE loid INT DEFAULT NULL;
+
+    INSERT INTO lolo_report(`body`,`date`) VALUES(bodyP,dateP);
+    SET @id = LAST_INSERT_ID();
+    INSERT INTO lolo_location(`reportId`, `address`,`long`, `lat`) VALUES (@id,addr, lng, lat);
+    IF(imagePath IS NOT NULL OR imagePath <> '') THEN
+      -- if an image is provided, then added that into the database    
+      INSERT INTO lolo_image(`path`) VALUES (imagePath);
+      SET @imgid = LAST_INSERT_ID();
+      INSERT INTO lolo_image_in_report(reportId, imageId) VALUES (@id, @imgid);
+   END IF;
+   
+
+
+   -- adding locustType
+   -- for every locusts in the locustType string, check with the 
+   -- lolo_locust table, get its locustid, then put that in the lolo_locust_in_report table
+   -- assuming that the locust type we take in already exist in lolo_locust table
+   IF (locustType IS NOT NULL OR locustType <> '') THEN
+      iterator:
+      LOOP 
+         IF CHAR_LENGTH(TRIM(locustType))=0 OR locustType IS NULL THEN
+            LEAVE iterator;
+         END IF;
+         -- split the string and get the first item, and save the length of it 
+         SET _next = SUBSTRING_INDEX(locustType,",",1);
+         SET _nextlen = CHAR_LENGTH(_next); 
+         -- find the locustId in our lolo_locust table
+         -- SELECT @loid := locustId FROM lolo_locust WHERE type = _next;
+         SELECT locustId INTO loid FROM lolo_locust WHERE type = _next;
+
+         INSERT INTO lolo_locust_in_report(`reportId`,`locustId`) VALUES (@id, loid); 
+         SET locustType = INSERT(locustType, 1, _nextlen+1, '');
+      END LOOP;
+   END IF;
+      
+END//
+
+DELIMITER ;
+show procedure status WHERE Db='lolo_db';
+
+
