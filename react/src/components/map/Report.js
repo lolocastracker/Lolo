@@ -1,56 +1,48 @@
 import { Header, Grid, Segment } from 'semantic-ui-react'
+import './Report.css'
 
 const Report = ({ curReport }) => {
   const year = curReport.date.slice(0, 4)
 
-  const photo = curReport.path
-    ? require(`../../assets/reportpics/${curReport.path}`).default
-    : null
+  let photo // image file
+  let reportImage // element to display
+  // handle image present vs unavailable
+  if (curReport.path) {
+    photo = require(`../../assets/reportpics/${curReport.path}`).default
+    reportImage = (
+      <img id='report-image' src={photo} height='171.99' width='245'></img>
+    )
+  } else {
+    photo = null
+    reportImage = (
+      <Header as='h2'>
+        No photo
+        <br />
+        provided
+      </Header>
+    )
+  }
 
   return (
-    <Segment style={{ marginTop: '2rem' }}>
+    <Segment id='report-segment'>
       <Grid stackable columns={2}>
         <Grid.Column>
           <Header as='h2'>Location: {curReport.address}</Header>
-          <div style={{ wordBreak: 'break-word' }}>
+          <div id='report-details'>
             <b>Lat.:</b> {curReport.lat.slice(0, 9)} &nbsp; <b>Long.:</b>{' '}
             {curReport.long.slice(0, 9)}
             <br></br>
             <b>Date:</b> {curReport.date.slice(5, 10).concat('-', year)} &nbsp;{' '}
             <b>Time:</b> {curReport.date.slice(11, 16)}
             <br></br>
-            <div
-              style={{
-                width: '100%',
-                height: '5rem',
-                marginBottom: '.7rem',
-                overflow: 'auto',
-              }}
-            >
-              {curReport.body}
-            </div>
+            <div id='comment'>{curReport.body}</div>
           </div>
         </Grid.Column>
         <Grid.Column>
-          {true && (
-            <img
-              // src='/assets/check.png'
-              src={photo}
-              height='165'
-              width='245'
-              // style={{ maxWidth: 350, height: 'auto', width: '100%' }}
-              style={{
-                // maxWidth: 245,
-                maxWidth: '100%',
-                maxHeight: 165,
-                // maxHeight: '100%',
-                height: 'auto',
-                // width: '100%',
-                width: 'auto',
-              }}
-            ></img>
-          )}
-          <p>
+          <div id={photo ? 'report-image-box-photo' : 'report-image-box'}>
+            {reportImage}
+          </div>
+          <p id='locust-type'>
             <b>Locust Type: </b> {curReport.type}
           </p>
         </Grid.Column>
