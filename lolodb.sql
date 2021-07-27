@@ -156,7 +156,7 @@ use lolo_db;
 
 
 
-DROP PROCEDURE IF EXISTS `lolo_db`.`addReport`;
+#DROP PROCEDURE IF EXISTS `lolo_db`.`addReport`;
 DELIMITER //
 
 CREATE PROCEDURE addReport(

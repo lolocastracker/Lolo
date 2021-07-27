@@ -57,7 +57,7 @@ def postReport():
         
         imageName = data.get('imgName') if data.get('imgName') != '' else None
         locustType = data.get('locustType') if data.get('locustType')!= [] else None 
-        reportBody = data.get('reportBody') if data.get('reportBody') != "" else None
+        reportBody = data.get('comment') if data.get('comment') != "" else None
         addr = data.get("addr") if data.get("addr") != "" else None
         
         # print("date", date)
