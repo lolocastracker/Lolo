@@ -52,12 +52,14 @@ def postReport():
         print(data)
         date = data.get('date')
         position = data.get('latlng')
-        imageName = data.get('imgName') if data.get('imgName') != '' else None
-        locustType = data.get('locustType') if data.get('locustType')!= [] else None 
-        reportBody = data.get('reportBody')
-        addr = data.get("addr")
         lat = position.get("lat")
         lng = position.get("lng")
+        
+        imageName = data.get('imgName') if data.get('imgName') != '' else None
+        locustType = data.get('locustType') if data.get('locustType')!= [] else None 
+        reportBody = data.get('reportBody') if data.get('reportBody') != "" else None
+        addr = data.get("addr") if data.get("addr") != "" else None
+        
         # print("date", date)
         print("latlng", position.get("lat"), position.get("lng"))
         # print("imageName", imageName)
