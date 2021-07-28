@@ -24,7 +24,7 @@
   border-color: #ffa642;
   border-width: 1.5rem;
   width: 24rem;
-  height: 31rem;
+  height: 29rem;
   margin-right: auto;
   margin-left: auto;
   margin-bottom: 5em;
@@ -33,7 +33,6 @@
 .ui.centered.image {
   margin-bottom: 3rem;
   margin-left: 18%;
-  height: 13.8rem;
 }
 
 .ui.button {
@@ -43,4 +42,17 @@
 .ui.header:not(.icon) > .icons:only-child,
 .ui.header:not(.icon) > i.icon:only-child {
   margin-right: 0;
+}
+
+#what-lolo-img {
+  margin-bottom: 2.5rem;
+}
+
+#what-lolo {
+  margin-bottom: -2.5rem;
+}
+
+#about-us-container {
+  width: 65rem;
+  margin-bottom: 5rem;
 }
