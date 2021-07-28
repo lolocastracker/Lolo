@@ -71,7 +71,7 @@ const MapPage = () => {
       // )
 
       <div>
-        <Container style={{ marginTop: '7em' }}>
+        <Container style={{ marginTop: '7em', marginBottom: '5em' }}>
           <Grid textAlign='center'>
             <Grid.Row>
               <Header as='h1'>DESERT LOCUST MAP</Header>

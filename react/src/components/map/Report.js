@@ -27,7 +27,7 @@ const Report = ({ curReport }) => {
     <Segment id='report-segment'>
       <Grid stackable columns={2}>
         <Grid.Column>
-          <Header as='h2'>Location: {curReport.address}</Header>
+          <Header as='h2' id='location-header'>Location: {curReport.address}</Header>
           <div id='report-details'>
             <b>Lat.:</b> {curReport.lat.slice(0, 9)} &nbsp; <b>Long.:</b>{' '}
             {curReport.long.slice(0, 9)}
