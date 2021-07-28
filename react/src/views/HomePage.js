@@ -74,7 +74,7 @@ const HomePage = () => {
           WHAT IS
           <Image id='what-lolo-img' src={whatlolo_img} />?
         </Header>
-        <Header as='h2'>
+        <Header id='about-us-text' as='h2'>
           We are a diverse multi-diciplinary team stemming from a variety of
           geographic and academic backgrounds who have united for the
           InternHacks seven-week long competition. Lo-Lo is a one-stop-shop

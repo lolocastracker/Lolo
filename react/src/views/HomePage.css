@@ -53,6 +53,10 @@
 }
 
 #about-us-container {
-  width: 65rem;
+  width: 67rem;
   margin-bottom: 5rem;
+}
+
+#about-us-text {
+  margin-right: 2rem;
 }
