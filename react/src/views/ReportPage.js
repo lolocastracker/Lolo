@@ -32,10 +32,10 @@ function convertDate(date){
 }
 
 const ReportPage = () =>{
+
     //map
     const [position, setPosition] = useState(null)
     console.log("ReportPage: position="+position);
-     
 
     
     // getting the date
@@ -86,6 +86,11 @@ const ReportPage = () =>{
    // handle comment 
    const [commentBody, updateCommentBody] = useState("");
 
+   // redirect after submit  
+   const handleRedirect = (url) => {
+        window.location.href = '/report_submit';
+    }
+   
    // submit button 
    // must have a date and coordinates
    const SubmitButton = (e)=>{
@@ -119,7 +124,8 @@ const ReportPage = () =>{
                     body: JSON.stringify(sendtoBackend)
                 })
                     .then((response)=>response.json())
-                    .then((data) => console.log(data))
+                    // .then((data) => console.log(data))
+                    .then(() => handleRedirect())
                     .catch((err)=> console.log(err))
                        
        }
@@ -128,7 +134,7 @@ const ReportPage = () =>{
     return(
         <div>
             <Navbar />
-            <Container id='report-page-container' text>
+            <Container className='report-page-container' text>
                 
                 <Grid textAlign="center">
                     <Grid.Row>

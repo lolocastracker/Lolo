@@ -1,7 +1,7 @@
 import './Navbar.css'
 import { Dropdown, Image, Header, Grid } from 'semantic-ui-react'
 import AuthButton from '../../components/auth/AuthButton.js'
-import { useHistory, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   const home_img = require('../../assets/home_navbar.png').default
@@ -9,11 +9,10 @@ const Navbar = () => {
   const report_img = require('../../assets/report_navbar.png').default
   const forum_img = require('../../assets/forum_navbar.png').default
 
-  // Enables redirect on dropdown menu item click
-  let history = useHistory()
-  function handleLinkClick(destination) {
-    history.push(destination)
-  }
+
+   const handleLinkClick= (destination) => {
+        window.location.href = destination;
+    }
 
   return (
     <div id='nb-div'>
