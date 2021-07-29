@@ -12,10 +12,17 @@
 
 .mission {
   position: absolute;
-  top: 3rem;
+  /* top: 198px; */
+  top: 13rem;
   right: 2rem;
   max-width: 100%;
   padding-left: 2.8rem !important;
+}
+
+@media screen and (max-width: 25rem) {
+  .mission {
+    top: 12rem;
+  }
 }
 
 .orange-box {

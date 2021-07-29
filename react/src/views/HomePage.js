@@ -1,5 +1,5 @@
-import AuthButton from '../components/auth/AuthButton.js'
 import { Container, Image, Header, Grid, Button } from 'semantic-ui-react'
+import Navbar from '../components/navbar/Navbar.js'
 import './HomePage.css'
 import { Link } from 'react-router-dom'
 
@@ -12,7 +12,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <AuthButton></AuthButton>
+      <Navbar></Navbar>
       <div className='banner' style={{ backgroundImage: `url(${banner_img})` }}>
         <Header as='h1' className='mission' inverted>
           LOCATING LOCUSTS
