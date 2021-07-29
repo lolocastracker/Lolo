@@ -10,6 +10,10 @@ const HomePage = () => {
   const forum_img = require('../assets/forum_homepage.png').default
   const whatlolo_img = require('../assets/what_is_lo-lo.png').default
 
+  const forumRedirect = () => {
+    window.location.href = 'https://forum.lolo.gq'
+  }
+
   return (
     <div>
       <Navbar></Navbar>
@@ -59,13 +63,11 @@ const HomePage = () => {
           <Grid.Column>
             <Header as='h1'>FORUM</Header>
             <Image src={forum_img} centered />
-            <Link to='/forum'>
-              <Button>
+              <Button onClick={() => forumRedirect()}>
                 <Header as='h2'>
                   Learn More <i className='angle right icon'></i>
                 </Header>
               </Button>
-            </Link>
           </Grid.Column>
         </div>
       </Grid>
