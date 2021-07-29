@@ -13,7 +13,7 @@ let name="Astante"
   
     <div style={{"textAlign": "center","position":"relative","top":"20%"}}>
         <p> <h1>{name}</h1></p>
-        <p> <h1>Thanks For</h1></p>
+        <p> <h1>Thanks for</h1></p>
         <p> <h1>reporting a</h1></p>
         <p><h1>sighting</h1></p>
         </div>
