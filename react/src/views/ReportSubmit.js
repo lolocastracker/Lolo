@@ -1,10 +1,10 @@
 
 import { Image, Header, Grid, Button } from 'semantic-ui-react'
 import './HomePage.css'
-import { Checkbox } from '../components/reportsubmit/Checkbox'
+import Thanksbox from '../components/reportsubmit/Thanksbox'
 const HomePage = () => {
   return (
-<Checkbox></Checkbox>
+<Thanksbox></Thanksbox>
   )
 }
 

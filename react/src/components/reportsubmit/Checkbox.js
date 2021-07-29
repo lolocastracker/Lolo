@@ -1,31 +1,26 @@
-import React from "react";
-import thankYouFull from '../../assets/thankYouFull.png'; // Tell webpack this JS file uses this image
-import { Grid,Segment,Image } from 'semantic-ui-react'
+import React, { Fragment } from "react";
+import checkmark from '../../assets/checkmark.png'; // Tell webpack this JS file uses this image
+import { Image } from 'semantic-ui-react'
 
 
 
-export  const Checkbox = () => (
-    <Grid padded>
-    <Grid.Row centered columns={2}  only='tablet computer' style={{marginTop:"400px"}}>
-      <Grid.Column>
-      <Image src={thankYouFull}/>
-      </Grid.Column>
-    </Grid.Row>
-
-
-    {/* <Grid.Row columns={2} centered only='mobile'>
-      <Grid.Column>
-      <Image src={people}/>
-      </Grid.Column>
-    </Grid.Row>
-
-    <Grid.Row columns={2} centered only='mobile'>
-      <Grid.Column>
-      <Image src={people}/>
-      </Grid.Column>
-    </Grid.Row> */}
-  </Grid>
+export default function Checkbox(props){
+//  let name=props.name
+let name="Astante"
+ return(
+    <Fragment>
+    <div style={{"display":"inlineBlock","backgroundColor":"orange","height":"300px","width":"300px"}}>
   
+    <div style={{"textAlign": "center","position":"relative","top":"20%"}}>
+        <p> <h1>{name}</h1></p>
+        <p> <h1>Thanks For</h1></p>
+        <p> <h1>reporting a</h1></p>
+        <p><h1>sighting</h1></p>
+        </div>
+    </div>
+     <Image src={checkmark} style={{ "position": "relative","bottom":"35em","left":"10em"}}/>
+     </Fragment>
   
 )
 
+ }
