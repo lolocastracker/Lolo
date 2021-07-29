@@ -11,7 +11,7 @@ const HomePage = () => {
   const whatlolo_img = require('../assets/what_is_lo-lo.png').default
 
   const forumRedirect = () => {
-    window.location.href = 'https://forum.lolo.gq'
+    window.open('https://forum.lolo.gq', '_blank')
   }
 
   return (
@@ -24,14 +24,6 @@ const HomePage = () => {
           IN EAST AFRICA
         </Header>
       </div>
-      {/* <div className='banner'>
-        <Image src={banner_img} fluid />
-        <Header as='h1' className='mission' inverted>
-          LOCATING LOCUSTS
-          <br />
-          IN EAST AFRICA
-        </Header>
-      </div> */}
       <Grid container textAlign='center' stackable columns={3}>
         <div className='orange-box'>
           <Grid.Column>
