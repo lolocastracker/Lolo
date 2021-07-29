@@ -171,7 +171,7 @@ const ReportPage = () =>{
                             {/* temporary solution to make input box correspond to the calendar and vice versa */}
                             <DatePicker
                                 showTimeSelect
-                                placeholderText="MM/DD/YY"
+                                placeholderText="MM/DD/YYYY"
                                 open={false}
                                 selected={startDate}
                                 onChange={(date) => setStartDate(date)}/>
@@ -186,9 +186,9 @@ const ReportPage = () =>{
                     </Form.Group>
                     <Form.Field label="Locust Types (Select all that apply)"/>
                     <Form.Group id='checkbox-label'>
-                        <Form.Field className='checkbox-label' label='Eggs' control='input' type='checkbox' name="Eggs" onChange={checkboxHandler}/>
-                        <Form.Field className='checkbox-label' label='Adults' control='input' type='checkbox' name="Adults" onChange={checkboxHandler}/>
-                        <Form.Field className='checkbox-label' label='Hoppers' control='input' type='checkbox' name="Hoppers" onChange={checkboxHandler}/>
+                        <Form.Field label='Eggs' control='input' type='checkbox' name="Eggs" onChange={checkboxHandler}/>
+                        <Form.Field label='Adults' control='input' type='checkbox' name="Adults" onChange={checkboxHandler}/>
+                        <Form.Field label='Hoppers' control='input' type='checkbox' name="Hoppers" onChange={checkboxHandler}/>
                     </Form.Group>
                     
                     
@@ -229,7 +229,7 @@ const ReportPage = () =>{
                                         uploader(e);
                                     }
                                     else{
-                                        alert("Image is not in .JPG, .PNG, or PJEG!");
+                                        alert("Image is not in .JPG, .PNG, or JPEG!");
                                     }
                                 }
                                 
@@ -238,7 +238,7 @@ const ReportPage = () =>{
                     </Form.Field>
                     <Form.Field>
                         {/* alt is img description - this is to show the pics on screen*/}
-                        {result && <img ref={imageRef} src={result} alt="" width="300" height="300"/>}
+                        {result && <img id='image-preview' ref={imageRef} src={result} alt="" width="400" height="300"/>}
                     </Form.Field>                   
                     
                     {/* Button to the submit sight page */}
