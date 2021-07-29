@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import { useKeycloak } from '@react-keycloak/web'
 import { BrowserRouter } from 'react-router-dom'
 import { PrivateRoute } from './components/auth/PrivateRoute.js'
+import { Loader } from 'semantic-ui-react'
 //Pages
 // import TestPage2 from "./views/TestPage2.js"
 import MainPageTest from './views/MainPageTest.js'
@@ -10,12 +11,13 @@ import HomePage from './views/HomePage.js'
 import MapPage from './views/MapPage.js'
 import ProfilePage from './views/ProfilePage.js'
 import ReportPage from './views/ReportPage.js'
-import ReportSubmit from "./views/ReportSubmit.js"
+import ReportSubmit from './views/ReportSubmit.js'
 export default function App() {
   const { keycloak, initialized } = useKeycloak()
 
   if (!initialized) {
-    return <h3>Loading ... !!!</h3>
+    // return <h3>Loading...</h3>
+    return <Loader inline size='large' active />
   }
   return (
     // Profile Page is Protected so login Required, Redirects to Home Page After
