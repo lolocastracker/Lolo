@@ -10,6 +10,7 @@ import HomePage from './views/HomePage.js'
 import MapPage from './views/MapPage.js'
 import ProfilePage from './views/ProfilePage.js'
 import ReportPage from './views/ReportPage.js'
+import ReportSubmit from "./views/ReportSubmit.js"
 export default function App() {
   const { keycloak, initialized } = useKeycloak()
 
@@ -33,6 +34,9 @@ export default function App() {
         </Route>
         <Route path='/report'>
           <ReportPage />
+        </Route>
+        <Route path='/report_submit'>
+          <ReportSubmit />
         </Route>
       </Switch>
     </BrowserRouter>
