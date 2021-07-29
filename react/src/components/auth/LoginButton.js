@@ -1,5 +1,4 @@
 // src/components/login-button.js
-
 import './AuthButton.css'
 import React from 'react'
 import { useKeycloak } from '@react-keycloak/web'
