@@ -20,5 +20,6 @@ const LogoutButton = (props) => {
       onClick={() => {
         document.cookie = `mybbuser=`
         keycloak.logout()
-      }}
+      }}></Button>
+  )}
 export default LogoutButton

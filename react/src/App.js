@@ -8,9 +8,6 @@ import MapPage from './views/MapPage.js'
 import ProfilePage from './views/ProfilePage.js'
 import ReportPage from './views/ReportPage.js'
 import ReportSubmit from "./views/ReportSubmit.js"
-export default function App() {
-  const { keycloak, initialized } = useKeycloak()
-//logout
 import LogoutButton from "./components/auth/LogoutButton.js";
 
 export default function App(){
