@@ -1,29 +1,24 @@
 // src/components/logout-button.js
-import { useKeycloak } from '@react-keycloak/web';
+import './AuthButton.css'
+import { useKeycloak } from '@react-keycloak/web'
+import { Button } from 'semantic-ui-react'
 import { useHistory } from "react-router-dom";
-import React from "react";
+import React from 'react'
+
 const LogoutButton = (props) => {
-  const { keycloak } = useKeycloak();
-  const history = useHistory();
-  if(props.data){
+  const { keycloak, initialized } = useKeycloak()
+   const history = useHistory();
+   if(props.data){
     document.cookie=`mybbuser=;domain=lolo.gq`
     keycloak.logout()
   }
   return (
-    <button
-      className="btn btn-danger btn-block"
-      onClick={() =>
-        {
-          document.cookie=`mybbuser=;domain=lolo.gq`
-            keycloak.logout()
-        }
-       
-      
-      }
-    >
-      Log Out
-    </button>
-  );
-};
-
-export default LogoutButton;
+    <Button
+      className='authbutton'
+      basic
+      color='black'
+      onClick={() => {
+        document.cookie = `mybbuser=`
+        keycloak.logout()
+      }}
+export default LogoutButton

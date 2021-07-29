@@ -1,0 +1,17 @@
+@media screen and (max-width: 45rem) {
+#thank-you-img {
+    margin-top: -1rem;
+  }
+}
+
+@media screen and (min-width: 45rem) {
+#thank-you-img {
+    margin-top: -1rem;
+  }
+}
+
+@media screen and (min-width: 61rem) {
+#thank-you-img {
+    margin-top: -3rem;
+  }
+}

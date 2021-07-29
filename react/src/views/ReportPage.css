@@ -1,0 +1,52 @@
+.report-page-container {
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+}
+
+@media screen and (max-width: 45rem) {
+  #report-page-header {
+    margin-left: 1rem;
+  }
+}
+
+#report-page-header {
+  margin-bottom: 2rem;
+}
+
+.ui.form .field > label {
+  font-size: 1.71428571rem;
+}
+
+.ui.form {
+  margin-top: 1rem;
+}
+
+#date-label {
+  margin-bottom: 0;
+}
+
+#checkbox-label .field label {
+  font-size: 1.14rem;
+  font-weight: normal;
+}
+
+#picture-label {
+  margin-bottom: 0;
+}
+
+#submit-button {
+  font-size: 1.71428571rem;
+  padding: 1rem 2rem 1rem 2rem;
+  margin-top: 1rem;
+}
+
+#image-upload-label {
+  font-size: 1.14rem;
+}
+
+#image-preview {
+  max-height: 300px;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}

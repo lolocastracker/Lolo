@@ -1,0 +1,51 @@
+.ui.segment {
+  font-size: 1.14rem;
+}
+
+#report-segment {
+  margin-top: 2rem;
+}
+
+#report-details {
+  word-break: break-word;
+}
+
+#location-header {
+  margin-bottom: 0.8rem;
+}
+
+/* when there is no photo */
+#report-image-box {
+  padding-top: 4rem;
+  text-align: center;
+  border-style: solid;
+  border-width: thin;
+  height: 12.285rem;
+}
+
+/* when there is a photo */
+#report-image-box-photo {
+  height: 12.285rem;
+}
+
+#report-image {
+  max-width: 100%;
+  max-height: 12.285rem;
+  height: auto;
+  width: auto;
+}
+
+#comment {
+  line-height: 1.5rem;
+  width: 100%;
+  height: auto;
+  max-height: 5.65rem;
+  margin-bottom: -10px;
+  margin-top: 0.25rem;
+  overflow: auto;
+}
+
+#locust-type {
+  margin-top: 0.4rem;
+  margin-bottom: -0.5rem;
+}
