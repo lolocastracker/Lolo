@@ -1,7 +1,7 @@
 import './Navbar.css'
-import { Container, Image, Header, Grid, Icon } from 'semantic-ui-react'
+import { Dropdown, Image, Header, Grid } from 'semantic-ui-react'
 import AuthButton from '../../components/auth/AuthButton.js'
-import { Link } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 const Navbar = () => {
   const home_img = require('../../assets/home_navbar.png').default
@@ -9,29 +9,35 @@ const Navbar = () => {
   const report_img = require('../../assets/report_navbar.png').default
   const forum_img = require('../../assets/forum_navbar.png').default
 
+  // Enables redirect on dropdown menu item click
+  let history = useHistory()
+  function handleLinkClick(destination) {
+    history.push(destination)
+  }
+
   return (
     <div id='nb-div'>
       <Grid verticalAlign='middle' textAlign='center'>
         <Grid.Row columns={5}>
-          <Grid.Column>
+          <Grid.Column id='nb-home'>
             <Link to='/'>
-              <Header id='nb-home'>
+              <Header>
                 <Image src={home_img} />
                 Home
               </Header>
             </Link>
           </Grid.Column>
-          <Grid.Column>
+          <Grid.Column id='nb-view'>
             <Link to='/map'>
-              <Header id='nb-view'>
+              <Header>
                 <Image src={view_img} />
                 View
               </Header>
             </Link>
           </Grid.Column>
-          <Grid.Column>
+          <Grid.Column id='nb-report'>
             <Link to='/report'>
-              <Header id='nb-report'>
+              <Header>
                 <Image src={report_img} />
                 Report
               </Header>
@@ -39,7 +45,7 @@ const Navbar = () => {
           </Grid.Column>
           <Grid.Column>
             <a href='https://forum.lolo.gq'>
-              <Header id='nb-forum'>
+              <Header>
                 <Image src={forum_img} />
                 Forum
               </Header>
@@ -50,9 +56,25 @@ const Navbar = () => {
           </Grid.Column>
         </Grid.Row>
       </Grid>
-      <Container>
-        <Icon id='nb-small' name='sidebar' />
-      </Container>
+      {/* Dropdown only displayed on small screens */}
+      <Dropdown id='nb-small' icon='sidebar'>
+        <Dropdown.Menu>
+          <Dropdown.Item onClick={() => handleLinkClick('/')}>
+            <h2>Home</h2>
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => handleLinkClick('/map')}>
+            <h2>View</h2>
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => handleLinkClick('/report')}>
+            <h2>Report</h2>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <a href='https://forum.lolo.gq'>
+              <h2>Forum</h2>
+            </a>
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
     </div>
   )
 }

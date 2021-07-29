@@ -19,6 +19,12 @@
   padding-left: 2.8rem !important;
 }
 
+@media screen and (max-width: 25rem) {
+  .mission {
+    top: 12rem;
+  }
+}
+
 .orange-box {
   border-right-style: solid;
   border-bottom-style: solid;

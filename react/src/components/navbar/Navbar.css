@@ -5,22 +5,18 @@
 
 #nb-div .ui.header {
   font-size: 2.4285714rem;
-  /* font-weight: bold; */
-  /* line-height: 156px;; */
   color: white;
   padding-top: 3rem;
-  /* top: 55px; */
-  /* position: absolute; */
-  /* position: relative; */
 }
 
 #nb-div .ui.grid {
   height: 156px;
+  margin-left: 10rem;
 }
 
 #nb-div .authbutton {
-  margin-top: 0.85714rem;
-  margin-right: 1.5rem;
+  margin-top: 1rem;
+  margin-right: -1rem;
 }
 
 @media screen and (max-width: 45rem) {
@@ -29,13 +25,14 @@
     display: none;
   }
   #nb-div .ui.grid {
-    width: 28rem;
+    width: auto;
+    margin-left: 0;
   }
 }
 
 @media screen and (max-width: 25rem) {
   #nb-div .ui.grid {
-    width: 18rem;
+    width: 20rem;
   }
 }
 
@@ -53,25 +50,25 @@
   color: white;
 }
 
-/* #nb-home */
+.ui.dropdown a {
+  color: black;
+}
 
-/* #nb-view {
-  left: 200px;
+#nb-home {
+  margin-left: -5rem;
+  margin-right: -1rem;
+}
+
+#nb-view {
+  margin-right: -1rem;
 }
 
 #nb-report {
-  left: 400px;
-  top: 55px;
+  margin-right: 1.5rem;
 }
-
-#nb-forum {
-  left: 600px;
-} */
 
 #nb-div img {
   height: 74px;
   width: auto;
   margin-top: -20px;
-  /* top: 41px; */
-  /* top: -15px; */
 }

@@ -49,13 +49,13 @@ const MapReport= ({onPositionChange})=>{
 // this map should display an empty map when first opened
     console.log("MapReport called");
     
-    const defaultposition = [1.9577, 37.2972]
+    const defaultposition = [3.5149, 38.2212]
     return (
         <div>
             <MapContainer
                 className='reportmapContainer'
                 center={defaultposition}
-                zoom={10}>
+                zoom={5}>
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'/>

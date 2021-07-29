@@ -1,14 +1,13 @@
-import { useState,useEffect } from 'react'
+import './ReportPage.css'
+import Navbar from '../components/navbar/Navbar.js'
+import { useState } from 'react'
 import MapReport from '../components/map/Map_Report.js'
-import { Header, Container, Input, Grid, Segment } from 'semantic-ui-react'
+import { Header, Container, Input, Grid } from 'semantic-ui-react'
 
 // for the forms 
 import {
     Button,
-    Checkbox,
     Form,
-    Radio,
-    Select,
     TextArea,
     Icon
   } from 'semantic-ui-react'
@@ -128,11 +127,12 @@ const ReportPage = () =>{
 
     return(
         <div>
-            <Container style={{marginTop:'7em'}}>
+            <Navbar />
+            <Container id='report-page-container' text>
                 
                 <Grid textAlign="center">
                     <Grid.Row>
-                        <Header as="h1">Report Page</Header>
+                        <Header id='report-page-header' as="h1">REPORT A SIGHTING</Header>
                     </Grid.Row>
                     
                 </Grid>
@@ -143,7 +143,7 @@ const ReportPage = () =>{
                     <Form.Field
                         control={Input}
                         label='Location'
-                        placeholder='State/Town, Country'
+                        placeholder='Town, Region, Country'
                         maxLength="200"
                         onChange={(e)=> updateAddress(e.target.value)}
                         />
@@ -151,17 +151,17 @@ const ReportPage = () =>{
                         <Form.Field
                             control={Input}
                             label = "Latitude"
-                            placeholder="Input Latitude"
+                            placeholder="Click on map"
                             value = {position===null?"": position.lat}
                         />
                         <Form.Field
                             control={Input}
-                            label="Longtitude"
-                            placeholder="Input Longtitude"
+                            label="Longitude"
+                            placeholder="Click on map"
                             value = {position===null?"": position.lng}
                         />
                     </Form.Group>
-                    <Form.Field label="Date"/>
+                    <Form.Field id='date-label' label="Date"/>
                     <Form.Group>
                         {/* <Form.Field label="Date"
                             control={Input}
@@ -185,10 +185,10 @@ const ReportPage = () =>{
                         </Form.Field>
                     </Form.Group>
                     <Form.Field label="Locust Types (Select all that apply)"/>
-                    <Form.Group>
-                        <Form.Field label='Eggs' control='input' type='checkbox' name="Eggs" onChange={checkboxHandler}/>
-                        <Form.Field label='Adults' control='input' type='checkbox' name="Adults" onChange={checkboxHandler}/>
-                        <Form.Field label='Hoppers' control='input' type='checkbox' name="Hoppers" onChange={checkboxHandler}/>
+                    <Form.Group id='checkbox-label'>
+                        <Form.Field className='checkbox-label' label='Eggs' control='input' type='checkbox' name="Eggs" onChange={checkboxHandler}/>
+                        <Form.Field className='checkbox-label' label='Adults' control='input' type='checkbox' name="Adults" onChange={checkboxHandler}/>
+                        <Form.Field className='checkbox-label' label='Hoppers' control='input' type='checkbox' name="Hoppers" onChange={checkboxHandler}/>
                     </Form.Group>
                     
                     
@@ -202,10 +202,11 @@ const ReportPage = () =>{
                         onChange={(e)=> updateCommentBody(e.target.value)}
                         />
                         
-                    <Form.Field label="Picture"/>
+                    <Form.Field id='picture-label' label="Picture"/>
                     {/* This is to take in pictures - can change it later  */}
                     <Form.Field>
                         <input
+                            id='image-upload-label'
                             type="file"
                             accept=".jpg, .jpeg, .png"
                             onChange={(e)=>{
@@ -241,7 +242,7 @@ const ReportPage = () =>{
                     </Form.Field>                   
                     
                     {/* Button to the submit sight page */}
-                    <Form.Field control={Button} onClick={SubmitButton}>Submit Sighting</Form.Field>
+                    <Form.Field id='submit-button' control={Button} onClick={SubmitButton}>Submit Sighting</Form.Field>
 
                 </Form>   
 
