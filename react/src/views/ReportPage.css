@@ -43,3 +43,10 @@
 #image-upload-label {
   font-size: 1.14rem;
 }
+
+#image-preview {
+  max-height: 300px;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
