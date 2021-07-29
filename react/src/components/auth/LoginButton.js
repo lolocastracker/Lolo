@@ -6,7 +6,7 @@ import { useKeycloak } from '@react-keycloak/web'
 import { Button } from 'semantic-ui-react'
 
 export default function LoginButton() {
-  const { keycloak, initialized } = useKeycloak()
+  const { keycloak} = useKeycloak()
   return (
     <Button
       className='authbutton'

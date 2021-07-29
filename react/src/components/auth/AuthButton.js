@@ -7,7 +7,7 @@ import ProfileButton from "./ProfileButton"
 
 const AuthButton = () => {
 
-   const { keycloak, initialized } = useKeycloak()
+   const { keycloak } = useKeycloak()
 
   return keycloak.authenticated ?<div><LogoutButton/> <ProfileButton/></div> :<LoginButton/>
 };

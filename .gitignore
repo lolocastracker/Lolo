@@ -1,11 +1,10 @@
 
 node_modules
-databases
-
 Database/
-
 mybb/
 hsperfdata_jboss
 Keycloak.js
-map/__pycache__/
 .merge_file*
+__pycache__
+docker-compose.yml
+
