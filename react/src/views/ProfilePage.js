@@ -1,6 +1,6 @@
 import { useKeycloak } from '@react-keycloak/web';
-const ProfilePage = () => {
-  const { keycloak, initialized } = useKeycloak()
+const ProfilePage = (props) => {
+  const { keycloak } = useKeycloak()
 let test=keycloak.subject
   return (
   <div>

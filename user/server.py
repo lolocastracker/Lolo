@@ -9,17 +9,46 @@ from flask import request as flaskreq
 from password_generator import PasswordGenerator
 import os
 import hashlib
+import time
+
+#LoadEnv Vars
+from dotenv import load_dotenv
+from pathlib import Path
+dotenv_path = Path('../env/.env')
+load_dotenv(dotenv_path=dotenv_path)
+
+
+DB_NAME = os.getenv('DB_NAME')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_USER = os.getenv('DB_USER')
+CLOAK_USER = os.getenv('CLOAK_USER')
+CLOAK_PASSWORD= os.getenv('CLOAK_PASSWORD')
 
 app = Flask(__name__)
-
+#pool 
+def create_pool():
+    """ Connect to MySQL database """
+    conn = None
+    try:
+        config={"user":DB_USER, "database":DB_NAME,"password":DB_PASSWORD,"host":"db"}
+        conn =  pooling.MySQLConnectionPool(pool_size = 32,**config)
+        return conn
+    except Error as e:
+        print(e)
+t=create_pool()
 
 @app.route("/api/user/test")
 def hello2():
     return "Hello User!"
 
+@app.route("/api/user/")
+def hello23():
+    return "Hello User!"
+
+
 #get a token for user management, keycloak
 def get_token():
-    adminlogin={"username":"admin","password":'admin',"grant_type":"password","client_id":"admin-cli"}
+    adminlogin={"username":CLOAK_USER,"password":CLOAK_PASSWORD,"grant_type":"password","client_id":"admin-cli"}
     headers={"Content-Type": "application/x-www-form-urlencoded"}
     url="http://keycloak:8080/auth/realms/master/protocol/openid-connect/token"
     s=req.post(url,data=adminlogin,headers=headers)
@@ -47,12 +76,12 @@ def forum_login():
     userinfo=get_userinfo(id)
     if userinfo.get("error")!=None:
         return userinfo
-    username=userinfo.get("username")
+    username=userinfo.get("username") 
     email=userinfo.get("email")
     pwo = PasswordGenerator()
     pwo.minnumbers = 10
     pwo.minschars = 2
-    password=pwo.generate()
+    password=pwo.generate()  
     if check_username(username)=="":
         new_forumuser(username,password,email)
     t=get_cookie(username)
@@ -62,8 +91,8 @@ def check_username(username):
     connection_objt = t.get_connection()
     cursor = connection_objt.cursor()
     isPresent=False
-    query = ("SELECT username FROM mybb_users " 
-         "WHERE username = %s")
+    query = ("SELECT username FROM lolobb_users" 
+         " WHERE username = %s")
     cursor.execute(query,(username,))
     myresult = cursor.fetchall()
     for user in myresult:
@@ -74,40 +103,31 @@ def check_username(username):
         return username
     return ""
 
-def new_forumuser(username,password,email):  
-    mybb_sess=req.Session()
-    form={"username":"admin",
-    "password":"admin",
-    "do":"login"}
-    url="http://nginx/admin/index.php"
-    mybb_sess.post(url,data=form)
-    postkey=""
-    form={"username":"admin",
-    "password":"admin",
-    "do":"login"}
-    url="http://nginx/admin/index.php"
-    t=mybb_sess.get(url)
-    soup = BeautifulSoup(t.text, 'html.parser')
-    for element in soup.find_all('input'):
-        app.logger.debug(element)
-        app.logger.debug(element.get("name",""))
-        if element.get("name","")=="my_post_key":
-            postkey=element.get("value","")
-    form={"username":username,"password":password,"confirm_password":password,"email":email,"usergroup":2,"displaygroup":0,"my_post_key":postkey}
-    url="http://nginx/admin/index.php?module=user-users&action=add"
-    t=mybb_sess.post(url,data=form)
-    app.logger.debug("added user")
-    mybb_sess.close()
-    return 
- 
+def new_forumuser(username,password,email):
+    curr=int(time.time())
+    salt=os.urandom(5).hex()
+    loginkey=os.urandom(24).hex()
+    saltedh=hashlib.md5(salt.encode('utf-8')).hexdigest()
+    normalh=hashlib.md5(password.encode('utf-8')).hexdigest()
+    hash=hashlib.md5(saltedh.encode('utf-8')+normalh.encode('utf-8')).hexdigest()
+    connection_objt = t.get_connection()
+    query= "SET sql_mode = '';"
+    cursor = connection_objt.cursor()
+    cursor.execute(query) 
+    query =("INSERT INTO lolobb_users (username, password, salt, email, usergroup,loginkey,regdate) " 
+    "VALUES (%s,%s,%s,%s,%s,%s,%s)")
+    cursor.execute(query,(username,hash,salt,email,2,loginkey,curr))
+    connection_objt.close()
+
+   
+
 def get_cookie(username):
     connection_objt = t.get_connection()
     cursor = connection_objt.cursor()
-    query = ("SELECT username,loginkey,uid FROM mybb_users " 
+    query = ("SELECT username,loginkey,uid FROM lolobb_users " 
          "WHERE username = %s")
-    cursor.execute(query,(username,))
+    cursor.execute(query,(username,)) 
     myresult = cursor.fetchall()
-    app.logger.debug(myresult)
     uid=""
     key=""
     for data in myresult:
@@ -115,25 +135,13 @@ def get_cookie(username):
             uid=data[2]
             key=data[1]
     connection_objt.close()
-    return f"{data[2]}_{data[1]}"
+    return f"{uid}_{key};domain=lolo.gq"
 
 
-#weird things going on with pool
-# 3 explicity call pool fuinction
-def create_pool():
-    """ Connect to MySQL database """
-    conn = None
-    try:
-        config={"user":'root', "database":'lolo_db',"password":"testpass","host":"db"}
-        conn =  pooling.MySQLConnectionPool(pool_size = 32,**config)
-        return conn
-    except Error as e:
-        print(e)
+
 
 
 
 if __name__ == "__main__":
-    t=create_pool()
-    app.run(host='0.0.0.0', debug=True)
-
+    app.run(host='0.0.0.0')
 
