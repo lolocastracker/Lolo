@@ -10,6 +10,10 @@ const HomePage = () => {
   const forum_img = require('../assets/forum_homepage.png').default
   const whatlolo_img = require('../assets/what_is_lo-lo.png').default
 
+  const forumRedirect = () => {
+    window.open('https://forum.lolo.gq', '_blank')
+  }
+
   return (
     <div>
       <Navbar></Navbar>
@@ -20,14 +24,6 @@ const HomePage = () => {
           IN EAST AFRICA
         </Header>
       </div>
-      {/* <div className='banner'>
-        <Image src={banner_img} fluid />
-        <Header as='h1' className='mission' inverted>
-          LOCATING LOCUSTS
-          <br />
-          IN EAST AFRICA
-        </Header>
-      </div> */}
       <Grid container textAlign='center' stackable columns={3}>
         <div className='orange-box'>
           <Grid.Column>
@@ -59,13 +55,11 @@ const HomePage = () => {
           <Grid.Column>
             <Header as='h1'>FORUM</Header>
             <Image src={forum_img} centered />
-            <Link to='/forum'>
-              <Button>
+              <Button onClick={() => forumRedirect()}>
                 <Header as='h2'>
                   Learn More <i className='angle right icon'></i>
                 </Header>
               </Button>
-            </Link>
           </Grid.Column>
         </div>
       </Grid>

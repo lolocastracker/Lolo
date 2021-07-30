@@ -5,7 +5,7 @@ import Map from '../components/map/Map.js'
 import Report from '../components/map/Report.js'
 import ReportTable from '../components/map/ReportTable.js'
 import Navbar from '../components/navbar/Navbar.js'
-import { Header, Container, Grid, Segment, Button } from 'semantic-ui-react'
+import { Loader, Header, Container, Grid, Segment, Button } from 'semantic-ui-react'
 // import reports from '../components/map/fakeData.js'
 
 const MapPage = () => {
@@ -49,7 +49,8 @@ const MapPage = () => {
     return <div>Error: {error.message}</div>
   } else if (!isLoaded) {
     console.log('else if', reports)
-    return <div>Loading...</div>
+    // return <div>Loading...</div>
+    return <Loader inline size='large' active />
   } else {
     return (
       <div>
