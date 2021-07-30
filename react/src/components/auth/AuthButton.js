@@ -9,6 +9,7 @@ const AuthButton = () => {
 
    const { keycloak, initialized } = useKeycloak()
 
+  return keycloak.authenticated ?<div><LogoutButton/> </div> :<LoginButton/>
   return keycloak.authenticated ?<div><LogoutButton/> <ProfileButton/></div> :<LoginButton/>
 };
 
