@@ -18,7 +18,7 @@ DB_NAME = os.getenv('DB_NAME')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_USER = os.getenv('DB_USER')
 
-db_pool = db.create_pool()
+# db_pool = db.create_pool()
 
 
 @app.route("/api/map/test")
@@ -54,6 +54,7 @@ def image_too_big(e):
 
 @app.route('/api/map/submit', methods=['POST'])
 def postReport():
+    app.logger.debug("works")
     '''accept post request from ReportPage and input those data into the database'''
     # query=""
     # db_connection = db.create_pool().get_connection()
@@ -61,16 +62,16 @@ def postReport():
     # db_connection.close()
     try:
         data = request.get_json()
-        print(data)
+        app.logger.debug(data)
         date = data.get('date')
         position = data.get('latlng')
         lat = position.get("lat")
         lng = position.get("lng")
-        
         imageName = data.get('imgName') if data.get('imgName') != '' else None
         locustType = data.get('locustType') if data.get('locustType')!= [] else None 
         reportBody = data.get('comment') if data.get('comment') != "" else None
         addr = data.get("addr") if data.get("addr") != "" else None
+        app.logger.debug("var set")
         
         # print("date", date)
         print("latlng", position.get("lat"), position.get("lng"))
@@ -80,10 +81,13 @@ def postReport():
         # print("comment", reportBody)
 
 
-
+        app.logger.debug("conditional start")
         if (imageName!= None):
+            app.logger.debug("In the image")
             path = os.path.join(os.getcwd(), "target/assets/reportpics")
+            print(path,"")
             imageName = saveImage(data.get("img").split("base64,")[1], path, imageName)
+            app.logger.debug(imageName)
             print("New image name = ", imageName)
         if (locustType!=None):
             tempString = locustType[0]
@@ -108,8 +112,8 @@ def postReport():
         cursor.close()
         db_connection.close()
     except Exception as e:
-        print("map/server.py Error!")
         print(e)
+
         return {"status": "fail", "message": e}
 
     return {"status": "success","message": ""}
@@ -129,3 +133,8 @@ def saveImage(img, path, imgName):
     image.close()
     return newImageName+"."+extension
 
+if __name__ == "__main__":
+    db_pool = db.create_pool()
+    app.logger.debug(db_pool)
+    print("logger")
+    app.run(host='0.0.0.0', debug=True) 
