@@ -56,23 +56,6 @@ services:
        - ./user:/target
     command:  /wait-for-it.sh -t 200 db:3306 -- python3 ./target/server.py
 
-  session:
-    container_name: session
-    image: session
-    restart: always
-    build:
-      context: .
-      dockerfile: ./Dockerfiles/session
-    ports:
-      - 6600:5000
-    restart: unless-stopped
-    volumes:
-      - ./session:/target
-    command:  python3 ./target/app.py
-
-  redis:
-    image: "redis:alpine"
-
 #frontend   
   react:
     container_name: react
@@ -138,13 +121,6 @@ services:
     volumes:
      - ./keycloak:/tmp
   
-
-
-
-
-
-
-
 
 
 
