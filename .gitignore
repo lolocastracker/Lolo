@@ -5,6 +5,9 @@ mybb/
 hsperfdata_jboss
 Keycloak.js
 docker-compose.yml
+docker-compose.yml
+docker-compose-parsed.yaml
+docker-compose-parsed.yml
 __pycache__
 .merge_file*
 
