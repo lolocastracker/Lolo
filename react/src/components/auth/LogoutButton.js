@@ -3,9 +3,14 @@ import './AuthButton.css'
 import React from 'react'
 import { useKeycloak } from '@react-keycloak/web'
 import { Button } from 'semantic-ui-react'
-
-const LogoutButton = () => {
+import { useHistory } from "react-router-dom";
+const LogoutButton = (props) => {
   const { keycloak, initialized } = useKeycloak()
+   const history = useHistory();
+   if(props.data){
+    document.cookie=`mybbuser=;domain=lolo.gq`
+    keycloak.logout()
+  }
   return (
     <Button
       className='authbutton'
@@ -14,11 +19,6 @@ const LogoutButton = () => {
       onClick={() => {
         document.cookie = `mybbuser=`
         keycloak.logout()
-      }}
-    >
-      Log Out
-    </Button>
-  )
-}
-
+      }}>Logout</Button>
+  )}
 export default LogoutButton
