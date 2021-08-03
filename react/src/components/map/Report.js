@@ -15,6 +15,7 @@ const Report = ({ curReport,images }) => {
     if(curReport.path){
       console.log("Could Not Load Image")
       console.log(curReport.path)
+      console.log(images)
     }
     reportImage = (
       <Header as='h2'>

@@ -13,7 +13,7 @@ function importAll(r) {
   return images;
 }
 
-const images = importAll(require.context('../assets/reportpics', false, /\.(PNG|JPE?G|SVG)$/));
+const images = importAll(require.context('../assets/reportpics', false, /\.(PNG|JPE?G|SVG)$/i));
 
 const MapPage = () => {
   function importAll(r) {
