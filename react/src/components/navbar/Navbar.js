@@ -43,7 +43,7 @@ const Navbar = () => {
             </Link>
           </Grid.Column>
           <Grid.Column>
-            <a href='https://forum.lolo.gq'>
+          <a href='https://forum.lolo.gq' target='_blank'>
               <Header>
                 <Image src={forum_img} />
                 Forum
@@ -68,7 +68,7 @@ const Navbar = () => {
             <h2>Report</h2>
           </Dropdown.Item>
           <Dropdown.Item>
-            <a href='https://forum.lolo.gq'>
+          <a href='https://forum.lolo.gq' target='_blank'>
               <h2>Forum</h2>
             </a>
           </Dropdown.Item>

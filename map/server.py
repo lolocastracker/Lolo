@@ -54,24 +54,20 @@ def image_too_big(e):
 
 @app.route('/api/map/submit', methods=['POST'])
 def postReport():
-    app.logger.debug("works")
+    print("works")
     '''accept post request from ReportPage and input those data into the database'''
-    # query=""
-    # db_connection = db.create_pool().get_connection()
-    # cursor = db.execute_query(db_connection=db_connection, query=query)
-    # db_connection.close()
     try:
         data = request.get_json()
-        app.logger.debug(data)
+        print(data)
         date = data.get('date')
         position = data.get('latlng')
         lat = position.get("lat")
         lng = position.get("lng")
+        
         imageName = data.get('imgName') if data.get('imgName') != '' else None
         locustType = data.get('locustType') if data.get('locustType')!= [] else None 
         reportBody = data.get('comment') if data.get('comment') != "" else None
         addr = data.get("addr") if data.get("addr") != "" else None
-        app.logger.debug("var set")
         
         # print("date", date)
         print("latlng", position.get("lat"), position.get("lng"))
@@ -81,14 +77,14 @@ def postReport():
         # print("comment", reportBody)
 
 
-        app.logger.debug("conditional start")
+
         if (imageName!= None):
-            app.logger.debug("In the image")
-            path = os.path.join(os.getcwd(), "target/assets/reportpics")
-            print(path,"")
+            path = "target/assets/reportpics"
             imageName = saveImage(data.get("img").split("base64,")[1], path, imageName)
-            app.logger.debug(imageName)
-            print("New image name = ", imageName)
+            fullpath=os.path.join(path,imageName)
+            if not os.path.isfile(fullpath):
+                imageName=None
+            app.logger.debug(f"New image name = {imageName}")
         if (locustType!=None):
             tempString = locustType[0]
             for i in locustType[1:]:
@@ -112,8 +108,8 @@ def postReport():
         cursor.close()
         db_connection.close()
     except Exception as e:
+        print("map/server.py Error!")
         print(e)
-
         return {"status": "fail", "message": e}
 
     return {"status": "success","message": ""}
@@ -135,6 +131,5 @@ def saveImage(img, path, imgName):
 
 if __name__ == "__main__":
     db_pool = db.create_pool()
-    app.logger.debug(db_pool)
-    print("logger")
+    print(db_pool)
     app.run(host='0.0.0.0', debug=True) 

@@ -1,19 +1,21 @@
 import { Header, Grid, Segment } from 'semantic-ui-react'
 import './Report.css'
 
-const Report = ({ curReport }) => {
+const Report = ({ curReport,images }) => {
   const year = curReport.date.slice(0, 4)
-
-  let photo // image file
   let reportImage // element to display
+  //attempt to load images
   // handle image present vs unavailable
-  if (curReport.path) {
-    photo = require(`../../assets/reportpics/${curReport.path}`).default
+  let photo = images[curReport.path] || null
+  if (photo) {
     reportImage = (
-      <img id='report-image' src={photo} height='171.99' width='245'></img>
+      <img id='report-image' src={photo.default} height='171.99' width='245'></img>
     )
   } else {
-    photo = null
+    if(curReport.path){
+      console.log("Could Not Load Image")
+      console.log(curReport.path)
+    }
     reportImage = (
       <Header as='h2'>
         No photo

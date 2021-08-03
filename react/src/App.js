@@ -8,7 +8,9 @@ import HomePage from './views/HomePage.js'
 import MapPage from './views/MapPage.js'
 import ProfilePage from './views/ProfilePage.js'
 import ReportPage from './views/ReportPage.js'
-import ReportSubmit from './views/ReportSubmit.js
+import ReportSubmit from './views/ReportSubmit.js'
+import LogoutButton from './components/auth/LogoutButton.js'
+
 export default function App(){
   const { keycloak, initialized } = useKeycloak()
   let history = useHistory();
