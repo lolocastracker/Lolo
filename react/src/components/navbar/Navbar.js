@@ -9,9 +9,10 @@ const Navbar = () => {
   const report_img = require('../../assets/report_navbar.png').default
   const forum_img = require('../../assets/forum_navbar.png').default
 
-  const handleLinkClick = (destination) => {
-    window.location.href = destination
-  }
+
+   const handleLinkClick= (destination) => {
+        window.location.href = destination;
+    }
 
   return (
     <div id='nb-div'>
@@ -42,7 +43,7 @@ const Navbar = () => {
             </Link>
           </Grid.Column>
           <Grid.Column>
-            <a href='https://forum.lolo.gq' target='_blank'>
+          <a href='https://forum.lolo.gq' target='_blank'>
               <Header>
                 <Image src={forum_img} />
                 Forum
@@ -67,7 +68,7 @@ const Navbar = () => {
             <h2>Report</h2>
           </Dropdown.Item>
           <Dropdown.Item>
-            <a href='https://forum.lolo.gq' target='_blank'>
+          <a href='https://forum.lolo.gq' target='_blank'>
               <h2>Forum</h2>
             </a>
           </Dropdown.Item>
