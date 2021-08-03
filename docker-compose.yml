@@ -1,6 +1,6 @@
-version: '3.2'
+version: '3'
 services:
- #database
+ #databases
   db:
     image: mysql:8.0
     container_name: db
@@ -8,12 +8,12 @@ services:
     command: --default-authentication-plugin=mysql_native_password 
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: testpass
+      MYSQL_DATABASE: lolo_db
     volumes:
       - ./Database:/var/lib/mysql
+    ports:
+      - 8000:3306
 
   adminer:
     image: adminer
@@ -28,39 +28,61 @@ services:
   #backend services
   map:
      container_name: map
-     image: 127.0.0.1:5000/backend
+     image: backend
      build:
        context: .
        dockerfile: ./Dockerfiles/backend
+     ports:
+       - 6000:5000
      volumes:
        - ./map:/target
        - ./react/src/assets:/target/assets
-       - ./env:/env
-     command:  /wait-for-it.sh -t 200 db:3306 -- gunicorn --workers 1 --bind 0.0.0.0:5000 --chdir ./target server:app
+     command:  /wait-for-it.sh -t 200 db:3306 -- python3 ./target/server.py
   comm:
      container_name: comm
-     image: 127.0.0.1:5000/backend
+     image: backend
+     ports:
+       - 6200:5000
      volumes:
        - ./comm:/target
-       - ./env:/env
-     command:  /wait-for-it.sh -t 200 db:3306 -- gunicorn --workers 1 --bind 0.0.0.0:5000 --chdir ./target server:app
+     command:  /wait-for-it.sh -t 200 db:3306 -- python3 ./target/server.py
   user:  
     container_name: user
-    image: 127.0.0.1:5000/backend
+    image: backend
+    ports:
+       - 6400:5000
     restart: always
     volumes:
        - ./user:/target
-       - ./env:/env
-    command:  /wait-for-it.sh -t 200 db:3306 -- gunicorn --workers 1 --bind 0.0.0.0:5000 --chdir ./target server:app
+    command:  /wait-for-it.sh -t 200 db:3306 -- python3 ./target/server.py
+
+  session:
+    container_name: session
+    image: session
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/session
+    ports:
+      - 6600:5000
+    restart: unless-stopped
+    volumes:
+      - ./session:/target
+    command:  python3 ./target/app.py
+
+  redis:
+    image: "redis:alpine"
 
 #frontend   
   react:
     container_name: react
-    image: 127.0.0.1:5000/react
+    image: react
     restart: always
     build:
         context: .
         dockerfile: ./Dockerfiles/react
+    ports:
+      - 7000:3000
     volumes:
       - ./react:/target
     command: npm start --prefix target
@@ -78,7 +100,7 @@ services:
   nginx:
     container_name: nginx
     restart: always   
-    image: 127.0.0.1:5000/nginx  
+    image: nginx  
     build:
       context: .
       dockerfile: ./Dockerfiles/nginx
@@ -88,27 +110,29 @@ services:
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - ./mybb:/var/www/html:ro
-    command: /wait-for-it.sh -t 200 map:5000 -- /wait-for-it.sh -t 200 user:5000 -- /wait-for-it.sh -t 200 comm:5000 -- /wait-for-it.sh -t 200 react:3000 -- nginx -g "daemon off";
+    command: /wait-for-it.sh -t 200 session:5000 -- /wait-for-it.sh -t 200 map:5000 -- /wait-for-it.sh -t 200 user:5000 -- /wait-for-it.sh -t 200 comm:5000 -- /wait-for-it.sh -t 200 react:3000 -- nginx -g "daemon off";
   
 #Passwords
   keycloak:
     container_name: keycloak
     restart: always   
-    image: 127.0.0.1:5000/jboss/keycloak:latest
+    image: jboss/keycloak:latest
     build:
       context: .
       dockerfile: ./Dockerfiles/keycloak
     ports:
-      - 8090:8443
+      - 8090:8080
     environment:
     # - KEYCLOAK_USER=admin
     # - KEYCLOAK_PASSWORD=admin
     - DB_VENDOR=mysql
     - DB_ADDR=db
-    - DB_USER=${DB_USER}
-    - DB_PASSWORD=${DB_PASSWORD}
+    - DB_USER=root
+    - DB_PASSWORD=testpass
     - DB_PORT=3306
-    - DB_DATABASE=${DB_NAME}
+    - DB_DATABASE=lolo_db
     - KEYCLOAK_IMPORT=/tmp/key.json
+    - PROXY_ADDRESS_FORWARDING=true
     volumes:
      - ./keycloak:/tmp
+  
