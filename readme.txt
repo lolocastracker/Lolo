@@ -1,3 +1,7 @@
+Prior to setup
+
+* Create a folder call perst to hold Database,MYBB, and asset files 
+* This should be on the same level as the repository folder or they should have the same direct parent
 
 
 
