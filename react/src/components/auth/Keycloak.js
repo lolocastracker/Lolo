@@ -1,4 +1,3 @@
-
 import Keycloak from 'keycloak-js'
  
 // Setup Keycloak instance as needed

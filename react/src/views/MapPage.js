@@ -7,8 +7,20 @@ import ReportTable from '../components/map/ReportTable.js'
 import Navbar from '../components/navbar/Navbar.js'
 import { Loader, Header, Container, Grid, Segment, Button } from 'semantic-ui-react'
 // import reports from '../components/map/fakeData.js'
+function importAll(r) {
+  let images = {};
+  r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+  return images;
+}
+
+const images = importAll(require.context('../assets/reportpics', false, /\.(PNG|JPE?G|SVG)$/i));
 
 const MapPage = () => {
+  function importAll(r) {
+    let images = {};
+    r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+    return images;
+  }  
   // USE THIS IF USING fakeData.js
   // // initial current report is the most recent
   // // set this after getting the reports
@@ -26,6 +38,7 @@ const MapPage = () => {
   const [error, setError] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [reports, setReports] = useState([])
+
 
   useEffect(() => {
     // fetch("https://lolo.gq/api/map/reports")
@@ -48,7 +61,6 @@ const MapPage = () => {
   if (error) {
     return <div>Error: {error.message}</div>
   } else if (!isLoaded) {
-    console.log('else if', reports)
     // return <div>Loading...</div>
     return <Loader inline size='large' active />
   } else {
@@ -78,7 +90,7 @@ const MapPage = () => {
                 curReport={curReport}
                 onMarkerClick={updateCurReport}
               />
-              <Report curReport={curReport} />
+              <Report curReport={curReport} images={images} />
             </Grid.Column>
           </Grid>
           <Grid>

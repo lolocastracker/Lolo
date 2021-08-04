@@ -5,14 +5,28 @@ import base64
 import uuid #create unique filename
 
 app = Flask(__name__)
+from mysql.connector import pooling
+from mysql.connector import Error
+
+#LoadEnv Vars
+from dotenv import load_dotenv
+from pathlib import Path
+dotenv_path = Path('../env/.env')
+load_dotenv(dotenv_path=dotenv_path)
+
+DB_NAME = os.getenv('DB_NAME')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_USER = os.getenv('DB_USER')
+
+# db_pool = db.create_pool()
+
 
 @app.route("/api/map/test")
 def hello2():
     return "Hello Map!"
-
+  
 @app.route('/api/map/reports')
 def get_reports():
-
     query = '''SELECT reportId, body, DATE_FORMAT(date, '%Y-%m-%d %H:%i') date,
     type, address, cast(lat as char(11)) lat, cast(`long` as char(10)) `long`, path 
     FROM (SELECT reportId, body, date, GROUP_CONCAT(type SEPARATOR ", ") 'type'
@@ -23,13 +37,11 @@ def get_reports():
     LEFT JOIN lolo_image_in_report USING (reportId)
     LEFT JOIN lolo_image USING (imageId)
     ORDER BY date DESC LIMIT 20;'''
-    
+  
     db_connection = db_pool.get_connection()
     cursor = db.execute_query(db_connection=db_connection, query=query)
     result = json.dumps(cursor.fetchall())
-
     db_connection.close()
-
     return result
 
 
@@ -42,11 +54,8 @@ def image_too_big(e):
 
 @app.route('/api/map/submit', methods=['POST'])
 def postReport():
+    print("works")
     '''accept post request from ReportPage and input those data into the database'''
-    # query=""
-    # db_connection = db.create_pool().get_connection()
-    # cursor = db.execute_query(db_connection=db_connection, query=query)
-    # db_connection.close()
     try:
         data = request.get_json()
         print(data)
@@ -70,9 +79,12 @@ def postReport():
 
 
         if (imageName!= None):
-            path = os.path.join(os.getcwd(), "target/assets/reportpics")
+            path = "target/assets/reportpics"
             imageName = saveImage(data.get("img").split("base64,")[1], path, imageName)
-            print("New image name = ", imageName)
+            fullpath=os.path.join(path,imageName)
+            if not os.path.isfile(fullpath):
+                imageName=None
+            app.logger.debug(f"New image name = {imageName}")
         if (locustType!=None):
             tempString = locustType[0]
             for i in locustType[1:]:
@@ -117,7 +129,7 @@ def saveImage(img, path, imgName):
     image.close()
     return newImageName+"."+extension
 
-
 if __name__ == "__main__":
     db_pool = db.create_pool()
+    print(db_pool)
     app.run(host='0.0.0.0', debug=True) 

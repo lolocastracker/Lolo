@@ -1,12 +1,22 @@
 from mysql.connector import pooling
 from mysql.connector import Error
+import os 
+#LoadEnv Vars
+from dotenv import load_dotenv
+from pathlib import Path
+dotenv_path = Path('../env/.env')
+load_dotenv(dotenv_path=dotenv_path)
 
+
+DB_NAME = os.getenv('DB_NAME')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_USER = os.getenv('DB_USER')
+print(DB_NAME,DB_PASSWORD,DB_USER)
 def create_pool():
     """ Connect to MySQL database """
     conn = None
     try:
-        config={"user":'root', "database":'lolo_db',"password":"testpass","host":"db"}
-        # config={"user":'tvharris', "database":'lolo_db',"password":"dbpass","host":"db"}
+        config={"user":DB_USER, "database":DB_NAME,"password":DB_PASSWORD,"host":"db"}
         conn =  pooling.MySQLConnectionPool(pool_size = 32,**config)
         return conn
     except Error as e:
