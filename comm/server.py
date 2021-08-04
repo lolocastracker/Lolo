@@ -26,7 +26,10 @@ def create_pool():
         return conn
     except Error as e:
         print(e)
+
 t=create_pool()
+app.logger.debug(t)
+app.logger.debug("testing")
 
 @app.route("/api/comm/test")
 def hello2():
@@ -47,8 +50,4 @@ def create_pool():
 
 
 if __name__ == "__main__":
-    t=create_pool()
-    print(t,t)
-    connection_objt = t.get_connection()
-    print(connection_objt)
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0',debug=True)
