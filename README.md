@@ -19,11 +19,10 @@
 
 
 ## Set up MySQL database
-1) Open your terminal and access your db container
+1) Open your terminal and access your db container. Make sure your terminal path is where the lolodb.sql file is
 ```bash
-  terminal> docker exec -t -i db /bin/bash
-  terminal> mysql -u root -p
-  Enter password: testpass
+  terminal> docker exec -i db mysql -uroot -ptestpass mysql < lolodb.sql
+  terminal> docker exec -i db mysql -uroot -ptestpass mysql < datascript.sql
 ```
 2) 
 
