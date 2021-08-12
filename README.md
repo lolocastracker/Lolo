@@ -10,7 +10,7 @@
 1) Download Desktop Docker Hub
 2) Open up your terminal and navigate to Lolo folder and run create.bat file.  
 ```bash
-  terminal> create.bat
+  create.bat
 ```
 3) Once all the containers are up and running, navigate to localhost:3000 on your web browser
 4) Set up MySQL database and populate the tables and datasets
@@ -19,10 +19,10 @@
 
 
 ## Set up MySQL database
-1) Open your terminal and access your db container. Make sure your terminal path is where the lolodb.sql file is
+1) Open your terminal and run the following commands. Make sure your path can find lolodb.sql and datascript.sql files
 ```bash
-  terminal> docker exec -i db mysql -uroot -ptestpass mysql < lolodb.sql
-  terminal> docker exec -i db mysql -uroot -ptestpass mysql < datascript.sql
+  docker exec -i db mysql -uroot -ptestpass mysql < lolodb.sql
+  docker exec -i db mysql -uroot -ptestpass mysql < datascript.sql
 ```
 2) 
 
