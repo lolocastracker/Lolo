@@ -16,7 +16,8 @@ def create_pool():
     """ Connect to MySQL database """
     conn = None
     try:
-        config={"user":DB_USER, "database":DB_NAME,"password":DB_PASSWORD,"host":"db"}
+        # config={"user":DB_USER, "database":DB_NAME,"password":DB_PASSWORD,"host":"db"}
+        config={"user":DB_USER, "user":"root", "database":DB_NAME,"password":DB_PASSWORD,"host":"db"}
         conn =  pooling.MySQLConnectionPool(pool_size = 32,**config)
         return conn
     except Error as e:
