@@ -1,7 +1,13 @@
-# **LoLoLocator**
+# **Lo-Lo: Locust Locator**
 
-## What is LoLoLocator?
+## What is Lo-Lo Locator?
+Lo-Lo (https://lolo.gq/) is a one-stop-shop platform for rural East-African farmers to view, report, and discuss locust swarms in their area to tackle the threat of invasive species. We created Lo-Lo during the seven-week InternHacks program which began in June 2021.
 
+The website was built with React (Fomantic-UI, Semantic-UI React), Flask, and MySQL, and is deployed using Docker, Cloudflare and Azure. User authentication is handled with Keycloak and the forum is an implementation from myBB.
+
+Demonstration on YouTube presented at the InternHacks demo day:
+
+[![Alt text](https://img.youtube.com/vi/hPAEG7aqRNE/0.jpg)](https://www.youtube.com/watch?v=hPAEG7aqRNE)
 
 ## How to set it up?
 
@@ -14,6 +20,7 @@
 ```
 3) Once all the containers are up and running, navigate to localhost:3000 on your web browser
 4) Set up MySQL database and populate the tables and datasets
+
 ### Linux
 
 
