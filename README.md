@@ -31,5 +31,15 @@ Demonstration on YouTube presented at the InternHacks demo day:
   docker exec -i db mysql -uroot -ptestpass mysql < lolodb.sql
   docker exec -i db mysql -uroot -ptestpass mysql < datascript.sql
 ```
-2) 
+## Start
+ cd into Folder
+ docker-compose --env-file ./env/.env up
+ 
+ 
+ ## Common Issues
+ 1. username already added to '/opt/jboss/keycloak/standalone/configuration/keycloak-add-user.json'
+    - recreate the image by running docker rm -f keycloak
+ 
+
+ 
 
