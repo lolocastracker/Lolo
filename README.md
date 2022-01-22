@@ -28,8 +28,8 @@ Demonstration on YouTube presented at the InternHacks demo day:
 ## Set up MySQL database
 1) Open your terminal and run the following commands. Make sure your path can find lolodb.sql and datascript.sql files
 ```bash
-  docker exec -i db mysql -uroot -ptestpass mysql < lolodb.sql
-  docker exec -i db mysql -uroot -ptestpass mysql < datascript.sql
+  docker exec -i db mysql -uroot -proot_pass mysql < lolodb.sql
+  docker exec -i db mysql -uroot -proot_pass mysql < datascript.sql
 ```
 ## Start
 ```
