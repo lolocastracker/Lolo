@@ -33,12 +33,14 @@ Demonstration on YouTube presented at the InternHacks demo day:
 ```
 ## Start
 ```
- cd into Folder
- docker-compose --env-file ./env/.env up
+ 1)cd into Folder
+ 2)rename .env_example to .env
+ 3)fill in variables
+ 3)docker-compose --env-file ./env/.env up
 ```
  
  ## Common Issues
- 1.username already added to '/opt/jboss/keycloak/standalone/configuration/keycloak-add-user.json'
+ 1)username already added to '/opt/jboss/keycloak/standalone/configuration/keycloak-add-user.json'
 ```
  recreate the image by running docker rm -f keycloak
  ```
