@@ -40,9 +40,9 @@ Demonstration on YouTube presented at the InternHacks demo day:
 ```
  
  ## Common Issues
- 1)username already added to '/opt/jboss/keycloak/standalone/configuration/keycloak-add-user.json'
+ username already added to '/opt/jboss/keycloak/standalone/configuration/keycloak-add-user.json'
 ```
- recreate the image by running docker rm -f keycloak
+ 1) recreate the image by running docker rm -f keycloak
  ```
 
  
