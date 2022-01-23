@@ -30,6 +30,12 @@ Demonstration on YouTube presented at the InternHacks demo day:
 ```bash
   docker exec -i db mysql -uroot -proot_pass mysql < lolodb.sql
   docker exec -i db mysql -uroot -proot_pass mysql < datascript.sql
+  
+  replace pass with password for root mysql user
+```
+Note): If you have ./env/.env file setup run this command. This will create a temp enviroment and utilze that to input your password
+```
+env $(cat ./env/.env | xargs) && docker exec -i db mysql -uroot -p$DB_ROOT_PASSWORD mysql < lolodb.sql
 ```
 ## Start
 ```
