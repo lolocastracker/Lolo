@@ -13,7 +13,7 @@ import LogoutButton from './components/auth/LogoutButton.js'
 
 export default function App(){
   const { keycloak, initialized } = useKeycloak()
-  console.log("KeyCloak",initialized)
+  console.log("KeyCloak Logged In",initialized)
   let history = useNavigate();
   if (!initialized) {
     return <Loader inline size='large' active />

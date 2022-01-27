@@ -10,6 +10,7 @@ RUN npm install react-datepicker --save
 RUN npm install react-router-dom 
 RUN npm install react-dom
 RUN npm install 
+RUN npm install dotenv --save
 #Map
 RUN npm install leaflet
 

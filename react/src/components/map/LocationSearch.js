@@ -30,23 +30,30 @@ function LocationSearch({value,setValue,updateAddress,setPosition}) {
 
     function timedSearch(val){
         //set timeout to allow for additional typing
-        return setTimeout(async() =>  {  
-            let apiKey="NyFYmvaa4CgbDqC850K0l4wku2ua1ZEvS3vXXi_8gqw"
-            let url="https://autocomplete.search.hereapi.com/v1/autocomplete"
-            let places=await fetch(`${url}?q=${val}&limit=20&types=city&apiKey=${apiKey}`,{
-                method: 'GET'
-            })
-            console.log(places)
-            let resp=await places.json()
-
-            let filter=resp["items"].map((val)=>{
-                let obj={}
-                obj["title"]=val["title"]
-                return obj
-            })
-            console.log(filter)
-            setResults(filter)
-           
+        return setTimeout(async() =>  { 
+            try{
+                let url="https://autocomplete.search.hereapi.com/v1/autocomplete"
+                let places=await fetch(`${url}?q=${val}&limit=20&types=city&apiKey=${process.env.REACT_APP_HERE_API_KEY}`,{
+                    method: 'GET',
+                    // headers:{
+                    //     "Cache-Control": "max-age=3600"
+                    
+                    // }
+                })
+                let resp=await places.json()
+                let filter=resp["items"].map((val)=>{
+                    let obj={}
+                    obj["title"]=val["title"]
+                    return obj
+                })
+                console.log(filter)
+                setResults(filter)
+               
+            } 
+            catch{
+                return
+            }
+          
             }, 500);
     }
 

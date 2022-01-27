@@ -11,3 +11,4 @@ map/__pycache__/
 mybb/
 perst/assets/
 Database/
+.env

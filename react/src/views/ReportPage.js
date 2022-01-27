@@ -18,6 +18,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { forwardRef } from 'react'
 import React from "react";
 import LocationSearch from '../components/map/LocationSearch.js'
+// require('dotenv').config()
 
 
 function convertDate(date){
@@ -35,7 +36,9 @@ function convertDate(date){
 
 const ReportPage = () =>{
 
-  
+
+
+
 
     //map
     const [position, setPosition] = useState({"lat":3.5149, "lng":38.2212})
@@ -67,16 +70,14 @@ const ReportPage = () =>{
   }  
   
   async function ReverseGeoCode(){
-    let apiKey="NyFYmvaa4CgbDqC850K0l4wku2ua1ZEvS3vXXi_8gqw"
     let url="https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json"
-    let place=await fetch(`${url}?prox=${position.lat},${position.lng}&apiKey=${apiKey}&mode=retrieveAddresses`,{
-        method: 'GET'
+    let place=await fetch(`${url}?prox=${position.lat},${position.lng}&apiKey=${process.env.REACT_APP_HERE_API_KEY}&mode=retrieveAddresses`,{
+        method: 'GET',
     })
-    console.log("Request Info Reverse Geocode",place)
     let resp=await place.json()
     console.log("Reverse Data Reverse Geocode",resp)
     try{
-        console.log(resp["Response"]["View"][0]["Result"][0])
+        console.log("Reverse Data Best Match",resp["Response"]["View"][0]["Result"][0])
         if (resp["Response"]["View"].length>0){
             if(resp["Response"]["View"][0]["Result"].length>0){
                 let addr=resp["Response"]["View"][0]["Result"][0]["Location"]["Address"]["Label"]
@@ -97,12 +98,10 @@ const ReportPage = () =>{
     }
 
     async function GeoCode(){
-        let apiKey="NyFYmvaa4CgbDqC850K0l4wku2ua1ZEvS3vXXi_8gqw"
         let url="https://geocode.search.hereapi.com/v1/geocode"
-        let place=await fetch(`${url}?q=${address}&apiKey=${apiKey}`,{
-            method: 'GET'
+        let place=await fetch(`${url}?q=${address}&apiKey=${process.env.REACT_APP_HERE_API_KEY}`,{
+            method: 'GET',
         })
-        console.log("Request Info Geocode",place)
         let resp=await place.json()
         console.log("Reverse Data Geocode",resp)
         try{
