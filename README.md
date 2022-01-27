@@ -49,6 +49,18 @@ We Utilize the Following
     - Each count as 1 per search, save for autosearch
     - https://knowledge.here.com/csm_kb?id=public_kb_csm_details&number=KB0016433
 ```
+
+
+### ENV Variables
+Suggested
+```
+add a .env file to the react folder 
+  - Add REACT_APP_HERE_API_KEY = API_KEY
+ add /env/.env to the root
+  - Add Required variables, see the docker-compose file
+
+```
+
 ## Start
 ```
  cd into Folder
