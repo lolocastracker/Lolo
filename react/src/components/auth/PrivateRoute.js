@@ -1,6 +1,6 @@
 import { useKeycloak } from '@react-keycloak/web';
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Navigate, Route } from 'react-router-dom';
 
 
 export function PrivateRoute({ component: Component, roles, ...rest }) {
@@ -20,7 +20,7 @@ export function PrivateRoute({ component: Component, roles, ...rest }) {
 
     return (
         <Route {...rest}>
-        {isAutherized(roles)? <Component data={data}/> : <Redirect to={{ pathname: '/', }} />}
+        {isAutherized(roles)? <Component data={data}/> : <Navigate to={{ pathname: '/', }} />}
 
         </Route>
      

@@ -18,7 +18,6 @@ async function login(keycloak){
     }
     
     let url=`/api/user/forum_login?id=${keycloak.subject}`
-    console.log(url)
   
     let l=await fetch(url)
     let cookie=await l.json()
@@ -31,7 +30,6 @@ async function login(keycloak){
     document.cookie=`mybbuser=${cookie}`  
   }
   export default function LoginForum(event,error,keycloak){
-    console.log("Event: ",event,"Error: ",error,keycloak)
   
     
     if(error){

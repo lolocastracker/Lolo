@@ -1,6 +1,7 @@
 from flask import Flask, json,request
 import db_connector as db
 import os 
+import copy
 import base64
 import uuid #create unique filename
 
@@ -37,10 +38,12 @@ def get_reports():
     LEFT JOIN lolo_image_in_report USING (reportId)
     LEFT JOIN lolo_image USING (imageId)
     ORDER BY date DESC LIMIT 20;'''
-  
     db_connection = db_pool.get_connection()
     cursor = db.execute_query(db_connection=db_connection, query=query)
-    result = json.dumps(cursor.fetchall())
+    
+    result={}
+    if cursor!=None:
+        result = json.dumps(cursor.fetchall())
     db_connection.close()
     return result
 
@@ -49,16 +52,18 @@ def get_reports():
 def image_too_big(e):
     ## error 413 is payload too large - probably because
     ## the images is too big
-    print("map/server.py")
     return 'File Too Large', 413
 
 @app.route('/api/map/submit', methods=['POST'])
 def postReport():
-    print("works")
+    print("User Submitting Data")
     '''accept post request from ReportPage and input those data into the database'''
     try:
         data = request.get_json()
-        print(data)
+        cleandata=copy.deepcopy(data)
+        if cleandata.get("img")!=None:
+            cleandata["img"]="binarydata"
+        print("User Submitted Data",cleandata,request,flush=True)
         date = data.get('date')
         position = data.get('latlng')
         lat = position.get("lat")
@@ -68,14 +73,9 @@ def postReport():
         locustType = data.get('locustType') if data.get('locustType')!= [] else None 
         reportBody = data.get('comment') if data.get('comment') != "" else None
         addr = data.get("addr") if data.get("addr") != "" else None
-        
-        # print("date", date)
+    
         print("latlng", position.get("lat"), position.get("lng"))
-        # print("imageName", imageName)
-        # print("locustType", locustType, "type=", type(locustType))
-        # print("addr", addr)
-        # print("comment", reportBody)
-
+    
 
 
         if (imageName!= None):
@@ -111,7 +111,6 @@ def postReport():
         print("map/server.py Error!")
         print(e)
         return {"status": "fail", "message": e}
-
     return {"status": "success","message": ""}
         
 # Listener
@@ -131,5 +130,4 @@ def saveImage(img, path, imgName):
 
 if __name__ == "__main__":
     db_pool = db.create_pool()
-    print(db_pool)
     app.run(host='0.0.0.0', debug=True) 

@@ -3,7 +3,7 @@ import './Report.css'
 
 const Report = ({ curReport,images }) => {
   const year = curReport.date.slice(0, 4)
-  let reportImage // element to display
+  let reportImage // element to diay
   //attempt to load images
   // handle image present vs unavailable
   let photo = images[curReport.path] || null

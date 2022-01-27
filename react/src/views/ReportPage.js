@@ -1,9 +1,9 @@
 import './ReportPage.css'
 import Navbar from '../components/navbar/Navbar.js'
-import { useState } from 'react'
+import { useState,useEffect,useRef } from 'react'
 import MapReport from '../components/map/Map_Report.js'
 import { Header, Container, Input, Grid } from 'semantic-ui-react'
-
+import {unstable_batchedUpdates} from 'react-dom';
 // for the forms 
 import {
     Button,
@@ -17,6 +17,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { forwardRef } from 'react'
 import React from "react";
+import LocationSearch from '../components/map/LocationSearch.js'
+
 
 function convertDate(date){
     // date is a Datetime object
@@ -33,10 +35,16 @@ function convertDate(date){
 
 const ReportPage = () =>{
 
-    //map
-    const [position, setPosition] = useState(null)
-    console.log("ReportPage: position="+position);
+  
 
+    //map
+    const [position, setPosition] = useState({"lat":3.5149, "lng":38.2212})
+
+
+    //searchbox 
+    const [value, setValue] = useState("")
+
+  
     
     // getting the date
     const ref = React.createRef();
@@ -49,12 +57,81 @@ const ReportPage = () =>{
    const [image, setImage]=useState(""); // the image here is the actual image. Calling image.name will give its name
    const [imageName, setImageName]=useState("");
    const imageRef = React.useRef(null);
+
+
+
+   function getLocation(){
+    navigator.geolocation.getCurrentPosition((position) => {
+        setPosition({"lat":position.coords.latitude, "lng":position.coords.longitude});
+    });
+  }  
+  
+  async function ReverseGeoCode(){
+    let apiKey="NyFYmvaa4CgbDqC850K0l4wku2ua1ZEvS3vXXi_8gqw"
+    let url="https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json"
+    let place=await fetch(`${url}?prox=${position.lat},${position.lng}&apiKey=${apiKey}&mode=retrieveAddresses`,{
+        method: 'GET'
+    })
+    console.log("Request Info Reverse Geocode",place)
+    let resp=await place.json()
+    console.log("Reverse Data Reverse Geocode",resp)
+    try{
+        console.log(resp["Response"]["View"][0]["Result"][0])
+        if (resp["Response"]["View"].length>0){
+            if(resp["Response"]["View"][0]["Result"].length>0){
+                let addr=resp["Response"]["View"][0]["Result"][0]["Location"]["Address"]["Label"]
+                unstable_batchedUpdates(() => {
+                    updateAddress(addr)
+                    setValue(addr)
+                  });
+            }
+            
+        }
+    }
+    catch {
+        console.log("Increase Waittime")
+    }
+  
+    
+
+    }
+
+    async function GeoCode(){
+        let apiKey="NyFYmvaa4CgbDqC850K0l4wku2ua1ZEvS3vXXi_8gqw"
+        let url="https://geocode.search.hereapi.com/v1/geocode"
+        let place=await fetch(`${url}?q=${address}&apiKey=${apiKey}`,{
+            method: 'GET'
+        })
+        console.log("Request Info Geocode",place)
+        let resp=await place.json()
+        console.log("Reverse Data Geocode",resp)
+        try{
+            if (resp["items"].length>0){
+               setPosition(resp["items"][0]["position"])
+                
+            }
+        }
+        catch {
+            console.log("Increase Waittime")
+        }
+      
+        
+    
+        }
+    
+
+
+  
+  
    function useDisplayImage(){
        const [result, setResult]=useState("");
        function uploader(e){
            const imageFile=e.target.files[0];
            const reader=new FileReader();
            reader.addEventListener("load", (e)=>{
+            if (imageFile.size>getMax(10)){
+                return
+            }
                setResult(e.target.result);
            });
            reader.readAsDataURL(imageFile);
@@ -85,10 +162,13 @@ const ReportPage = () =>{
    const [address, updateAddress] = useState("");
    // handle comment 
    const [commentBody, updateCommentBody] = useState("");
-
    // redirect after submit  
    const handleRedirect = (url) => {
         window.location.href = '/report_submit';
+    }
+
+    function getMax(t){
+        return t*1024*1024
     }
    
    // submit button 
@@ -111,9 +191,11 @@ const ReportPage = () =>{
                 comment: commentBody,
                 addr: address
             };
-            console.log("image size="+image.name);
+            console.log("image name="+image.name);
             console.log("image size="+image.size);
             console.log("Sending data to the backend!");
+            console.log(sendtoBackend)
+          
             // state for AJAX request
             // const [error, setError] = useState(null);
             // const [message, setMessage]=useState("");
@@ -123,13 +205,35 @@ const ReportPage = () =>{
                     headers:{'Content-Type': 'application/json'},
                     body: JSON.stringify(sendtoBackend)
                 })
-                    .then((response)=>response.json())
-                    // .then((data) => console.log(data))
-                    .then(() => handleRedirect())
+                   .then(async(response)=>{
+                        let data=await response.json()
+                        console.log("POST Response",data) 
+                       
+                   }
+                    )
+                    // .then(() => handleRedirect())
                     .catch((err)=> console.log(err))
                        
        }
    };
+
+
+  useEffect(() => {
+      if (position!==null){
+        ReverseGeoCode()
+      }
+
+  }, [position]) 
+
+  useEffect(() => {
+    if (position===null){
+       GeoCode()
+    }
+
+}, [address]) 
+
+
+
 
     return(
         <div>
@@ -143,29 +247,33 @@ const ReportPage = () =>{
                     
                 </Grid>
                 {/* MapReport will update the coord position if user clicked on the map */}
-                <MapReport onPositionChange={(coor)=>setPosition(coor)}/>
+                <MapReport  position={position} setPosition={setPosition} onPositionChange={(coor)=>setPosition(coor)}/>
                 
                 <Form>
-                    <Form.Field
+                    {/* <Form.Field
                         control={Input}
                         label='Location'
                         placeholder='Town, Region, Country'
                         maxLength="200"
                         onChange={(e)=> updateAddress(e.target.value)}
-                        />
+                        value = {address===null?"":address}
+                        /> */}
+                        <LocationSearch  value={value} setValue={setValue} updateAddress={updateAddress} setPosition={setPosition}/>
                     <Form.Group widths="equal">
                         <Form.Field
                             control={Input}
                             label = "Latitude"
                             placeholder="Click on map"
-                            value = {position===null?"": position.lat}
+                            value = {position===null ?"": position.lat}
                         />
                         <Form.Field
                             control={Input}
                             label="Longitude"
                             placeholder="Click on map"
-                            value = {position===null?"": position.lng}
+                            value = {position===null ?"": position.lng}
                         />
+                        <Button variant="contained" onClick={getLocation}>My Location</Button>
+
                     </Form.Group>
                     <Form.Field id='date-label' label="Date"/>
                     <Form.Group>
@@ -216,14 +324,14 @@ const ReportPage = () =>{
                             type="file"
                             accept=".jpg, .jpeg, .png"
                             onChange={(e)=>{
-                                console.log("no image="+ e.target.files[0])
+                                console.log("image="+ e.target.files[0])
                                 if (e.target.files[0]===null ||e.target.files[0]===undefined){
                                     // if user upload an image and decide to cancel the upload
                                     // do nothing
                                     console.log("Cancel image upload");
                                 }
-                                else if (e.target.files[0].size>=5e+6){
-                                    alert("Image size exceeds 5MB!");
+                                else if (e.target.files[0].size>=getMax(10)){
+                                    alert("Image size exceeds 10MB!");
                                 }
                                 else{
                                     // file is good, now check if it is valid image file

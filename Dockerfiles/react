@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:16
 # copy the files from current directory
 COPY ./react/package.json ./
 COPY ./react/semantic.json ./

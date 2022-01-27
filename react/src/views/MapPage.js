@@ -6,12 +6,16 @@ import Report from '../components/map/Report.js'
 import ReportTable from '../components/map/ReportTable.js'
 import Navbar from '../components/navbar/Navbar.js'
 import { Loader, Header, Container, Grid, Segment, Button } from 'semantic-ui-react'
+import { useNavigate } from 'react-router-dom'
+
+
 // import reports from '../components/map/fakeData.js'
 function importAll(r) {
   let images = {};
   r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
   return images;
 }
+
 
 const images = importAll(require.context('../assets/reportpics', false, /\.(PNG|JPE?G|SVG)$/i));
 
@@ -40,19 +44,29 @@ const MapPage = () => {
   const [reports, setReports] = useState([])
 
 
+  const navigate = useNavigate();
+
+
+
   useEffect(() => {
-    // fetch("https://lolo.gq/api/map/reports")
+    fetch("https://lolo.gq/api/map/reports")
     fetch('/api/map/reports')
       .then((res) => res.json())
       .then(
         (result) => {
+        if (typeof result === 'object' && !Array.isArray(result))
+        {
+          setReports([])
+        }
+        else{
           setReports(result)
           updateCurReport(result[0])
+
+        }
           setIsLoaded(true) // Must be after setReports and updateCurReport
         },
         (error) => {
           console.log('error')
-          setIsLoaded(true)
           setError(error)
         }
       )

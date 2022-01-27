@@ -1,0 +1,81 @@
+//A non-dockerize version of nginx allows for cloudflare, and Certbot
+//This is an example config
+
+server {
+
+  server_name accounts.domain.com;
+
+  location / {
+      proxy_pass https://localhost:8443/;
+      proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+
+ 
+
+
+}
+
+
+
+server {
+
+  server_name lolodb.domain.com;
+
+  location / {
+      proxy_pass http://localhost:8600/;
+  }
+
+
+
+
+
+}
+
+
+
+server {
+
+  server_name domain.com;
+  client_max_body_size 10M;
+
+  location / {
+      proxy_pass http://localhost:4000/;
+  }
+
+ 
+
+
+
+}
+
+
+server {
+
+  server_name www.domain.com;
+  client_max_body_size 10M;
+
+  location / {
+      proxy_pass http://localhost:4000/;
+  }
+
+ 
+
+
+
+
+
+
+  
+
+}
+
+
+
+
+
+
+
+

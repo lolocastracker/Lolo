@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch,BrowserRouter,useHistory } from 'react-router-dom'
+import { Route,  Routes,BrowserRouter,useNavigate } from 'react-router-dom'
 import { useKeycloak } from '@react-keycloak/web'
 import { PrivateRoute } from './components/auth/PrivateRoute.js'
 import { Loader } from 'semantic-ui-react'
@@ -13,38 +13,55 @@ import LogoutButton from './components/auth/LogoutButton.js'
 
 export default function App(){
   const { keycloak, initialized } = useKeycloak()
-  let history = useHistory();
+  console.log("KeyCloak",initialized)
+  let history = useNavigate();
   if (!initialized) {
-    // return <h3>Loading...</h3>
     return <Loader inline size='large' active />
   }
   return (
     // Profile Page is Protected so login Required, Redirects to Home Page After
-    <BrowserRouter>
-      <Switch>
-        <PrivateRoute
-          roles={['users']}
-          path='/Profile'
-          component={ProfilePage}
+    // <BrowserRouter>
+      < Routes>
+   
+
+<Route
+element={
+  <PrivateRoute 
+  roles={['users']}
+  path='/Profile'
+  component={ProfilePage} />
+}
+
+/>
+        <Route path='/' exact
+        element={<HomePage />}
         />
-        <Route path='/' exact>
-          <HomePage />
-        </Route>
-        <Route path='/map'>
-          <MapPage />
-        </Route>
-        <Route path='/report'>
-          <ReportPage />
-        </Route>
-        <Route path='/report_submit'>
-          <ReportSubmit />
-        </Route>
-        <PrivateRoute 
-        roles={['users']} path="/signout" 
-        data={true} 
-        component={LogoutButton} /> 
-      </Switch>
-    </BrowserRouter>
+        
+        <Route path='/map' exact
+        element={<MapPage />}
+       />
+
+
+<Route path='/report' exact
+        element={<ReportPage />}
+       />
+      <Route path='/report_submit' exact
+        element={<ReportSubmit />}
+       />
+
+<Route
+element={
+  <PrivateRoute 
+  roles={['users']} path="/signout" 
+  data={true} 
+  component={LogoutButton} />
+}
+
+/>
+      </Routes>
+
+    
+    // </BrowserRouter>
   )
 }
 
