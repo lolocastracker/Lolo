@@ -56,7 +56,7 @@ Suggested
 ```
 add a .env file to the react folder 
   - Add REACT_APP_HERE_API_KEY = API_KEY
- add /env/.env to the root
+add /env/.env to the root
   - Add Required variables, see the docker-compose file
 
 ```
