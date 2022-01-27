@@ -39,10 +39,10 @@ env $(cat ./env/.env | xargs) && docker exec -i db mysql -uroot -p$DB_ROOT_PASSW
 ```
 ### Location API
 ```
-1). You will need to utilize HERE Map API
-2) https://developer.here.com/
-3) 250K Free Transaction a month
-4) We Utilize the Following
+You will need to utilize HERE Map API
+https://developer.here.com/
+250K Free Transaction a month
+We Utilize the Following
     - Geocode
     - Reverse Geocode
     - AutoSearch
@@ -51,16 +51,16 @@ env $(cat ./env/.env | xargs) && docker exec -i db mysql -uroot -p$DB_ROOT_PASSW
 ```
 ## Start
 ```
- 1)cd into Folder
- 2)rename .env_example to .env
- 3)fill in variables
- 3)docker-compose --env-file ./env/.env up
+ cd into Folder
+ rename .env_example to .env
+ fill in variables
+ docker-compose --env-file ./env/.env up
 ```
  
  ## Common Issues
  username already added to '/opt/jboss/keycloak/standalone/configuration/keycloak-add-user.json'
 ```
- 1) recreate the image by running docker rm -f keycloak
+ recreate the image by running docker rm -f keycloak
  ```
 
  
