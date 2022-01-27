@@ -37,6 +37,17 @@ Note): If you have ./env/.env file setup run this command. This will create a te
 ```
 env $(cat ./env/.env | xargs) && docker exec -i db mysql -uroot -p$DB_ROOT_PASSWORD mysql < lolodb.sql
 ```
+### Location API
+1). You will need to utilize HERE Map API
+2) https://developer.here.com/
+3) 250K Free Transaction a month
+4) We Utilize the Following
+    - Geocode
+    - Reverse Geocode
+    - AutoSearch
+    - Each count as 1 per search, save for autosearch
+    - https://knowledge.here.com/csm_kb?id=public_kb_csm_details&number=KB0016433
+
 ## Start
 ```
  1)cd into Folder
