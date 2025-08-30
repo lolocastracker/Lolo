@@ -1,0 +1,146 @@
+# Specifies the Docker Compose file format version. Version '3.8' is a good modern choice.
+version: '3.8'
+
+services:
+  # --- DATABASE SERVICE ---
+  # The central MySQL database for the entire application stack.
+  db:
+    image: mysql:8.0
+    container_name: app-db
+    user: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    # Environment variables are loaded from the .env file in the same directory.
+    # These secrets configure the database user, password, and name.
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    # Mounts a named volume to persist database data even if the container is removed.
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app-net
+    # Healthcheck ensures other services only start after the database is ready.
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # Specifies the file from which to load environment variables.
+    env_file: .env
+
+  # --- BACKEND SERVICES ---
+  # The main API backend for the mapping functionality.
+  map-backend:
+    container_name: map-backend
+    # Builds the Docker image from a Dockerfile within the project.
+    # The context is set to '.', assuming this file is at the project root.
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/backend
+    # Mounts the backend's source code for development (hot-reloading).
+    # Also mounts a shared volume for user-uploaded assets.
+    volumes:
+      - ./map:/target
+      - ./data/assets:/target/assets  # IMPORTANT: For production, change './data/assets' to a persistent path outside this repo.
+    restart: unless-stopped
+    # Passes necessary database credentials to the backend.
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: db # The service name of the database container.
+      BASE_PATH: ${IMG_BASE_PATH}
+    # Ensures the backend only starts after the database is healthy.
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-net
+    # Production-ready command using Gunicorn.
+    command: gunicorn --chdir /target --bind 0.0.0.0:5000 server:app
+    # For development/debugging, comment out the Gunicorn command and use this instead:
+    # command: python /target/server.py
+
+  # You can add other backend services here following the same pattern.
+  # comm-backend: ...
+
+  # --- FRONTEND SERVICE ---
+  # The React single-page application.
+  react-frontend:
+    container_name: react-frontend
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/react # This Dockerfile should handle building the app and serving it with Nginx.
+    # Mounts source code for live-reloading during development.
+    # For production, you might remove these volumes to use the code baked into the image.
+    volumes:
+      - ./react/src:/app/src
+      - ./react/public:/app/public
+    restart: unless-stopped
+    # Passes public environment variables needed by the React app.
+    # Note: These are visible in the user's browser.
+    environment:
+      - REACT_APP_KEYCLOAK_URL=${REACT_APP_KEYCLOAK_URL}
+      - REACT_APP_KEYCLOAK_REALM=${REACT_APP_KEYCLOAK_REALM}
+      - REACT_APP_KEYCLOAK_CLIENT_ID=${REACT_APP_KEYCLOAK_CLIENT_ID}
+      - REACT_APP_NUM_REPORTS=${REACT_APP_NUM_REPORTS}
+    networks:
+      - app-net
+    # The default command should be handled by the Dockerfile (e.g., CMD ["nginx", "-g", "daemon off;"])
+    # For development, you can override it to use the dev server:
+    # command: npm start
+
+  # --- IMAGE SERVER ---
+  # A dedicated Nginx container to serve static images efficiently.
+  image-server:
+    image: nginx:1.25-alpine
+    container_name: image-server
+    restart: unless-stopped
+    volumes:
+      # Mounts "old" images from the repo as read-only.
+      - ./react/reportpics:/usr/share/nginx/html/archive:ro
+      # Mounts "new" user-generated images from the shared volume as read-only.
+      - ./data/assets:/usr/share/nginx/html/uploads:ro # IMPORTANT: Use the same persistent path as the backend.
+    networks:
+      - app-net
+
+  # --- AUTHENTICATION SERVICE ---
+  # Keycloak for identity and access management.
+  keycloak:
+    container_name: keycloak-auth
+    image: quay.io/keycloak/keycloak:26.3.3
+    restart: always
+    command: start-dev
+    environment:
+      # Admin credentials for the Keycloak console.
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_PASSWORD}
+      # Database connection details.
+      - KC_DB=mysql
+      - KC_DB_URL_HOST=db
+      - KC_DB_URL_DATABASE=${DB_NAME}
+      - KC_DB_USERNAME=${DB_USER}
+      - KC_DB_PASSWORD=${DB_PASSWORD}
+      # Settings for when Keycloak is behind a reverse proxy (like SWAG).
+      - KC_HOSTNAME=${KC_HOSTNAME} # e.g., auth.yourdomain.com
+      - KC_PROXY=edge
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-net
+
+# --- TOP-LEVEL DEFINITIONS ---
+# Defines named volumes for persistent data storage.
+volumes:
+  db_data:
+  # Example of an external volume if you manage it outside of Docker Compose.
+  # mybb_data:
+  #   external: true
+
+# Defines the network that allows all the services to communicate with each other.
+networks:
+  app-net:
