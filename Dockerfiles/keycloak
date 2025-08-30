@@ -1,4 +1,4 @@
-FROM jboss/keycloak:15.1.1
+FROM keycloak/keycloak:15.1.1
 COPY ./keycloak-themes /opt/jboss/keycloak/themes
 COPY ./keycloak_cert /etc/x509/https  
 

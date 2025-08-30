@@ -1,8 +1,20 @@
 import { Table } from 'semantic-ui-react'
 import './Map.css'
+import { useState, useEffect } from 'react'
 
 const ReportTable = ({ reports, curReport, onRowClick }) => {
-  const numRows = 20
+  // Use a state variable to store the number of rows to display
+  const [numRows, setNumRows] = useState(20);
+
+  // Use a useEffect hook to set the number of rows from an environment variable
+  useEffect(() => {
+    // Read the environment variable, providing a default of 20 if it's not set
+    const envNumReports = process.env.REACT_APP_NUM_REPORTS;
+    if (envNumReports) {
+      setNumRows(parseInt(envNumReports, 10));
+    }
+  }, []);
+
   return (
     <>
       <div id='table-scroll'>
@@ -16,6 +28,7 @@ const ReportTable = ({ reports, curReport, onRowClick }) => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
+            {/* Slice the reports array based on the numRows variable */}
             {reports.slice(0, numRows).map((report) => (
               <Table.Row
                 key={report.reportId}

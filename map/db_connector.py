@@ -1,61 +1,73 @@
 from mysql.connector import pooling
 from mysql.connector import Error
 import os 
+import logging
+
 #LoadEnv Vars
 from dotenv import load_dotenv
 from pathlib import Path
 dotenv_path = Path('../env/.env')
 load_dotenv(dotenv_path=dotenv_path)
 
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 DB_NAME = os.getenv('DB_NAME')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_USER = os.getenv('DB_USER')
+DB_HOST = os.getenv('DB_HOST')
+
 def create_pool():
-    """ Connect to MySQL database """
-    conn = None
+    """ 
+    Creates a MySQL connection pool using credentials from environment variables.
+    The `pool_size` is set to 32 to handle multiple connections efficiently.
+    """
     try:
-        # config={"user":DB_USER, "database":DB_NAME,"password":DB_PASSWORD,"host":"db"}
-        config={"user":DB_USER, "user":"root", "database":DB_NAME,"password":DB_PASSWORD,"host":"db"}
-        conn =  pooling.MySQLConnectionPool(pool_size = 32,**config)
+        config = {
+            "user": DB_USER,
+            "database": DB_NAME,
+            "password": DB_PASSWORD,
+            "host": DB_HOST
+        }
+        conn = pooling.MySQLConnectionPool(pool_size=32, **config)
+        logging.info("Database connection pool created successfully.")
         return conn
     except Error as e:
-        print(e)
+        logging.error(f"Error creating connection pool: {e}", exc_info=True)
+        # Re-raise the exception to be handled by the calling function
+        raise e
 
 def execute_query(db_connection = None, query = None, query_params = ()):
-    '''
-    executes a given SQL query on the given db connection and returns a Cursor object
-    db_connection: a MySQLdb connection object created by create_pool()
-    returns: A Cursor object as specified at https://www.python.org/dev/peps/pep-0249/#cursor-objects.
-    You need to run .fetchall() or .fetchone() on that object to actually acccess the results.
-    '''
+    """
+    Executes a given SQL query on the given db connection using parameterized queries.
+    This method is designed to prevent SQL injection by separating the query from the parameters.
+    """
+    cursor = None
     try:
         if db_connection is None:
-            print("No connection to the database found! Have you called create_pool() first?")
+            logging.error("No database connection provided.")
+            return None
+        if not query or not query.strip():
+            logging.error("Query is empty or None.")
             return None
 
-        if query is None or len(query.strip()) == 0:
-            print("query is empty! Please pass a SQL query in query")
-            return None
-
-        print("Executing %s with %s" % (query, query_params));
-  
-
+        logging.info("Executing query with parameters: %s, %s", query.strip(), query_params)
+        
         cursor = db_connection.cursor(dictionary=True, buffered=True)
-
-        '''
-        params = tuple()
-        #create a tuple of parameters to send with the query
-        for q in query_params:
-            params = params + (q)
-        '''
-        #TODO: Sanitize the query before executing it!!!
+        
         cursor.execute(query, query_params)
 
-        # this will actually commit any changes to the database. without this no
-        # changes will be committed!
+        # Commit any changes to the database
         db_connection.commit()
+        
         return cursor
-    except:
+    except Error as e:
+        logging.error(f"Error executing query: {e}", exc_info=True)
+        # Rollback in case of a database error
+        if db_connection and db_connection.is_connected():
+            db_connection.rollback()
+        # Return None to indicate failure
         return None
-    
+    finally:
+        if cursor:
+            cursor.close()

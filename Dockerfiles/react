@@ -1,28 +1,42 @@
-FROM node:16
-# copy the files from current directory
+# --- Setup ---
+# Use a specific, lightweight Node.js version for reproducibility
+FROM node:14-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+
+# --- Dependency Caching & Installation ---
+# Copy package manifests first. This layer is cached and only re-runs
+# if these specific files change.
 COPY ./react/package.json ./
+COPY ./react/package-lock.json ./
 COPY ./react/semantic.json ./
-#Base React Packages
-RUN npm install react-scripts -g 
-RUN npm install react
-RUN npm install semantic-ui-react
-RUN npm install react-datepicker --save
-RUN npm install react-router-dom 
-RUN npm install react-dom
-RUN npm install 
-RUN npm install dotenv --save
-#Map
-RUN npm install leaflet
 
-# old version required, otherwise importing components fails
-RUN npm install react-leaflet@">=3.1.0 <3.2.0 || ^3.2.1"
+# Use 'npm ci' for a faster, more reliable build from the lock file
+RUN npm ci
 
-# this must also be installed or importing components fail
-RUN npm install @react-leaflet/core@">=1.0.0 <1.1.0 || ^1.1.1"
 
-# not sure if needed (for typescript)
-# RUN npm install -D @types/leaflet
-#Auth
-RUN npm install --save @react-keycloak/web
-RUN npm install --save keycloak-js
-ENV NODE_PATH /.
+# --- Application Code ---
+# Copy the rest of your application's source code into the container
+COPY ./react .
+
+
+# --- Security & Permissions ---
+# Create a dedicated, non-root user and group for running the application
+RUN addgroup --system app && adduser --system --ingroup app app
+
+# Change the ownership of all application files to the new user
+RUN chown -R app:app /app
+
+# Switch to the non-root user for all subsequent commands
+USER app
+
+
+# --- Execution ---
+# Expose the port the React development server runs on
+EXPOSE 3000
+
+# Set the default command to run the application.
+# This will be executed as the 'app' user.
+CMD [ "npm", "start" ]

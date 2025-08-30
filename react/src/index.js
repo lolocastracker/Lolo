@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import './components/fomantic/dist/semantic.css';
 import App from "./App"
-import keycloak from './components/auth/Keycloak.js'
+import KeycloakAuth from './components/auth/KeycloakAuth.js'
 import LoginForum from "./components/auth/LoginForum.js";
 import { ReactKeycloakProvider } from '@react-keycloak/web'
 import { BrowserRouter} from "react-router-dom";
@@ -10,8 +10,8 @@ import { BrowserRouter} from "react-router-dom";
 
 ReactDOM.render(
   <ReactKeycloakProvider
-  authClient={keycloak}
-  onEvent={(event,error)=> LoginForum(event,error,keycloak)}>
+  authClient={KeycloakAuth}
+  onEvent={(event,error)=> LoginForum(event,error,KeycloakAuth)}>
    <BrowserRouter>
     <App />
     </BrowserRouter>

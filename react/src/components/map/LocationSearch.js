@@ -13,15 +13,15 @@ function LocationSearch({value,setValue,updateAddress,setPosition}) {
     const searchRef=useRef()
 
 
-    useEffect(() => {
-        if (searchRef.current!=null){
-            clearTimeout(searchRef.current)
-        }searchRef
-        if(search.length!=0){
-            searchRef.current=timedSearch(search)
-        }
-      }, [search]);
-
+   useEffect(() => {
+    if (searchRef.current != null) {
+      clearTimeout(searchRef.current);
+    }
+    // The problematic line has been removed.
+    if (search.length !== 0) {
+      searchRef.current = timedSearch(search);
+    }
+  }, [search]);
 
 
 

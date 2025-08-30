@@ -1,82 +1,50 @@
-import './MapPage.css'
-import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import Map from '../components/map/Map.js'
-import Report from '../components/map/Report.js'
-import ReportTable from '../components/map/ReportTable.js'
-import Navbar from '../components/navbar/Navbar.js'
-import { Loader, Header, Container, Grid, Segment, Button } from 'semantic-ui-react'
-import { useNavigate } from 'react-router-dom'
+import './MapPage.css';
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import Map from '../components/map/Map.js';
+import Report from '../components/map/Report.js';
+import ReportTable from '../components/map/ReportTable.js';
+import Navbar from '../components/navbar/Navbar.js';
+import { Loader, Header, Container, Grid, Segment, Button } from 'semantic-ui-react';
 
 
-// import reports from '../components/map/fakeData.js'
-function importAll(r) {
-  let images = {};
-  r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-  return images;
-}
-
-
-const images = importAll(require.context('../assets/reportpics', false, /\.(PNG|JPE?G|SVG)$/i));
 
 const MapPage = () => {
-  function importAll(r) {
-    let images = {};
-    r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-    return images;
-  }  
-  // USE THIS IF USING fakeData.js
-  // // initial current report is the most recent
-  // // set this after getting the reports
-  // const [curReport, setCurReport] = useState(reports[0])
-
-  // Initialize state for current report
-  const [curReport, setCurReport] = useState(0)
-
-  // Update the state's current report
+  const [curReport, setCurReport] = useState(null);
   const updateCurReport = (report) => {
-    setCurReport(report)
-  }
+    setCurReport(report);
+  };
 
-  // State for AJAX request
-  const [error, setError] = useState(null)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [reports, setReports] = useState([])
-
-
-  const navigate = useNavigate();
-
-
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [reports, setReports] = useState([]);
 
   useEffect(() => {
-    fetch("https://lolo.gq/api/map/reports")
     fetch('/api/map/reports')
       .then((res) => res.json())
       .then(
         (result) => {
-        if (typeof result === 'object' && !Array.isArray(result))
-        {
-          setReports([])
-        }
-        else{
-          setReports(result)
-          updateCurReport(result[0])
-
-        }
-          setIsLoaded(true) // Must be after setReports and updateCurReport
+          if (typeof result === 'object' && !Array.isArray(result)) {
+            setReports([]);
+          } else {
+            setReports(result);
+            if (result.length > 0) {
+              updateCurReport(result[0]);
+            }
+          }
+          setIsLoaded(true);
         },
         (error) => {
-          console.log('error')
-          setError(error)
+          console.log('error');
+          setError(error);
         }
-      )
-  }, []) // [] means run once on mount
+      );
+  }, []);
 
   if (error) {
-    return <div>Error: {error.message}</div>
+    return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
-    // return <div>Loading...</div>
-    return <Loader inline size='large' active />
+    return <Loader inline size='large' active />;
   } else {
     return (
       <div>
@@ -104,7 +72,7 @@ const MapPage = () => {
                 curReport={curReport}
                 onMarkerClick={updateCurReport}
               />
-              <Report curReport={curReport} images={images} />
+              <Report curReport={curReport} />
             </Grid.Column>
           </Grid>
           <Grid>
@@ -122,8 +90,8 @@ const MapPage = () => {
           </Grid>
         </Container>
       </div>
-    )
+    );
   }
-}
+};
 
-export default MapPage
+export default MapPage;
